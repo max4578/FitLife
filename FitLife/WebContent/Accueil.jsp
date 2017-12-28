@@ -7,8 +7,8 @@
 <body>
 <%@ include file="Menu.jsp" %>
 BONJOUR CECI EST UN TEST GITHUB
-<!--  <p><c:out value="Page d'accueil"></c:out></p>
-<p> <c:out value="test jspl"></c:out> </p>-->
+<p><c:out value="Page d'accueil"></c:out></p>
+<p> <c:out value="test jspl"></c:out> </p>
 <%@ include file="Footer.jsp" %>
 </body>
 </html>

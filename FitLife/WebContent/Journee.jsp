@@ -6,7 +6,7 @@
 </head>
 <body>
 <%@ include file="Menu.jsp" %>
-<p>Page d'une journÃ©e</p>
+<p>Page d'une journée</p>
 <%@ include file="Footer.jsp" %>
 </body>
 </html>

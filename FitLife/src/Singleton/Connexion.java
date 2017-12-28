@@ -8,9 +8,8 @@ public class Connexion {
 	private static Connection instance = null;
 	private Connexion(){
 		try{
-		
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@char-oracle11.condoddsfrcet.be:1521:xe";
+			String url = "jdbc:oracle:thin:@char-oracle11.condorcet.be:1521:xe";
 			instance = DriverManager.getConnection(url,"ora34","oracle3");
 		}
 		catch(ClassNotFoundException ex){

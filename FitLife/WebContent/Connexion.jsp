@@ -2,28 +2,29 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Login</title>
+<link type="text/css" rel="stylesheet" href="form.css" />
 </head>
 <body>
 <%@ include file="Menu.jsp" %>
-<p>Page de connexion</p>
-<form action="" method="post">
-	<table border="1">
-         <tbody>
-	        <tr>
-	        	<td>Nom de compte</td>
-	            <td><input type="text" name="login" value="" size="20" /></td>
-	        </tr>
-	        <tr>
-	            <td>Mot de passe</td>
-	            <td><input type="text" name="pass" value="" size="20" /></td>
-	        </tr>
-		 	<tr>
-	       		<td> <input type="submit" value="valider" name="validation" /></td>
-	       		<td> <input type="button" value="S'inscrire" name="inscription" /></td>
-	         </tr>
-          </tbody>
-     </table>
+<form method="post" action="Connexion">
+     <fieldset>
+         <legend>Connexion</legend>
+         <p>Vous pouvez vous inscrire via ce formulaire.</p>
+
+         <label for="email">Adresse email <span class="requis">*</span></label>
+         <input type="text" id="email" name="email" value="${param.email}" size="20" maxlength="60" />
+         <span class="erreur">${erreurs['email']}</span>
+         <br />
+
+         <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
+         <input type="password" id="motdepasse" name="motdepasse" value="" size="20" maxlength="20" />
+         <span class="erreur">${erreurs['motdepasse']}</span>
+         <br />
+
+         <input type="submit" value="Connexion" class="sansLabel" />
+         <br />
+     </fieldset>
 </form>
 <%@ include file="Footer.jsp" %>
 </body>

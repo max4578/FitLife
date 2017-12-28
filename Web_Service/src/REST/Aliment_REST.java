@@ -1,57 +1,43 @@
 package REST;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
+import Singleton.Connexion;
 import model.Aliment;
+import oracle.jdbc.OracleTypes;
+
 
 @Path("aliment")
 public class Aliment_REST {
-	
-	/*@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response getText() {
-		Aliment cli = new Aliment(1, "Toto", "Machin");
-		
-		String retour="";
-		retour+=cli.getId();
-		retour+=" ";
-		retour+=cli.getNom();
-		retour+=" ";
-		retour+=cli.getPrenom();
-		retour+=" ";
-		
-		return Response.status(Status.OK).entity(retour).build();
-	}
-	*/
-	/*@GET
-	@Produces(MediaType.TEXT_XML)
-	public Response getXml() {
-		Aliment cli = new Aliment(1, "Toto", "Machin");
-		
-		String retour="<?xml version=\"1.0\"?>";
-		retour+="<Aliment>";
-		retour+="<id>"+cli.getId()+"</id>";
-		retour+="<nom>"+cli.getNom()+"</nom>";
-		retour+="<prenom>"+cli.getPrenom()+"</prenom>";
-		retour+="</Aliment>";
-		
-		return Response.status(Status.OK).entity(retour).build();
-	}*/
-	
+	Connection con = Connexion.getInstance();
+
 	@GET
 	@Produces(MediaType.TEXT_XML)
-	public Response getXml() {
-		//Aliment cli = new Aliment(1, "TOTO", "MACHIN");	
-		LinkedList<Aliment> l = new LinkedList<Aliment>();
-		return Response.status(Status.OK).entity(l).build();
+	@Path("{id}")
+	public Response getXml(@PathParam("id") int id) throws SQLException {	
+		
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_aliment(?); END;");
+		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
+		myStmt.setInt(2, id);
+		myStmt.execute();
+		ResultSet rs = (ResultSet) myStmt.getObject(1);
+		Aliment alim=null;
+		while (rs.next()) {
+		    alim=new Aliment(rs.getInt(1),rs.getString(2),rs.getDouble(3),rs.getDouble(4),
+		    		rs.getDouble(5),rs.getDouble(6),rs.getDouble(7),rs.getDouble(8),rs.getDouble(9));
+		}
+		
+		return Response.status(Status.OK).entity(alim).build();
 	}
 	
 }
+	

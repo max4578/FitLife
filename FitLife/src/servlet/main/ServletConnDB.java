@@ -36,50 +36,47 @@ public class ServletConnDB extends HttpServlet {
 	static Connection con;
 	public void init() {
 		urlErreur=getInitParameter("urlErreur");
-		
+		con=Connexion.getInstance();
 	}
 
 	
 	
 	private static URI getBaseURI() {
-		   return UriBuilder.fromUri("http://localhost:9090/Web_Service/rest/aliment").build();
+		   return UriBuilder.fromUri("http://localhost:9090/Web_Service/rest/").build();
 	}
 	
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse 
-	response)throws ServletException,  IOException{	    
+	response)throws ServletException,  IOException{	  
+		   /*Récupération de la résponse XML*/
 		   ClientConfig config = new DefaultClientConfig();
 		   Client client = Client.create(config);
 		   WebResource service = client.resource(getBaseURI());
+		   String xmlAnswer = service
+				   		.path("aliment/1")
+						.accept(MediaType.TEXT_XML)
+						.get(String.class);
 
-	   String xmlAnswer = service
-			   		.path("aliment")
-					.accept(MediaType.TEXT_XML)
-					.get(String.class);
-
-	   System.out.println(xmlAnswer);
-	   
-	  
-		try {
-			   JAXBContext jaxbContext = JAXBContext.newInstance(Aliment.class);
-			   Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-			   StringReader reader = new StringReader(xmlAnswer);
-			   Aliment alim = (Aliment) unmarshaller.unmarshal(reader);
-		} catch (JAXBException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-
-				try {
-					if(!con.isClosed())
+		   /*Conversiondu XML en classe mappée*/
+			try {
+				   JAXBContext jaxbContext = JAXBContext.newInstance(Aliment.class);
+				   Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+				   StringReader reader = new StringReader(xmlAnswer);
+				   Aliment alim = (Aliment) unmarshaller.unmarshal(reader);
+				   request.setAttribute("aliment", alim);
+				   if(!con.isClosed())
 						getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request,response);
-				} catch (SQLException e) {
-					getServletContext().getRequestDispatcher(urlErreur).forward(request,response);
-				}  catch (NullPointerException e){
-					getServletContext().getRequestDispatcher(urlErreur).forward(request,response);
-				}
-        }
+			} catch (JAXBException e1) {
+				e1.printStackTrace();
+			}	catch (SQLException e) {
+				getServletContext().getRequestDispatcher(urlErreur).forward(request,response);
+			}  catch (NullPointerException e){
+				getServletContext().getRequestDispatcher(urlErreur).forward(request,response);
+			}
+			
+	
+	
+       }
         
 	    
 	    public void doPost(HttpServletRequest request, HttpServletResponse 
