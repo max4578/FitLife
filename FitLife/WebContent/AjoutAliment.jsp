@@ -1,77 +1,53 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <title>Ajouter un aliment</title>
 </head>
 <body>
-<h1>Créer l'aliment</h1>
-<form method="post" action="">
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<label for="nomAliment">Nom de l'aliment:</label>
-					</td>
-					<td>
-						<input type="text" name="nomAliment" id="nomAliment" required="required">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="lipide">Lipides :</label>
-					</td>
-					<td>
-						<input type="text" name="lipide" id="lipide" required="required">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="acide_gras">Acides gras saturÃ©s :</label>
-					</td>
-					<td>
-						<input type="text" name="acide_gras" id="sacide_gras" required="required">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="proteine">ProtÃ©ines :</label>
-					</td>
-					<td>
-						<input type="text" name="proteine" id="proteine" required="required">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="glucide">Glucide :</label>
-					</td>
-					<td>
-						<input type="text" name="glucide" id="glucide" required="required">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="sucre">Sucre :</label>
-					</td>
-					<td>
-						<input type="text" name="sucre" id="sucre" required="required">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="quantite">QuantitÃ©s (mg) :</label>
-					</td>
-					<td>
-						<input type="text" name="quantite" id="quantite" required="required">
-					</td>
-				</tr>
-				<tr>
-					<td><input type="submit" value="Enregistrer" /></td>
-					<td><input type="reset" value="Annuler" /></td>
-				</tr>
-			</tbody>
-		</table>
-		
+<%@ include file="Menu.jsp" %>
+<div class="container">
+	<form method="post" action="AjoutAliment">
+		<fieldset>
+    		<legend>Ajouter un aliment</legend>
+    			<div class="form-group">
+    				<label for="nomAliment">Nom de l'aliment</label>
+    				<input type="text" name="nomAliment" id="nomAliment" required="required">
+    			</div>
+    			<div class="form-group">
+    				<label for="calorie">Calorie</label>
+    				<input type="number" name="calorie" id="calorie" required="required">
+    			</div>
+    			<div class="form-group">
+    				<label for="lipide">Lipides</label>
+    				<input type="number" name="lipide" id="lipide" min="0" required="required">
+    			</div>
+    			<div class="form-group">
+    				<label for="acide_gras">Acides gras saturés</label>
+    				<input type="number" name="acide_gras" id="acide_gras" min="0" required="required">
+    			</div>
+    			<div class="form-group">
+    				<label for="proteine">Protéines</label>
+    				<input type="number" name="proteine" id="proteine" min="0" required="required">
+    			</div>
+    			<div class="form-group">
+    				<label for="glucide">Glucide</label>
+    				<input type="number" name="glucide" id="glucide" min="0" required="required">
+    			</div>
+    			<div class="form-group">
+    				<label for="sucre">Sucre</label>
+    				<input type="number" name="sucre" id="sucre" min="0" required="required">
+    			</div>
+    			<div class="form-group">
+    				<label for="quantite">Quantités (g)</label>
+    				<input type="number" name="quantite" id="quantite" min="0" required="required">
+    			</div>
+    			<input type="submit" value="Enregistrer" />
+				<input type=button onclick=window.location.href='/FitLife/Journee' value=Annuler />
+		</fieldset>
 	</form>
+</div>
+<%@ include file="Footer.jsp" %>
 </body>
 </html>

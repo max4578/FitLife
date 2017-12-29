@@ -7,6 +7,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -18,9 +21,13 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -39,6 +46,7 @@ public class Utilisateur extends Personne{
 	private Double besoin_proteine;
 	private Double besoin_glucide;
 	private Double metabolisme;
+	private String status;
 	
 	
 	
@@ -121,6 +129,16 @@ public class Utilisateur extends Personne{
 	public void setMetabolisme(Double metabolisme) {
 		this.metabolisme = metabolisme;
 	}
+	
+	@XmlElement
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 	/*Constructeur(s)*/
 	public Utilisateur() {
 		super();
@@ -144,16 +162,21 @@ public class Utilisateur extends Personne{
 	
 
 	/* Définition des méthode */
-	public void inscription() throws IOException {
-		System.out.println("Test");
+	public Boolean inscription() throws IOException, ParseException {
 		URL url = new URL("http://localhost:9090/Web_Service/rest/utilisateur/ajout");
 	    HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 		httpCon.setDoOutput(true);
 		httpCon.setRequestMethod("POST");
 		httpCon.setDoOutput(true);
 		httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-		String urlParameters = "nom=Jean&prenom=Valjean";
+		
 
+		System.out.println(getDateNaissance());
+		String urlParameters = "nom="+getNom()+"&prenom="+getPrenom()+""
+				+ "&email="+getEmail()+"&password="+getPassword()
+				+"&sexe="+getSexe()
+				+"&dateN="+new SimpleDateFormat("yyyy/MM/dd").format(getDateNaissance())
+				+"&poids="+poids+"&taille="+taille;
 		// Send post request
 		
 		DataOutputStream wr = new DataOutputStream(httpCon.getOutputStream());
@@ -166,9 +189,9 @@ public class Utilisateur extends Personne{
 		      httpCon.getOutputStream());
 		  System.out.println(httpCon.getResponseCode());
 		  System.out.println(httpCon.getResponseMessage());
+		  
 		  out.close();
-	
-						
+		return httpCon.getResponseMessage().equals("OK");						
 	}
 	
 	public Boolean modifierInfoPhysique() {
@@ -209,5 +232,45 @@ public class Utilisateur extends Personne{
             return 0;
         }
     }
+    
+    public Boolean connexion(String email , String pass) {
+    	 System.out.println("testu:");
+    	  ClientConfig config = new DefaultClientConfig();
+		   Client client = Client.create(config);
+		   WebResource service = client.resource(getBaseURI());
+		   String xmlAnswer = service
+				   		.path("utilisateur/"+email+"/"+pass)
+						.accept(MediaType.TEXT_XML)
+						.get(String.class);
+
+		   /*Conversiondu XML en classe mappée*/
+			try {
+				   JAXBContext jaxbContext = JAXBContext.newInstance(Utilisateur.class);
+				   Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+				   StringReader reader = new StringReader(xmlAnswer);
+				   Utilisateur u = (Utilisateur) unmarshaller.unmarshal(reader);
+				   setNom(u.getNom());
+				   setPrenom(u.getPrenom());
+				   setEmail(u.getEmail());
+				   setPassword(u.getPassword());
+				   sexe=u.getSexe();
+				   dateNaissance=u.getDateNaissance();
+				   poids=u.getPoids();
+				   taille=u.getTaille();
+				   calculIMC();
+				   calculerMetabolisme();
+			} catch (JAXBException e1) {
+				return false;
+			}	catch (NullPointerException e){
+				return false;
+			}
+    	return true;
+    }
+    
+    
+    private static URI getBaseURI() {
+		   return UriBuilder.fromUri("http://localhost:9090/Web_Service/rest/").build();
+	}
+	
 
 }

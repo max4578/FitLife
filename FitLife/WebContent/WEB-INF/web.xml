@@ -18,13 +18,21 @@
     <servlet-name>ServletAccueil</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>C_Journee</servlet-name>
-    <servlet-class>controller.C_Journee</servlet-class>
+   <servlet>
+    <servlet-name>ServletJournee</servlet-name>
+    <servlet-class>journee.ServletJournee</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>C_Journee</servlet-name>
+    <servlet-name>ServletJournee</servlet-name>
     <url-pattern>/Journee</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>ServletAjoutAliment</servlet-name>
+    <servlet-class>aliment.ServletAjoutAliment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletAjoutAliment</servlet-name>
+    <url-pattern>/AjoutAliment</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>C_MesJournees</servlet-name>

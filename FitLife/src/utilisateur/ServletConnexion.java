@@ -9,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import model.Utilisateur;
 
 /**
  * Servlet implementation class ServletConnexion
@@ -21,6 +24,7 @@ public class ServletConnexion extends HttpServlet {
     public static final String CHAMP_EMAIL = "email";
     public static final String CHAMP_PASS = "motdepasse";
     public static final String ATT_ERREURS  = "erreurs";
+    HttpSession session;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -41,6 +45,13 @@ public class ServletConnexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		session=request.getSession();
+		if(session.isNew()) {
+			session.invalidate();
+			session=request.getSession();
+			
+		}
 		
 		/* Récupération des champs du formulaire. */
         String email = request.getParameter( CHAMP_EMAIL );
@@ -63,8 +74,16 @@ public class ServletConnexion extends HttpServlet {
         
         if(erreurs.isEmpty()) {
         	/* créer la session */
+        	Utilisateur u =  new Utilisateur();
+        	if(u.connexion(email, motDePasse)) {
+        		 session.setAttribute("utilisateur", u);
+        		 this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
+        	}
+        	else {
+        		erreurs.put("login", "Combinaison login/password incorrect");
+        	}
         	
-        	//this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
+
         }else {
         	/* Stockage des messages d'erreur dans l'objet request */
             request.setAttribute( ATT_ERREURS, erreurs );

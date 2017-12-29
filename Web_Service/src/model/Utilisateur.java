@@ -26,6 +26,7 @@ public class Utilisateur{
 	private Double besoin_proteine;
 	private Double besoin_glucide;
 	private Double metabolisme;
+	private String status;
 
 	
 	/*Getters et setters*/
@@ -148,6 +149,17 @@ public class Utilisateur{
 	public void setMetabolisme(Double metabolisme) {
 		this.metabolisme = metabolisme;
 	}
+	
+	@XmlElement
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
+	
 	/*Constructeur(s)*/
 	public Utilisateur() {
 	
@@ -164,7 +176,7 @@ public class Utilisateur{
 	}
 	
 	public Utilisateur(int id,String nom, String prenom, String email, String password, String sexe, Date dateNaissance,
-			Double poids, Double taille) {
+			Double poids, Double taille,String status) {
 		this.id=id;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -174,6 +186,8 @@ public class Utilisateur{
 		this.dateNaissance = dateNaissance;
 		this.poids = poids;
 		this.taille = taille;
+		this.status=status;
 	}
+
 	
 }

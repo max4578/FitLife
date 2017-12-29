@@ -2,11 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <title>Login</title>
 <link type="text/css" rel="stylesheet" href="form.css" />
 </head>
 <body>
 <%@ include file="Menu.jsp" %>
+<div class="container">
 <form method="post" action="Connexion">
      <fieldset>
          <legend>Connexion</legend>
@@ -26,6 +28,7 @@
          <br />
      </fieldset>
 </form>
+</div>
 <%@ include file="Footer.jsp" %>
 </body>
 </html>

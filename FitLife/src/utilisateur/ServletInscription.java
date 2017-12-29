@@ -71,13 +71,14 @@ public class ServletInscription extends HttpServlet {
         
         Date dateAnniversaire=null;
         
-        System.out.println(anniversaire);
+        System.out.println("1:"+anniversaire);
         
         /* Gestion de la date */
         try {
+        	System.out.println("2:"+anniversaire);
         	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         	dateAnniversaire= sdf.parse(anniversaire);
-			System.out.println(dateAnniversaire);
+			System.out.println("3:"+dateAnniversaire);
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
@@ -114,8 +115,14 @@ public class ServletInscription extends HttpServlet {
         if ( erreurs.isEmpty() ) {
             resultat = "Succès de l'inscription.";
             /* création de l'objet utilisateur et enregistrement de l'utilisateur dans la DB */
-            Utilisateur user = new Utilisateur(nom,prenom,email,motDePasse,sexe, dateAnniversaire,Double.parseDouble(taille),Double.parseDouble(poids));
-            user.inscription();
+            Utilisateur user = new Utilisateur(nom,prenom,email,motDePasse,sexe,dateAnniversaire,Double.parseDouble(taille),Double.parseDouble(poids));
+            try {
+				if(!user.inscription()) 
+					resultat="Erreur: Utilisateur déja présent";
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
         } else {
             resultat = "Échec de l'inscription.";
         }

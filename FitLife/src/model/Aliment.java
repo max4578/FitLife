@@ -122,4 +122,23 @@ public class Aliment {
 		this.quantiteType = quantiteType;
 	}
 	
+	public Aliment(String nom,  Double calorie, Double lipide, Double acideG, Double glucide, Double sucre,
+			Double proteine, Double quantiteType) {
+		
+		this.nom = nom;
+		this.calorie = calorie;
+		this.lipide = lipide;
+		this.acideG = acideG;	
+		this.glucide = glucide;
+		this.sucre = sucre;
+		this.proteine = proteine;
+		this.quantiteType = quantiteType;
+	}
+	
+	
+	
+	public Boolean ajoutAliment() {
+		return true;
+	}
+	
 }
