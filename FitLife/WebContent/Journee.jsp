@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="FitLife/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="FitLife/css/bootstrap-theme.css" type="text/css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<title>Insert title here</title>
+<%@ include file="Head.jsp" %>
+<title>Ma journée</title>
 </head>
 <body>
 <%@ include file="Menu.jsp" %>
@@ -19,15 +16,12 @@
 			<p> <c:out value="${ exercice }"></c:out>
 		</c:forEach>
 		 -->
-		<input type="button" value="Ajouter une séance" >
+		<input type="button" value="Ajouter une séance" class="btn btn-default" >
 	</div>
-	
-	<div>
-		<h2>Aliment(s) consommé(s) sur la journée</h2>
-		<input type="button" value="Ajouter une consommation">
-		<br />
-		<br />
-		<input type=button onclick=window.location.href='/FitLife/AjoutAliment' value="Ajouter un nouvel aliment" />
+	<h2>Aliment(s) consommé(s) sur la journée</h2>
+	<div class="form-group" >
+		<input type="button" value="Ajouter une consommation" class="btn btn-default">
+		<input type=button onclick=window.location.href='/FitLife/AjoutAliment' value="Ajouter un nouvel aliment" class="btn btn-default"/>
 	</div>
 </div>
 <%@ include file="Footer.jsp" %>

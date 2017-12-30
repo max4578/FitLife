@@ -234,7 +234,6 @@ public class Utilisateur extends Personne{
     }
     
     public Boolean connexion(String email , String pass) {
-    	 System.out.println("testu:");
     	  ClientConfig config = new DefaultClientConfig();
 		   Client client = Client.create(config);
 		   WebResource service = client.resource(getBaseURI());
@@ -249,6 +248,7 @@ public class Utilisateur extends Personne{
 				   Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 				   StringReader reader = new StringReader(xmlAnswer);
 				   Utilisateur u = (Utilisateur) unmarshaller.unmarshal(reader);
+				   setId(u.getId());
 				   setNom(u.getNom());
 				   setPrenom(u.getPrenom());
 				   setEmail(u.getEmail());
@@ -267,6 +267,11 @@ public class Utilisateur extends Personne{
     	return true;
     }
     
+    
+    public Boolean AppelAjoutAliment(Aliment_Utilisateur alim) throws IOException {
+    	System.out.println(getId());
+    	return alim.AjouterAliment(getId());
+    }
     
     private static URI getBaseURI() {
 		   return UriBuilder.fromUri("http://localhost:9090/Web_Service/rest/").build();

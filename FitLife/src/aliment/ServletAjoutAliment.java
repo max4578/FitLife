@@ -6,8 +6,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Aliment;
+import model.Aliment_Utilisateur;
+import model.Utilisateur;
 
 /**
  * Servlet implementation class ServletAjoutAliment
@@ -25,6 +28,7 @@ public class ServletAjoutAliment extends HttpServlet {
 	public static final String CHAMP_SUCRE = "sucre";
 	public static final String CHAMP_PROTEINE = "proteine";
 	public static final String CHAMP_QUANTITE = "quantite";
+	HttpSession session;
 
        
     /**
@@ -47,6 +51,14 @@ public class ServletAjoutAliment extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		session=request.getSession();
+		if(session.isNew()) {
+			session.invalidate();
+			session=request.getSession();
+			
+		}
 		String nomAliment = request.getParameter( CHAMP_NOM );
 		String calorie = request.getParameter( CHAMP_CALORIE );
 		String lipide = request.getParameter(CHAMP_LIPIDE);
@@ -56,8 +68,10 @@ public class ServletAjoutAliment extends HttpServlet {
 		String proteine = request.getParameter(CHAMP_PROTEINE);
 		String quantite = request.getParameter(CHAMP_QUANTITE);
 		
-		Aliment aliment = new Aliment(nomAliment,Double.parseDouble(calorie), Double.parseDouble(lipide), Double.parseDouble(acideG), Double.parseDouble(glucide), Double.parseDouble(sucre), Double.parseDouble(proteine), Double.parseDouble(quantite));
-		aliment.ajoutAliment();
+		Aliment_Utilisateur aliment = new Aliment_Utilisateur(nomAliment,Double.parseDouble(calorie), Double.parseDouble(lipide), Double.parseDouble(acideG), Double.parseDouble(glucide), Double.parseDouble(sucre), Double.parseDouble(proteine), Double.parseDouble(quantite));
+		Utilisateur u=(Utilisateur) session.getAttribute("utilisateur");
+		System.out.println(u.getId());
+		u.AppelAjoutAliment(aliment);
 		this.getServletContext().getRequestDispatcher(VUE2).forward(request, response);
 	}
 

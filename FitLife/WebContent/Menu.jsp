@@ -11,8 +11,8 @@
             </ul>
 			<!-- si connecter cacher --> 
             <ul class="nav navbar-nav navbar-right">
-               <li><a href="/FitLife/Connexion">Connexion</a></li>
-               <li><a href="/FitLife/Inscription">Inscription</a></li>
+               <li><a href="/FitLife/Inscription"><span class="glyphicon glyphicon-user"></span>Inscription</a></li>
+               <li><a href="/FitLife/Connexion"><span class="glyphicon glyphicon-log-in"></span>Connexion</a></li>
             </ul>
         </div>
     </div>

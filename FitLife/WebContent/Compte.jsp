@@ -1,14 +1,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<%@ include file="Head.jsp" %>
 <title>Mon compte</title>
 </head>
 <body>
 <%@ include file="Menu.jsp" %>
 <div class="container">
-<p>Page de mon compte</p>
+	<div class="form-group">
+	<label>Email : </label> <c:out value="${ user.email }"></c:out>
+	</div>
+	<div class="form-group">
+	<label>Nom : </label> <c:out value="${ user.nom }"></c:out>
+	</div>
+	<div class="form-group">
+	<label>Prenom : </label> <c:out value="${ user.prenom }"></c:out>
+	</div>
+	<div class="form-group">
+	<label>sexe : </label> <c:out value="${ user.sexe }"></c:out>
+	</div>
+	<div class="form-group">
+	<label>Date de naissance : </label> <c:out value="${ user.dateNaissance }"></c:out>
+	</div>
+	<div class="form-group">
+	<label>Taille : </label> <c:out value="${ user.taille }"></c:out>
+	</div>
+     <input type=button onclick=window.location.href='/FitLife/ModifierCompte' value="Modifier le compte" class="btn btn-default"/>
 </div>
 <%@ include file="Footer.jsp" %>
 </body>

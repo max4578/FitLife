@@ -76,6 +76,7 @@ public class ServletConnexion extends HttpServlet {
         	/* créer la session */
         	Utilisateur u =  new Utilisateur();
         	if(u.connexion(email, motDePasse)) {
+        		System.out.print("test av Session"+u.getId());
         		 session.setAttribute("utilisateur", u);
         		 this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
         	}
