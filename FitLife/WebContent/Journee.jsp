@@ -13,7 +13,7 @@
 		<h2>Séance sportive</h2>
 		<!-- 
 		<c:forEach items="${ exercices }">
-			<p> <c:out value="${ exercice }"></c:out>
+			<p><c:out value="${ exercice }"></c:out> <p>
 		</c:forEach>
 		 -->
 		<input type="button" value="Ajouter une séance" class="btn btn-default" >

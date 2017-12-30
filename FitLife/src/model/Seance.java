@@ -41,5 +41,9 @@ public class Seance {
 		this.dateCreation = dateCreation;
 	}
 	
-	
+	public Seance(List<Exercice> list_exercice, String nom) {
+		super();
+		this.list_exercice = list_exercice;
+		this.nom = nom;
+	}
 }

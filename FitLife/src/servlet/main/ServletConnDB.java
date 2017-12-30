@@ -48,27 +48,13 @@ public class ServletConnDB extends HttpServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse 
 	response)throws ServletException,  IOException{	  
-		   /*Récupération de la résponse XML*/
-		   ClientConfig config = new DefaultClientConfig();
-		   Client client = Client.create(config);
-		   WebResource service = client.resource(getBaseURI());
-		   String xmlAnswer = service
-				   		.path("aliment/1")
-						.accept(MediaType.TEXT_XML)
-						.get(String.class);
-
+		 
 		   /*Conversiondu XML en classe mappée*/
-			try {
-				   JAXBContext jaxbContext = JAXBContext.newInstance(Aliment.class);
-				   Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-				   StringReader reader = new StringReader(xmlAnswer);
-				   Aliment alim = (Aliment) unmarshaller.unmarshal(reader);
-				   request.setAttribute("aliment", alim);
+			try {				  
 				   if(!con.isClosed())
+					   con.close();
 						getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request,response);
-			} catch (JAXBException e1) {
-				e1.printStackTrace();
-			}	catch (SQLException e) {
+			} catch (SQLException e) {
 				getServletContext().getRequestDispatcher(urlErreur).forward(request,response);
 			}  catch (NullPointerException e){
 				getServletContext().getRequestDispatcher(urlErreur).forward(request,response);

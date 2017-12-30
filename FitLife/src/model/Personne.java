@@ -1,5 +1,11 @@
 package model;
 
+import java.io.DataOutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -79,10 +85,6 @@ public class Personne {
 	
 	
 	
-	/*Méthodes*/
-	public Boolean ModifierInfoCompte() {
-		return null;
-		
-	}
+	
 
 }

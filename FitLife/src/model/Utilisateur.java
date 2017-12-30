@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URI;
 import java.net.URL;
 import java.sql.SQLException;
@@ -162,6 +164,41 @@ public class Utilisateur extends Personne{
 	
 
 	/* Définition des méthode */
+	public Boolean ModifierInfoCompte() throws IOException, ParseException {
+		System.out.print("update1");
+		URL url = new URL("http://localhost:9090/Web_Service/rest/utilisateur/modifier");
+	    HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+		httpCon.setDoOutput(true);
+		httpCon.setRequestMethod("POST");
+		httpCon.setDoOutput(true);
+		httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		
+
+		System.out.println(getDateNaissance());
+		String urlParameters = "nom="+getNom()+"&prenom="+getPrenom()+""
+				+ "&email="+getEmail()+"&password="+getPassword()
+				+"&sexe="+getSexe()
+				+"&dateN="+new SimpleDateFormat("yyyy/MM/dd").format(getDateNaissance())
+				+"&poids="+poids+"&taille="+taille;
+		// Send post request
+		
+		DataOutputStream wr = new DataOutputStream(httpCon.getOutputStream());
+		wr.writeBytes(urlParameters);
+		
+		wr.flush();
+		wr.close();
+		 
+		OutputStreamWriter out = new OutputStreamWriter(
+		      httpCon.getOutputStream());
+		System.out.println(httpCon.getResponseCode());
+		System.out.println(httpCon.getResponseMessage());
+		  
+		  out.close();
+		return httpCon.getResponseMessage().equals("OK");			
+	}
+    
+	
+	
 	public Boolean inscription() throws IOException, ParseException {
 		URL url = new URL("http://localhost:9090/Web_Service/rest/utilisateur/ajout");
 	    HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
@@ -194,8 +231,8 @@ public class Utilisateur extends Personne{
 		return httpCon.getResponseMessage().equals("OK");						
 	}
 	
-	public Boolean modifierInfoPhysique() {
-		return null;
+	public Boolean modifierInfoPhysique() throws IOException {
+		return true;	
 	}
 	
 	/***
@@ -273,6 +310,10 @@ public class Utilisateur extends Personne{
     	return alim.AjouterAliment(getId());
     }
     
+
+
+	
+	
     private static URI getBaseURI() {
 		   return UriBuilder.fromUri("http://localhost:9090/Web_Service/rest/").build();
 	}

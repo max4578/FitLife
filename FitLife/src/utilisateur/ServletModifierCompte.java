@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Utilisateur;
 
@@ -33,7 +34,8 @@ public class ServletModifierCompte extends HttpServlet {
     public static final String CHAMP_POIDS = "poids";
     public static final String ATT_ERREURS  = "erreurs";
     public static final String ATT_RESULTAT = "resultat";
-    Utilisateur user = new Utilisateur("Paimparet","Denis","Paimparet.Denis@gmail.com","123","M",new Date(05-28-1979),83.5,(double) 176);
+    Utilisateur user;
+    HttpSession session;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -47,6 +49,12 @@ public class ServletModifierCompte extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		session=request.getSession();
+		if(session.isNew()) {
+			session.invalidate();
+			session=request.getSession();
+		}
+		user= (Utilisateur) session.getAttribute("utilisateur");
 		request.setAttribute("user", user);
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 	}
@@ -70,14 +78,14 @@ public class ServletModifierCompte extends HttpServlet {
         
         Date dateAnniversaire=null;
         
-        System.out.println("1:"+anniversaire);
+       
         
         /* Gestion de la date */
         try {
-        	System.out.println("2:"+anniversaire);
+        	
         	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         	dateAnniversaire= sdf.parse(anniversaire);
-			System.out.println("3:"+dateAnniversaire);
+			System.out.println("35464646:"+dateAnniversaire);
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
@@ -106,8 +114,21 @@ public class ServletModifierCompte extends HttpServlet {
         /* Initialisation du résultat global de la validation. */
         if ( erreurs.isEmpty() ) {
             /* récupération des nouvelles information à renvoyez à la vue et update dans la DB */
-            
-            request.setAttribute("user", user);
+            Utilisateur user= (Utilisateur)session.getAttribute("utilisateur");
+            user.setNom(nom);
+            user.setPrenom(prenom);
+            user.setPassword(motDePasse);
+            user.setSexe(sexe);
+            user.setDateNaissance(dateAnniversaire);
+            user.setTaille(Double.parseDouble(taille));
+            try {
+				user.ModifierInfoCompte();
+				 request.setAttribute("user", user);
+		         session.setAttribute("utilisateur", user);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+           
             /* Transmission de la paire d'objets request/response à notre JSP */
             this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
         } else {

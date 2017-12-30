@@ -65,6 +65,32 @@ public class Utilisateur_REST {
 	}
 	
 	
+	
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Path("modifier")
+	public Response UpdateUser(@FormParam("nom") String nom,@FormParam("prenom") String prenom,@FormParam("email") String email,
+			@FormParam("password") String password,@FormParam("sexe") String sexe,
+			@FormParam("dateN") String dateN,@FormParam("poids") String poids,
+			@FormParam("taille") String taille) throws SQLException, ParseException {
+		System.out.println("test");
+		CallableStatement myStmt =con.prepareCall("BEGIN update_utilisateur(?,?,?,?,?,TO_DATE(?, 'yyyy/mm/dd'),?,?); END;");	
+		System.out.println("test1");
+		myStmt.setString(1,nom);
+		myStmt.setString(2,prenom);
+		myStmt.setString(3,email);
+		myStmt.setString(4,password);
+		myStmt.setString(5,sexe);
+		myStmt.setString(6,dateN);
+		myStmt.setDouble(7,Double.parseDouble(poids));
+		myStmt.setDouble(8,Double.parseDouble(taille));		
+		System.out.println("test2");
+		myStmt.executeUpdate();
+		return Response.status(Status.OK).build();
+	}
+	
+	
 	@GET
 	@Produces(MediaType.TEXT_XML)
 	@Path("{email}/{pass}")

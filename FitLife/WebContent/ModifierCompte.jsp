@@ -7,7 +7,7 @@
 <body>
 <%@ include file="Menu.jsp" %>
 <div class="container">
-	<form method="post" action="Compte">
+	<form method="POST" action="ModifierCompte">
 	<fieldset>
          <legend>Compte</legend>
          <p>Vous pouvez modifier votre compte via ce formulaire.</p>

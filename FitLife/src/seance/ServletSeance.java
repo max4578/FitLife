@@ -10,15 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Exercice;
+import model.Seance;
 
 /**
  * Servlet implementation class ServletSeance
  */
-@WebServlet("/ServletSeance")
+
 public class ServletSeance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/Seances.jsp";
-	ArrayList <Exercice> list_exercice = new ArrayList<Exercice>();
+	ArrayList <Seance> listSeance;
+	
+	ArrayList <Exercice> list_exercice; 
 	
 	
        
@@ -34,11 +37,17 @@ public class ServletSeance extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	/*	list_exercice.add(new Exercice("1","","",1,(double)1));
-		list_exercice.add(new Exercice("2","","",1,(double)1));
-		list_exercice.add(new Exercice("3","","",1,(double)1));
-		list_exercice.add(new Exercice("4","","",1,(double)1));*/
-		request.setAttribute("liste", list_exercice);
+		list_exercice = new ArrayList<Exercice>();
+		listSeance = new ArrayList<Seance>();
+		list_exercice.add(new Exercice("Curl Biceps","","Bras",1,(double)1));
+		list_exercice.add(new Exercice("Press","","Jambes",1,(double)1));
+		list_exercice.add(new Exercice("Tortank","","Dos",1,(double)1));
+		list_exercice.add(new Exercice("Barre inclinées","","Epaules",1,(double)1));
+		
+		listSeance.add(new Seance(list_exercice,"Séance du lundi"));
+		listSeance.add(new Seance(list_exercice,"Séance du mardi"));
+		listSeance.add(new Seance(list_exercice,"Séance du mercredi"));
+		request.setAttribute("liste", listSeance);
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 	}
 

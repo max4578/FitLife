@@ -43,9 +43,17 @@ public class Exercice {
 		this.valeur = valeur;
 	}
 	
+	
 	/*Constructeur(s)*/
 	
-	
+	public Exercice(String nom, String description, String type, int numeroPhoto, Double valeur) {
+		super();
+		this.nom = nom;
+		this.description = description;
+		this.type = type;
+		this.numeroPhoto = numeroPhoto;
+		this.valeur = valeur;
+	}
 	
 	
 	/*Methode(s)*/
