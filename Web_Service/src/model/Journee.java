@@ -140,6 +140,6 @@ public class Journee {
 	public void AppelRetirerAliment() {
 		
 	}
-	
+
 
 }
