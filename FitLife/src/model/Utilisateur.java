@@ -49,7 +49,9 @@ public class Utilisateur extends Personne{
 	private Double besoin_glucide;
 	private Double metabolisme;
 	private String status;
-	
+	ClientConfig config = new DefaultClientConfig();
+	   Client client = Client.create(config);
+	   WebResource service = client.resource(getBaseURI());
 	
 	
 	/*Getters et setters*/	
@@ -165,70 +167,29 @@ public class Utilisateur extends Personne{
 
 	/* Définition des méthode */
 	public Boolean ModifierInfoCompte() throws IOException, ParseException {
-		System.out.print("update1");
-		URL url = new URL("http://localhost:9090/Web_Service/rest/utilisateur/modifier");
-	    HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-		httpCon.setDoOutput(true);
-		httpCon.setRequestMethod("POST");
-		httpCon.setDoOutput(true);
-		httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-		
 
-		System.out.println(getDateNaissance());
-		String urlParameters = "nom="+getNom()+"&prenom="+getPrenom()+""
-				+ "&email="+getEmail()+"&password="+getPassword()
-				+"&sexe="+getSexe()
-				+"&dateN="+new SimpleDateFormat("yyyy/MM/dd").format(getDateNaissance())
-				+"&poids="+poids+"&taille="+taille;
-		// Send post request
-		
-		DataOutputStream wr = new DataOutputStream(httpCon.getOutputStream());
-		wr.writeBytes(urlParameters);
-		
-		wr.flush();
-		wr.close();
-		 
-		OutputStreamWriter out = new OutputStreamWriter(
-		      httpCon.getOutputStream());
-		System.out.println(httpCon.getResponseCode());
-		System.out.println(httpCon.getResponseMessage());
-		  
-		  out.close();
-		return httpCon.getResponseMessage().equals("OK");			
+		   String reponse = service
+				   		.path("utilisateur/modifier").queryParam("nom", getNom())
+				   		.queryParam("prenom", getPrenom()).queryParam("email",getEmail())
+				   		.queryParam("password", getPassword()).queryParam("sexe", getSexe())
+				   		.queryParam("dateN", new SimpleDateFormat("yyyy/MM/dd").format(getDateNaissance()))
+				   		.queryParam("poids", poids.toString()).queryParam("taille",taille.toString())
+						.post(String.class);
+		return true;			
 	}
     
 	
-	
 	public Boolean inscription() throws IOException, ParseException {
-		URL url = new URL("http://localhost:9090/Web_Service/rest/utilisateur/ajout");
-	    HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-		httpCon.setDoOutput(true);
-		httpCon.setRequestMethod("POST");
-		httpCon.setDoOutput(true);
-		httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-		
-
-		System.out.println(getDateNaissance());
-		String urlParameters = "nom="+getNom()+"&prenom="+getPrenom()+""
-				+ "&email="+getEmail()+"&password="+getPassword()
-				+"&sexe="+getSexe()
-				+"&dateN="+new SimpleDateFormat("yyyy/MM/dd").format(getDateNaissance())
-				+"&poids="+poids+"&taille="+taille;
-		// Send post request
-		
-		DataOutputStream wr = new DataOutputStream(httpCon.getOutputStream());
-		wr.writeBytes(urlParameters);
-		
-		wr.flush();
-		wr.close();
-		 
-		OutputStreamWriter out = new OutputStreamWriter(
-		      httpCon.getOutputStream());
-		  System.out.println(httpCon.getResponseCode());
-		  System.out.println(httpCon.getResponseMessage());
-		  
-		  out.close();
-		return httpCon.getResponseMessage().equals("OK");						
+		//URL url = new URL("http://localhost:9090/Web_Service/rest/utilisateur/ajout");
+	
+		   String reponse = service
+				   		.path("utilisateur/ajout").queryParam("nom", getNom())
+				   		.queryParam("prenom", getPrenom()).queryParam("email",getEmail())
+				   		.queryParam("password", getPassword()).queryParam("sexe", getSexe())
+				   		.queryParam("dateN", new SimpleDateFormat("yyyy/MM/dd").format(getDateNaissance()))
+				   		.queryParam("poids", poids.toString()).queryParam("taille",taille.toString())
+						.post(String.class);
+		return reponse.equals("OK");			
 	}
 	
 	public Boolean modifierInfoPhysique() throws IOException {

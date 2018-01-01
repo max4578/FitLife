@@ -20,7 +20,6 @@ import Singleton.Connexion;
 import model.Aliment;
 import oracle.jdbc.OracleTypes;
 
-
 @Path("aliment")
 public class Aliment_REST {
 	Connection con = Connexion.getInstance();

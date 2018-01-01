@@ -29,7 +29,6 @@ public class Aliment_Utilisateur extends Aliment {
 	    HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 		httpCon.setDoOutput(true);
 		httpCon.setRequestMethod("POST");
-		httpCon.setDoOutput(true);
 		httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 		
 		String urlParameters = "nom="+getNom()+"&calorie="+getCalorie()+""

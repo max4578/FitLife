@@ -51,6 +51,15 @@ public class ServletConnDB extends HttpServlet {
 		 
 		   /*Conversiondu XML en classe mappée*/
 			try {				  
+				ClientConfig config = new DefaultClientConfig();
+		 		   Client client = Client.create(config);
+		 		   WebResource service = client.resource(getBaseURI());
+				   String xmlAnswer = service
+						   		.path("aliment/1")
+								.accept(MediaType.TEXT_XML)
+								.get(String.class);
+		
+			   System.out.println(xmlAnswer);
 				   if(!con.isClosed())
 					   con.close();
 						getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request,response);
