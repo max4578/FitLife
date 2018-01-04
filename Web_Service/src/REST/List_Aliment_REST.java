@@ -61,7 +61,6 @@ public class List_Aliment_REST {
 	@Produces(MediaType.TEXT_XML)
 	public Response getXml(@QueryParam("idUser") int idUser) throws SQLException {		
 		LinkedList<Aliment> lalim= new LinkedList<Aliment>();
-		System.out.println("dans WS");
 		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_all_aliment; END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.execute();

@@ -56,7 +56,6 @@ public class List_Journee_REST {
 	public Response getJourneeUser(@QueryParam("idUser") int id) throws SQLException {
 		
 		LinkedList<Journee> ljournee= new LinkedList<Journee>();
-		System.out.println("id"+id);
 		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_journee_user(?); END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.setInt(2,id);

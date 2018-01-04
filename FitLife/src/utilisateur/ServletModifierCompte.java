@@ -85,7 +85,6 @@ public class ServletModifierCompte extends HttpServlet {
         	
         	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         	dateAnniversaire= sdf.parse(anniversaire);
-			System.out.println("35464646:"+dateAnniversaire);
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}

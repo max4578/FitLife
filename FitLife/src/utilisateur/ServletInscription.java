@@ -74,11 +74,9 @@ public class ServletInscription extends HttpServlet {
         System.out.println("1:"+anniversaire);
         
         /* Gestion de la date */
-        try {
-        	System.out.println("2:"+anniversaire);
+        try {        	
         	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         	dateAnniversaire= sdf.parse(anniversaire);
-			System.out.println("3:"+dateAnniversaire);
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}

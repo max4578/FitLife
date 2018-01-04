@@ -59,10 +59,7 @@ public class ServletConnexion extends HttpServlet {
 			
 		}
 
-		List_Aliment lalim= new List_Aliment();
-		System.out.println("Classe de l' aliment;3BOUCLE");
-		for(Aliment a : lalim.getList(2))
-			System.out.println("Classe de l' aliment;"+a.getClass().getName());
+		
 		/* Récupération des champs du formulaire. */
         String email = request.getParameter( CHAMP_EMAIL );
         String motDePasse = request.getParameter( CHAMP_PASS );
@@ -89,10 +86,11 @@ public class ServletConnexion extends HttpServlet {
         		List_Journee j= new List_Journee();
         		j.FindList_journee_user(u.getId());
         		session.setAttribute("journee_user", j.getList_journee());
-        		 session.setAttribute("utilisateur", u);
-        		 this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
+        		session.setAttribute("utilisateur", u);
+        		this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
         	}
-        	else {
+        	else 
+        	{
         		erreurs.put("login", "Combinaison login/password incorrect");
         	}
         	

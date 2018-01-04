@@ -33,7 +33,6 @@ public class List_Seance_REST {
 		
 		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_all_seance; END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
-	
 		myStmt.execute();
 		ResultSet rs = (ResultSet) myStmt.getObject(1);
 

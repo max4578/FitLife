@@ -41,7 +41,6 @@ public class Seance_REST {
 		ResultSet rs = (ResultSet) myStmt.getObject(1);
 		Seance seance=null;
 		while (rs.next()) {
-			/*(List<Exercice> list_exercice, String nom, Date dateCreation)*/
 		    seance=new Seance(rs.getInt(1),new LinkedList<Exercice>(),rs.getString(2),rs.getDate(3));
 		}
 		
@@ -58,7 +57,6 @@ public class Seance_REST {
 		CallableStatement myStmt =con.prepareCall("BEGIN create_Seance(?,?); END;");
 		myStmt.setInt(1,idUser);
 		myStmt.setString(2,nom);
-		
 		myStmt.execute();
 		return Response.status(Status.OK).build();			
 
@@ -69,8 +67,6 @@ public class Seance_REST {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("ajouter_exercice")
 	public Response AddExercice_seance(@QueryParam("idExercice") int idE,@QueryParam("idSeance") int idS,@QueryParam("repet") int repet) throws SQLException, ParseException {	
-
-		
 		CallableStatement myStmt =con.prepareCall("BEGIN add_exercice_Seance(?,?,?); END;");
 		myStmt.setInt(1,idE);
 		myStmt.setInt(2,idS);
