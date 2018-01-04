@@ -1,11 +1,13 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import webservice.Web_Service;
 @XmlRootElement(name="seance")
 public class Seance {
 
@@ -77,4 +79,59 @@ public class Seance {
 	public Seance() {
 	
 	}
+	
+
+	/*Methode*/
+	
+	public boolean AjouterSeance(int idUser) {
+
+		   String reponse = Web_Service.getService()
+				   		.path("seance/ajout")
+				   		.queryParam("idUser", idUser+"")
+				   		.queryParam("nom",nom)
+						.post(String.class);
+		return reponse.equals("OK");	
+	}
+	
+	public boolean RetirerSeance() {
+
+		   String reponse = Web_Service.getService()
+				   		.path("seance/supprimer")		
+				   		.queryParam("idSeance", id+"")
+						.post(String.class);
+		return reponse.equals("OK");	
+	}
+
+	public boolean ModifierSeance() {
+
+		   String reponse = Web_Service.getService()
+				   		.path("seance/modification")
+				   		.queryParam("idSeance", id+"")
+				   		.queryParam("nom", nom)
+						.post(String.class);
+		return reponse.equals("OK");	
+	}
+	
+	
+	
+	public boolean AjouterExercice(Exercice e,int repet) {
+		for(int i=0;i<repet;i++)
+		   list_exercice.add(e);
+		
+		   String reponse = Web_Service.getService()
+				   		.path("seance/ajouter_exercice")
+				   		.queryParam("idExercice", e.getId()+"")
+				   		.queryParam("idSeance", id+"")
+				   		.queryParam("repetition",repet+"")
+						.post(String.class);
+		return reponse.equals("OK");	
+	}
+	
+	
+	
+	
+	
+	
+
+	
 }

@@ -2,6 +2,7 @@ package utilisateur;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Aliment;
+import model.Aliment_Admin;
+import model.Aliment_Utilisateur;
+import model.List_Aliment;
+import model.List_Journee;
 import model.Utilisateur;
 
 /**
@@ -52,7 +58,11 @@ public class ServletConnexion extends HttpServlet {
 			session=request.getSession();
 			
 		}
-		
+
+		List_Aliment lalim= new List_Aliment();
+		System.out.println("Classe de l' aliment;3BOUCLE");
+		for(Aliment a : lalim.getList(2))
+			System.out.println("Classe de l' aliment;"+a.getClass().getName());
 		/* Récupération des champs du formulaire. */
         String email = request.getParameter( CHAMP_EMAIL );
         String motDePasse = request.getParameter( CHAMP_PASS );
@@ -76,7 +86,9 @@ public class ServletConnexion extends HttpServlet {
         	/* créer la session */
         	Utilisateur u =  new Utilisateur();
         	if(u.connexion(email, motDePasse)) {
-        		System.out.print("test av Session"+u.getId());
+        		List_Journee j= new List_Journee();
+        		j.FindList_journee_user(u.getId());
+        		session.setAttribute("journee_user", j.getList_journee());
         		 session.setAttribute("utilisateur", u);
         		 this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
         	}

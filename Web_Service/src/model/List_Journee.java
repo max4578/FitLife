@@ -1,5 +1,6 @@
 package model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -7,7 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="list_journee")
 public class List_Journee {
-	private List<Journee> list_journee;
+	
+
+	private List<Journee> list_journee= new LinkedList<Journee>();
 
 	@XmlElement
 	public List<Journee> getList_journee() {

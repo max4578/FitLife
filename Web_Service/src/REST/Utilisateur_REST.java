@@ -29,7 +29,6 @@ import oracle.jdbc.OracleTypes;
 @Path("utilisateur")
 public class Utilisateur_REST {
 	Connection con = Connexion.getInstance();
-
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("ajout")
@@ -37,7 +36,6 @@ public class Utilisateur_REST {
 			@QueryParam("password") String password,@QueryParam("sexe") String sexe,
 			@QueryParam("dateN") String dateN,@QueryParam("poids") String poids,
 			@QueryParam("taille") String taille) throws SQLException, ParseException {	
-		System.out.println("Insc web service");
 		CallableStatement myStmtBefore =con.prepareCall("BEGIN ?:= get_VerifUser(?); END;");
 		myStmtBefore.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmtBefore.setString(2, email);
@@ -103,10 +101,8 @@ public class Utilisateur_REST {
 
 		while (rs.next()) {
 			java.util.Date newDate = rs.getTimestamp(7);
-			System.out.println(newDate.toString());
 		    user=new Utilisateur(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(5),
 		    		rs.getString(6),rs.getString(4),newDate,rs.getDouble(8),rs.getDouble(9),rs.getString(10));
-		   System.out.println(newDate.toString());
 		}
 		
 		return Response.status(Status.OK).entity(user).build();

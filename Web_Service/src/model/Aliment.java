@@ -16,7 +16,7 @@ public class Aliment {
 	private String nom;
 	private Double calorie;
 	private Double lipide;
-	private Double acideG;
+	private Double acideG;	
 	private Double glucide;
 	private Double sucre;
 	private Double proteine;
@@ -102,9 +102,6 @@ public class Aliment {
 
 
 	/*Constructeur(s)*/
-	public Aliment() {
-	
-	}
 
 	
 	
@@ -120,5 +117,26 @@ public class Aliment {
 		this.proteine = proteine;
 		this.quantiteType = quantiteType;
 	}
+	
+	public Aliment(String nom,  Double calorie, Double lipide, Double acideG, Double glucide, Double sucre,
+			Double proteine, Double quantiteType) {
+		
+		this.nom = nom;
+		this.calorie = calorie;
+		this.lipide = lipide;
+		this.acideG = acideG;	
+		this.glucide = glucide;
+		this.sucre = sucre;
+		this.proteine = proteine;
+		this.quantiteType = quantiteType;
+	}
+	
+	
+	public Aliment() {
+	
+	}
+
+	
+
 	
 }

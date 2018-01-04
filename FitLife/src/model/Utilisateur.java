@@ -18,16 +18,13 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
+import webservice.Web_Service;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URI;
-import java.net.URL;
-import java.sql.SQLException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -49,9 +46,7 @@ public class Utilisateur extends Personne{
 	private Double besoin_glucide;
 	private Double metabolisme;
 	private String status;
-	ClientConfig config = new DefaultClientConfig();
-	   Client client = Client.create(config);
-	   WebResource service = client.resource(getBaseURI());
+	
 	
 	
 	/*Getters et setters*/	
@@ -168,7 +163,7 @@ public class Utilisateur extends Personne{
 	/* Définition des méthode */
 	public Boolean ModifierInfoCompte() throws IOException, ParseException {
 
-		   String reponse = service
+		   String reponse = Web_Service.getService()
 				   		.path("utilisateur/modifier").queryParam("nom", getNom())
 				   		.queryParam("prenom", getPrenom()).queryParam("email",getEmail())
 				   		.queryParam("password", getPassword()).queryParam("sexe", getSexe())
@@ -180,9 +175,8 @@ public class Utilisateur extends Personne{
     
 	
 	public Boolean inscription() throws IOException, ParseException {
-		//URL url = new URL("http://localhost:9090/Web_Service/rest/utilisateur/ajout");
-	
-		   String reponse = service
+
+		   String reponse = Web_Service.getService()
 				   		.path("utilisateur/ajout").queryParam("nom", getNom())
 				   		.queryParam("prenom", getPrenom()).queryParam("email",getEmail())
 				   		.queryParam("password", getPassword()).queryParam("sexe", getSexe())
@@ -232,10 +226,7 @@ public class Utilisateur extends Personne{
     }
     
     public Boolean connexion(String email , String pass) {
-    	  ClientConfig config = new DefaultClientConfig();
-		   Client client = Client.create(config);
-		   WebResource service = client.resource(getBaseURI());
-		   String xmlAnswer = service
+		   String xmlAnswer = Web_Service.getService()
 				   		.path("utilisateur/"+email+"/"+pass)
 						.accept(MediaType.TEXT_XML)
 						.get(String.class);
@@ -271,13 +262,4 @@ public class Utilisateur extends Personne{
     	return alim.AjouterAliment(getId());
     }
     
-
-
-	
-	
-    private static URI getBaseURI() {
-		   return UriBuilder.fromUri("http://localhost:9090/Web_Service/rest/").build();
-	}
-	
-
 }

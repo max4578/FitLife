@@ -24,7 +24,7 @@ import oracle.jdbc.OracleTypes;
 
 @Path("list_exercice")
 public class List_Exercice_REST {
-	Connection con = Connexion.getInstance();
+	static Connection con = Connexion.getInstance();
 
 	@GET
 	@Produces(MediaType.TEXT_XML)
@@ -44,6 +44,23 @@ public class List_Exercice_REST {
 		
 		List_Exercice list= new List_Exercice(lex);
 		return Response.status(Status.OK).entity(list).build();
+	}
+
+	public static List<Exercice> getList_seance(int id) throws SQLException {
+		LinkedList<Exercice> lex= new LinkedList<Exercice>();
+		
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_all_exercice_seance(?); END;");
+		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
+		myStmt.setInt(2, id);
+		myStmt.execute();
+		ResultSet rs = (ResultSet) myStmt.getObject(1);
+
+		while (rs.next()) {
+		    lex.add(new Exercice(rs.getInt(1),rs.getString(2),rs.getString(4),rs.getString(3),
+		    		rs.getInt(1)));
+		}
+	
+		return lex;
 	}
 
 }

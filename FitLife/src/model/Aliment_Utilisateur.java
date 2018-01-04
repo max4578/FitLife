@@ -7,6 +7,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import webservice.Web_Service;
+
+@XmlRootElement(name="aliment_user")
 public class Aliment_Utilisateur extends Aliment {
 
 	
@@ -24,34 +29,27 @@ public class Aliment_Utilisateur extends Aliment {
 	}
 
 
-	public Boolean AjouterAliment(int idUser) throws IOException {
-		URL url = new URL("http://localhost:9090/Web_Service/rest/aliment/ajout");
-	    HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-		httpCon.setDoOutput(true);
-		httpCon.setRequestMethod("POST");
-		httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-		
-		String urlParameters = "nom="+getNom()+"&calorie="+getCalorie()+""
-				+ "&lipide="+getLipide()+"&acideG="+getAcideG()
-				+"&glucide="+getGlucide()
-				+"&sucre="+getSucre()
-				+"&proteine="+getProteine()+"&qtt="+getQuantiteType()
-				+"&idUser="+idUser;
+	public Aliment_Utilisateur() {
+		// TODO Auto-generated constructor stub
+	}
 
+
+	public Boolean AjouterAliment(int idUser) throws IOException {
 		
-		DataOutputStream wr = new DataOutputStream(httpCon.getOutputStream());
-		wr.writeBytes(urlParameters);
+		   String reponse = Web_Service.getService()
+			   		.path("aliment/ajout")
+			   		.queryParam("nom", getNom())
+			   		.queryParam("calorie", getCalorie().toString())
+			   		.queryParam("lipide",getLipide().toString())
+			   		.queryParam("acideG", getAcideG().toString())
+			   		.queryParam("glucide", getGlucide().toString())
+			   		.queryParam("sucre", getSucre().toString())
+			   		.queryParam("proteine",getProteine().toString())
+			   		.queryParam("qtt",getQuantiteType().toString())
+			   		.queryParam("idUser",idUser+"")
+					.post(String.class);
+	return reponse.equals("OK");			
 		
-		wr.flush();
-		wr.close();
-		 
-		OutputStreamWriter out = new OutputStreamWriter(
-		      httpCon.getOutputStream());
-		  System.out.println(httpCon.getResponseCode());
-		  System.out.println(httpCon.getResponseMessage());
-		  
-		  out.close();
-		return httpCon.getResponseMessage().equals("OK");		
 	}
 	
 	public void ModifierAliment() {

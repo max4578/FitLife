@@ -16,8 +16,7 @@ public class Aliment {
 	private String nom;
 	private Double calorie;
 	private Double lipide;
-	private Double acideG;
-	
+	private Double acideG;	
 	private Double glucide;
 	private Double sucre;
 	private Double proteine;

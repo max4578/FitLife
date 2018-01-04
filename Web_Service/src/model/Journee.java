@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -15,7 +15,7 @@ public class Journee {
 	private int id;
 	private Date date;
 	private List<Seance> listSeance;
-	private List_Consommation list_c;
+	private List<Consommation> listConsom;
 	private Double lipide_consom;
 	private Double acideG_consom;
 	private Double calorie_consom;
@@ -49,12 +49,14 @@ public class Journee {
 	}
 	
 	@XmlElement
-	public List_Consommation getList_c() {
-		return list_c;
+	public List<Consommation> getListConsom() {
+		return listConsom;
 	}
-	public void setList_c(List_Consommation list_c) {
-		this.list_c = list_c;
+	public void setListConsom(List<Consommation> listConsom) {
+		this.listConsom = listConsom;
 	}
+	
+
 	
 	@XmlElement
 	public Double getLipide_consom() {
@@ -99,12 +101,12 @@ public class Journee {
 	
 	/*Constructeur(s)*/
 	
-	public Journee(Date date, List<Seance> listSeance, List_Consommation list_c, Double lipide_consom,
+	public Journee(Date date, List<Seance> listSeance,  List<Consommation> list_c, Double lipide_consom,
 			Double acideG_consom, Double calorie_consom, Double glucide_consom, Double facteur_activite) {
 		super();
 		this.date = date;
 		this.listSeance = listSeance;
-		this.list_c = list_c;
+		this.listConsom = list_c;
 		this.lipide_consom = lipide_consom;
 		this.acideG_consom = acideG_consom;
 		this.calorie_consom = calorie_consom;
@@ -112,33 +114,22 @@ public class Journee {
 		this.facteur_activite = facteur_activite;
 	}
 	
-	public Journee(int id,Date date, List<Seance> listSeance, List_Consommation list_c) {
+	public Journee(int id,Date date, List<Seance> listSeance,List<Consommation> list_c) {
 		this.id=id;
 		this.date = date;
 		this.listSeance = listSeance;
-		this.list_c = list_c;
+		this.listConsom = list_c;
+	
+	}
+	
+	public Journee(int id,Date date) {
+		this.id=id;
+		this.date = date;
 	}
 	
 	
 	public Journee() {
 			
-	}
-	
-	
-	/*Méthode(s)*/
-	
-	public void NouvelleJournee() {
-		
-	}
-	
-	
-	public void CalculConsommation() {
-		
-	}
-
-	
-	public void AppelRetirerAliment() {
-		
 	}
 
 

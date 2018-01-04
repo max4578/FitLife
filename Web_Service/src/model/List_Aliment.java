@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="list_aliment")
 public class List_Aliment {
 
-	private LinkedList<Aliment> list_aliment;
+	private LinkedList<Aliment> list_aliment= new LinkedList<Aliment>();;
 	
 	@XmlElement
 	public LinkedList<Aliment> getList_aliment() {

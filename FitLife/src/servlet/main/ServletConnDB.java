@@ -5,6 +5,7 @@ import java.io.StringReader;
 import java.net.URI;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +27,8 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 import Singleton.Connexion;
 import model.Aliment;
+import model.Aliment_Admin;
+import model.Aliment_Utilisateur;
 
 
 
@@ -48,7 +51,7 @@ public class ServletConnDB extends HttpServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse 
 	response)throws ServletException,  IOException{	  
-		 
+		
 		   /*Conversiondu XML en classe mappée*/
 			try {				  
 				ClientConfig config = new DefaultClientConfig();

@@ -5,19 +5,18 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
-
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import Singleton.Connexion;
-import model.Exercice;
+import model.Consommation;
 import model.Journee;
-import model.List_Consommation;
-import model.List_Exercice;
 import model.List_Journee;
 import model.Seance;
 import oracle.jdbc.OracleTypes;
@@ -38,9 +37,42 @@ public class List_Journee_REST {
 		ResultSet rs = (ResultSet) myStmt.getObject(1);
 
 		while (rs.next()) {
-		    ljournee.add(new Journee(rs.getInt(1),rs.getDate(2),new LinkedList<Seance>(),new List_Consommation()));
+			java.util.Date newDate = rs.getTimestamp(2);
+		    ljournee.add(new Journee(rs.getInt(1),newDate,new LinkedList<Seance>(),new LinkedList<Consommation>()));
 		}
 		
+		for(Journee j:ljournee) {
+			j.setListSeance(List_Seance_REST.getList(j.getId()));
+			j.setListConsom(List_Consommation_REST.getList(j.getId()));
+		}
+		List_Journee list= new List_Journee(ljournee);
+		return Response.status(Status.OK).entity(list).build();
+	}
+	
+	
+	@POST
+	@Produces(MediaType.TEXT_XML)
+	@Path("journees_utilisateur")
+	public Response getJourneeUser(@QueryParam("idUser") int id) throws SQLException {
+		
+		LinkedList<Journee> ljournee= new LinkedList<Journee>();
+		System.out.println("id"+id);
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_journee_user(?); END;");
+		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
+		myStmt.setInt(2,id);
+		myStmt.execute();
+		ResultSet rs = (ResultSet) myStmt.getObject(1);
+
+		while (rs.next()) {	
+			java.util.Date newDate = rs.getTimestamp(2);
+		    ljournee.add(new Journee(rs.getInt(1),newDate,new LinkedList<Seance>(),new LinkedList<Consommation>()));
+		}
+		
+		for(Journee j:ljournee) {
+			System.out.println("test"+j.getId());
+			j.setListSeance(List_Seance_REST.getList(j.getId()));
+			j.setListConsom(List_Consommation_REST.getList(j.getId()));
+		}
 		List_Journee list= new List_Journee(ljournee);
 		return Response.status(Status.OK).entity(list).build();
 	}

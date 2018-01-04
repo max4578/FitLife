@@ -5,18 +5,23 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import Singleton.Connexion;
+import model.Consommation;
 import model.Exercice;
 import model.Journee;
 import model.List_Consommation;
@@ -39,9 +44,40 @@ public class Journee_REST {
 		ResultSet rs = (ResultSet) myStmt.getObject(1);
 		Journee journee=null;
 		while (rs.next()) {
-		    journee=new Journee(rs.getInt(1),rs.getDate(2),new LinkedList<Seance>(),new List_Consommation());
+		    journee=new Journee(rs.getInt(1),rs.getDate(2),new LinkedList<Seance>(),new LinkedList<Consommation>());
 		}
 		
 		return Response.status(Status.OK).entity(journee).build();
 	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Path("ajout")
+	public Response Create_Journee(@QueryParam("idUser") int idU) throws SQLException, ParseException {	
+
+		
+		CallableStatement myStmt =con.prepareCall("BEGIN create_journee(?); END;");
+		myStmt.setInt(1,idU);
+		
+		myStmt.execute();
+		return Response.status(Status.OK).build();			
+
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Path("ajouter_seance")
+	public Response AddSeance(@QueryParam("idJournee") int idJ,@QueryParam("idSeance") int idS,@QueryParam("periode") String periode) throws SQLException, ParseException {	
+
+		
+		CallableStatement myStmt =con.prepareCall("BEGIN add_Seance_journee(?,?,?); END;");
+		myStmt.setInt(1,idJ);
+		myStmt.setInt(2,idS);
+		myStmt.setString(3, periode);
+		myStmt.execute();
+		return Response.status(Status.OK).build();			
+
+	}
+	
+	
 }
