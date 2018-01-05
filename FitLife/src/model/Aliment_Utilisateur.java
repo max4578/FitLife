@@ -17,14 +17,14 @@ public class Aliment_Utilisateur extends Aliment {
 	
 	
 	
-	public Aliment_Utilisateur(int id,String nom, Double calorie,Double lipide, Double acideG,  Double glucide, Double sucre,
-			Double proteine, Double quantiteType) {
+	public Aliment_Utilisateur(int id,String nom, double calorie,double lipide, double acideG,  double glucide, double sucre,
+			double proteine, double quantiteType) {
 		super(id,nom, calorie,lipide, acideG ,glucide, sucre, proteine, quantiteType);
 	}
 		
 
-	public Aliment_Utilisateur(String nom, Double calorie,Double lipide, Double acideG,  Double glucide, Double sucre,
-			Double proteine, Double quantiteType) {
+	public Aliment_Utilisateur(String nom, double calorie,double lipide, double acideG,  double glucide, double sucre,
+			double proteine, double quantiteType) {
 		super(nom, calorie,lipide, acideG ,glucide, sucre, proteine, quantiteType);
 	}
 
@@ -39,13 +39,13 @@ public class Aliment_Utilisateur extends Aliment {
 		   String reponse = Web_Service.getService()
 			   		.path("aliment/ajout")
 			   		.queryParam("nom", getNom())
-			   		.queryParam("calorie", getCalorie().toString())
-			   		.queryParam("lipide",getLipide().toString())
-			   		.queryParam("acideG", getAcideG().toString())
-			   		.queryParam("glucide", getGlucide().toString())
-			   		.queryParam("sucre", getSucre().toString())
-			   		.queryParam("proteine",getProteine().toString())
-			   		.queryParam("qtt",getQuantiteType().toString())
+			   		.queryParam("calorie", getCalorie()+"")
+			   		.queryParam("lipide",getLipide()+"")
+			   		.queryParam("acideG", getAcideG()+"")
+			   		.queryParam("glucide", getGlucide()+"")
+			   		.queryParam("sucre", getSucre()+"")
+			   		.queryParam("proteine",getProteine()+"")
+			   		.queryParam("qtt",getQuantiteType()+"")
 			   		.queryParam("idUser",idUser+"")
 					.post(String.class);
 	return reponse.equals("OK");			

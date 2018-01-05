@@ -18,14 +18,14 @@ public class Utilisateur{
 	private String password;
 	private String sexe;
 	private Date dateNaissance;
-	private Double poids;
-	private Double taille;
-	private Double IMC;
-	private Double besoin_lipide;
-	private Double besoin_acideG;
-	private Double besoin_proteine;
-	private Double besoin_glucide;
-	private Double metabolisme;
+	private double poids;
+	private double taille;
+	private double IMC;
+	private double besoin_lipide;
+	private double besoin_acideG;
+	private double besoin_proteine;
+	private double besoin_glucide;
+	private double metabolisme;
 	private String status;
 
 	
@@ -87,66 +87,66 @@ public class Utilisateur{
 		this.dateNaissance = dateNaissance;
 	}
 	@XmlElement
-	public Double getPoids() {
+	public double getPoids() {
 		return poids;
 	}
-	public void setPoids(Double poids) {
+	public void setPoids(double poids) {
 		this.poids = poids;
 	}
 	
 	@XmlElement
-	public Double getTaille() {
+	public double getTaille() {
 		return taille;
 	}
-	public void setTaille(Double taille) {
+	public void setTaille(double taille) {
 		this.taille = taille;
 	}
 	
 	@XmlElement
-	public Double getIMC() {
+	public double getIMC() {
 		return IMC;
 	}
-	public void setIMC(Double iMC) {
+	public void setIMC(double iMC) {
 		IMC = iMC;
 	}
 	
 	@XmlElement
-	public Double getBesoin_lipide() {
+	public double getBesoin_lipide() {
 		return besoin_lipide;
 	}
-	public void setBesoin_lipide(Double besoin_lipide) {
+	public void setBesoin_lipide(double besoin_lipide) {
 		this.besoin_lipide = besoin_lipide;
 	}
 	
 	@XmlElement
-	public Double getBesoin_acideG() {
+	public double getBesoin_acideG() {
 		return besoin_acideG;
 	}
-	public void setBesoin_acideG(Double besoin_acideG) {
+	public void setBesoin_acideG(double besoin_acideG) {
 		this.besoin_acideG = besoin_acideG;
 	}
 	
 	@XmlElement
-	public Double getBesoin_proteine() {
+	public double getBesoin_proteine() {
 		return besoin_proteine;
 	}
-	public void setBesoin_proteine(Double besoin_proteine) {
+	public void setBesoin_proteine(double besoin_proteine) {
 		this.besoin_proteine = besoin_proteine;
 	}
 	
 	@XmlElement
-	public Double getBesoin_glucide() {
+	public double getBesoin_glucide() {
 		return besoin_glucide;
 	}
-	public void setBesoin_glucide(Double besoin_glucide) {
+	public void setBesoin_glucide(double besoin_glucide) {
 		this.besoin_glucide = besoin_glucide;
 	}
 	
 	@XmlElement
-	public Double getMetabolisme() {
+	public double getMetabolisme() {
 		return metabolisme;
 	}
-	public void setMetabolisme(Double metabolisme) {
+	public void setMetabolisme(double metabolisme) {
 		this.metabolisme = metabolisme;
 	}
 	
@@ -176,7 +176,7 @@ public class Utilisateur{
 	}
 	
 	public Utilisateur(int id,String nom, String prenom, String email, String password, String sexe, Date dateNaissance,
-			Double poids, Double taille,String status) {
+			double poids, double taille,String status) {
 		this.id=id;
 		this.nom = nom;
 		this.prenom = prenom;

@@ -44,10 +44,37 @@ public class Journee_REST {
 		ResultSet rs = (ResultSet) myStmt.getObject(1);
 		Journee journee=null;
 		while (rs.next()) {
-		    journee=new Journee(rs.getInt(1),rs.getDate(2),new LinkedList<Seance>(),new LinkedList<Consommation>());
+			java.util.Date newDate = rs.getTimestamp(2);
+		    journee=new Journee(rs.getInt(1),newDate,new LinkedList<Seance>(),new LinkedList<Consommation>());
 		}
 		
 		return Response.status(Status.OK).entity(journee).build();
+	}
+	
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Path("get_journee")
+	public Response Find_Journee(@QueryParam("idUser") int idU) throws SQLException, ParseException {	
+
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:=v_journee(?); END;");
+		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
+		myStmt.setInt(2,idU);
+		myStmt.execute();
+		ResultSet rs = (ResultSet) myStmt.getObject(1);
+		Journee journee=null;
+		while (rs.next()) {
+			java.util.Date newDate = rs.getTimestamp(2);
+			journee=new Journee(rs.getInt(1),newDate,new LinkedList<Seance>(),new LinkedList<Consommation>());
+		}
+		
+	
+		journee.setListSeance(List_Seance_REST.getList(journee.getId()));
+		journee.setListConsom(List_Consommation_REST.getList(journee.getId()));
+	
+		return Response.status(Status.OK).entity(journee).build();		
+				
+
 	}
 	
 	@POST
@@ -55,12 +82,24 @@ public class Journee_REST {
 	@Path("ajout")
 	public Response Create_Journee(@QueryParam("idUser") int idU) throws SQLException, ParseException {	
 
-		
-		CallableStatement myStmt =con.prepareCall("BEGIN create_journee(?); END;");
-		myStmt.setInt(1,idU);
-		
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:=v_journee(?); END;");
+		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
+		myStmt.setInt(2,idU);
 		myStmt.execute();
-		return Response.status(Status.OK).build();			
+		ResultSet rs = (ResultSet) myStmt.getObject(1);
+		Journee journee=null;
+		while (rs.next()) {
+			java.util.Date newDate = rs.getTimestamp(2);
+			journee=new Journee(rs.getInt(1),newDate,new LinkedList<Seance>(),new LinkedList<Consommation>());
+		}
+		
+		if(journee==null) {
+			CallableStatement myStmt2 =con.prepareCall("BEGIN create_journee(?); END;");
+			myStmt2.setInt(1,idU);
+			myStmt2.execute();
+			return Response.status(Status.OK).build();
+		}else
+			return Response.status(Status.OK).build();			
 
 	}
 	

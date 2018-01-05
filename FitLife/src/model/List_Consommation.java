@@ -1,6 +1,7 @@
 package model;
 
 import java.io.StringReader;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -15,7 +16,7 @@ import webservice.Web_Service;
 public class List_Consommation {
 
 
-	private List<Consommation> list_consommation;
+	private List<Consommation> list_consommation= new LinkedList<Consommation>();
 	
 	@XmlElement
 	public List<Consommation> getList() {
@@ -29,7 +30,7 @@ public class List_Consommation {
 		   		.queryParam("idJournee", idJournee+"")
 		   		.post(String.class);
 		try {
-			   JAXBContext jaxbContext = JAXBContext.newInstance(List_Exercice.class);
+			   JAXBContext jaxbContext = JAXBContext.newInstance(List_Consommation.class);
 			   Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			   StringReader reader = new StringReader(reponse);
 			   List_Consommation lc = (List_Consommation) unmarshaller.unmarshal(reader);

@@ -11,7 +11,7 @@
   </welcome-file-list>
   <servlet>
     <servlet-name>ServletAccueil</servlet-name>
-    <servlet-class>controller.ServletAccueil</servlet-class>
+    <servlet-class>accueil.ServletAccueil</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ServletAccueil</servlet-name>

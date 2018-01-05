@@ -14,7 +14,7 @@ public class Exercice {
 	private String description;
 	private String type;
 	private int numeroPhoto;
-	private Double valeur;
+	private double valeur;
 	
 	
 	/*Getters et setters*/
@@ -59,17 +59,17 @@ public class Exercice {
 	}
 	
 	@XmlElement
-	public Double getValeur() {
+	public double getValeur() {
 		return valeur;
 	}
-	public void setValeur(Double valeur) {
+	public void setValeur(double valeur) {
 		this.valeur = valeur;
 	}
 	
 	
 	/*Constructeur(s)*/
 	
-	public Exercice(int id,String nom, String description, String type, int numeroPhoto, Double valeur) {
+	public Exercice(int id,String nom, String description, String type, int numeroPhoto, double valeur) {
 		this.id=id;
 		this.nom = nom;
 		this.description = description;
@@ -93,7 +93,7 @@ public class Exercice {
 	}
 	
 	
-	public Exercice(String nom, String description, String type, int numeroPhoto, Double valeur) {
+	public Exercice(String nom, String description, String type, int numeroPhoto, double valeur) {
 		super();
 		this.nom = nom;
 		this.description = description;

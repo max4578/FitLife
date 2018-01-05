@@ -13,7 +13,7 @@ public class Consommation {
 	
 	/*Attributs*/
 	private Aliment aliment;
-	private Double quantite;
+	private double quantite;
 	private String periode;
 	
 	
@@ -27,10 +27,10 @@ public class Consommation {
 	}
 	
 	@XmlElement
-	public Double getQuantite() {
+	public double getQuantite() {
 		return quantite;
 	}
-	public void setQuantite(Double quantite) {
+	public void setQuantite(double quantite) {
 		this.quantite = quantite;
 	}
 	
@@ -43,7 +43,7 @@ public class Consommation {
 	}
 	
 	/*Constructeur(s)*/
-	public Consommation(Aliment aliment, Double quantite, String periode) {
+	public Consommation(Aliment aliment, double quantite, String periode) {
 		super();
 		this.aliment = aliment;
 		this.quantite = quantite;

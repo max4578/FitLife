@@ -13,9 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Aliment;
+import model.Consommation;
 import model.Exercice;
 import model.Journee;
-import model.List_Consommation;
 import model.Seance;
 import model.Utilisateur;
 
@@ -28,11 +29,13 @@ public class ServletJournee extends HttpServlet {
 	private static final String JOURNEE = "journee";
 	private static final String VUE = "/Journee.jsp";
 	private List<Seance> listSeance;
-	private List_Consommation list_c;
+	private List<Consommation> list_c;
 	ArrayList <Exercice> list_exercice;
 	private String msgListeSeanceVide = "Aucun séance n'a été créée !!!";
 	private String msgListeConsommationVide = "Aucun aliment consommé aujourd'hui";
-	private Double calorie;
+	private double calorie;
+	private Journee journee;
+	private Aliment aliment;
 
 	HttpSession session;
 	Utilisateur user;
@@ -55,10 +58,14 @@ public class ServletJournee extends HttpServlet {
 			session.invalidate();
 			session=request.getSession();
 		}
-		user= (Utilisateur) session.getAttribute("utilisateur");
-		calorie = user.getMetabolisme();
-		user.Besoin(calorie);
 		
+		user = (Utilisateur)session.getAttribute("utilisateur");
+		/* Création et ajout de la journée si elle n'est pas dans la session */
+		if(session.getAttribute("journee") == null) {
+			journee = new Journee();
+			journee.NouvelleJournee(user.getId());
+			session.setAttribute("journee", journee);
+		}
 		
 		/* Date du jour  */
 		LocalDate date = LocalDate.now();
@@ -70,23 +77,24 @@ public class ServletJournee extends HttpServlet {
 		listSeance = new ArrayList<Seance>();
 		list_exercice = new ArrayList<Exercice>();
 		
-		/*
-		list_exercice.add(new Exercice("Curl Biceps","","Bras",1,(double)1));
-		list_exercice.add(new Exercice("Press","","Jambes",1,(double)1));
-		list_exercice.add(new Exercice("Tortank","","Dos",1,(double)1));
-		list_exercice.add(new Exercice("Barre inclinées","","Epaules",1,(double)1));
-		listSeance.add(new Seance(list_exercice,"Séance du lundi"));
-		listSeance.add(new Seance(list_exercice,"Séance du mardi"));
-		*/
+		listSeance = journee.getListSeance();
 		
-		/////////////////// Vers la vue ///////////////////////
-		request.setAttribute("calorie", calorie);
-		request.setAttribute("proteine", user.getBesoin_proteine());
-		request.setAttribute("lipide", user.getBesoin_lipide());
-		request.setAttribute("glucide", user.getBesoin_glucide());
 		
+		/* Récupération des besoin journalier de l'utilisateur */
+		user= (Utilisateur) session.getAttribute("utilisateur");
+		calorie = user.getMetabolisme();
+		if(listSeance.size() == 0) {
+			user.Besoin(calorie);
+		}else {
+			calorie*=1.4;
+			user.Besoin(calorie);
+		}
+		
+		/* Information sur la journée */
+		journee.calculConsommation();
 		/* Récupérer la liste des aliments */
-		list_c = new List_Consommation();
+		list_c = new ArrayList<Consommation>();
+		list_c = journee.getListConsom();
 		
 		/* Liste séance(s) */
 		if(listSeance.isEmpty()) {
@@ -96,11 +104,23 @@ public class ServletJournee extends HttpServlet {
 		}
 		
 		/* Liste aliment(s) consommé */
-		if(list_c.equals(null)) {
-			//La liste des consommation	
-		}else {
+		if(list_c.isEmpty()) {
 			request.setAttribute("ListeConsommation",msgListeConsommationVide);
+		}else {
+			request.setAttribute("ListeConsommation",list_c);
 		}
+		
+		/////////////////// Vers la vue ///////////////////////
+		//Besoin de l'utilisateur
+		request.setAttribute("calorie", calorie);
+		request.setAttribute("proteine", user.getBesoin_proteine());
+		request.setAttribute("lipide", user.getBesoin_lipide());
+		request.setAttribute("glucide", user.getBesoin_glucide());
+		//Consommation de la journée
+		request.setAttribute("calorieConsomme", journee.getCalorie_consom());
+		request.setAttribute("proteineConsommee", journee.getProteine_consom());
+		request.setAttribute("lipideConsomme", journee.getLipide_consom());
+		request.setAttribute("glucideConsomme", journee.getGlucide_consom());
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 

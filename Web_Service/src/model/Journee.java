@@ -20,7 +20,7 @@ public class Journee {
 	private Double acideG_consom;
 	private Double calorie_consom;
 	private Double glucide_consom;
-	private Double facteur_activite;
+	private Double proteine_consom;
 	
 	
 	/*Getters et setters*/
@@ -91,11 +91,11 @@ public class Journee {
 	}
 	
 	@XmlElement
-	public Double getFacteur_activite() {
-		return facteur_activite;
+	public Double getProteine_consom() {
+		return proteine_consom;
 	}
-	public void setFacteur_activite(Double facteur_activite) {
-		this.facteur_activite = facteur_activite;
+	public void setProteine_consom(Double proteine_consom) {
+		this.proteine_consom = proteine_consom;
 	}
 
 	
@@ -111,7 +111,6 @@ public class Journee {
 		this.acideG_consom = acideG_consom;
 		this.calorie_consom = calorie_consom;
 		this.glucide_consom = glucide_consom;
-		this.facteur_activite = facteur_activite;
 	}
 	
 	public Journee(int id,Date date, List<Seance> listSeance,List<Consommation> list_c) {

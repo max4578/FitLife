@@ -14,13 +14,13 @@ public class Aliment {
 	/*Attributs*/
 	private int id;
 	private String nom;
-	private Double calorie;
-	private Double lipide;
-	private Double acideG;	
-	private Double glucide;
-	private Double sucre;
-	private Double proteine;
-	private Double quantiteType;
+	private double calorie;
+	private double lipide;
+	private double acideG;	
+	private double glucide;
+	private double sucre;
+	private double proteine;
+	private double quantiteType;
 	
 	/*Getters ete setters;*/
 	
@@ -42,61 +42,61 @@ public class Aliment {
 	}
 	
 	@XmlElement
-	public Double getCalorie() {
+	public double getCalorie() {
 		return calorie;
 	}
-	public void setCalorie(Double calorie) {
+	public void setCalorie(double calorie) {
 		this.calorie = calorie;
 	}
 	
 	@XmlElement
-	public Double getLipide() {
+	public double getLipide() {
 		return lipide;
 	}
 
-	public void setLipide(Double lipide) {
+	public void setLipide(double lipide) {
 		this.lipide = lipide;
 	}
 	
 	@XmlElement
-	public Double getAcideG() {
+	public double getAcideG() {
 		return acideG;
 	}
-	public void setAcideG(Double acideG) {
+	public void setAcideG(double acideG) {
 		this.acideG = acideG;
 	}
 	
 
 
 	@XmlElement
-	public Double getGlucide() {
+	public double getGlucide() {
 		return glucide;
 	}
-	public void setGlucide(Double glucide) {
+	public void setGlucide(double glucide) {
 		this.glucide = glucide;
 	}
 	
 	@XmlElement
-	public Double getSucre() {
+	public double getSucre() {
 		return sucre;
 	}
-	public void setSucre(Double sucre) {
+	public void setSucre(double sucre) {
 		this.sucre = sucre;
 	}
 	
 	@XmlElement
-	public Double getProteine() {
+	public double getProteine() {
 		return proteine;
 	}
-	public void setProteine(Double proteine) {
+	public void setProteine(double proteine) {
 		this.proteine = proteine;
 	}
 	
 	@XmlElement
-	public Double getQuantiteType() {
+	public double getQuantiteType() {
 		return quantiteType;
 	}
-	public void setQuantiteType(Double quantiteType) {
+	public void setQuantiteType(double quantiteType) {
 		this.quantiteType = quantiteType;
 	}
 
@@ -108,8 +108,8 @@ public class Aliment {
 
 	
 	
-	public Aliment(int id,String nom,  Double calorie, Double lipide, Double acideG, Double glucide, Double sucre,
-			Double proteine, Double quantiteType) {
+	public Aliment(int id,String nom,  double calorie, double lipide, double acideG, double glucide, double sucre,
+			double proteine, double quantiteType) {
 		this.id=id;
 		this.nom = nom;
 		this.calorie = calorie;
@@ -121,8 +121,8 @@ public class Aliment {
 		this.quantiteType = quantiteType;
 	}
 	
-	public Aliment(String nom,  Double calorie, Double lipide, Double acideG, Double glucide, Double sucre,
-			Double proteine, Double quantiteType) {
+	public Aliment(String nom,  double calorie, double lipide, double acideG, double glucide, double sucre,
+			double proteine, double quantiteType) {
 		
 		this.nom = nom;
 		this.calorie = calorie;

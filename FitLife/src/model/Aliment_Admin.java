@@ -8,8 +8,8 @@ public class Aliment_Admin extends Aliment {
 	
 	
 	
-	public Aliment_Admin(int id,String nom ,Double calorie, Double lipide, Double acideG,  Double glucide, Double sucre,
-			Double proteine, Double quantiteType) {
+	public Aliment_Admin(int id,String nom ,double calorie, double lipide, double acideG,  double glucide, double sucre,
+			double proteine, double quantiteType) {
 		super(id,nom, calorie, lipide, acideG, glucide, sucre, proteine, quantiteType);
 	}
 		
