@@ -11,6 +11,7 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 public class Web_Service {
 	
+	
 	private static WebResource service=null;
 	
 	public static WebResource getService() {
@@ -28,7 +29,7 @@ public class Web_Service {
 	
 	
 	  private static URI getBaseURI() {
-		   return UriBuilder.fromUri("http://localhost:9090/Web_Service/rest/").build();
+		  return UriBuilder.fromUri("http://localhost:9090/Web_Service/rest/").build();
 	}
 	
 	

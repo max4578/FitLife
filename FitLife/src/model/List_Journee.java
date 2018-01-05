@@ -49,10 +49,7 @@ public class List_Journee {
 			   
 			   List_Journee lj = (List_Journee) unmarshaller.unmarshal(reader);
 			   list_journee=lj.getList_journee();
-			   System.out.println("boucle liste journee");
-			   for(Journee j : list_journee) {
-				   System.out.println("id de la journee: "+j.getId());
-			   }
+			
 		} catch (JAXBException e1) {
 			 System.out.println("Erreur JaxB"+e1.getMessage());
 		}	catch (NullPointerException e){

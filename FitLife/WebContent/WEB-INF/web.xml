@@ -58,6 +58,14 @@
     <url-pattern>/CreerSeance</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>ServletAjouterSeance</servlet-name>
+    <servlet-class>seance.ServletAjouterSeance</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletAjouterSeance</servlet-name>
+    <url-pattern>/AjouterSeance</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>ServletProfil</servlet-name>
     <servlet-class>utilisateur.ServletProfil</servlet-class>
   </servlet>

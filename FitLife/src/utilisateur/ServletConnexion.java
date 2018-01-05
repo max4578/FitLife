@@ -15,8 +15,12 @@ import javax.servlet.http.HttpSession;
 import model.Aliment;
 import model.Aliment_Admin;
 import model.Aliment_Utilisateur;
+import model.Consommation;
+import model.Exercice;
+import model.Journee;
 import model.List_Aliment;
 import model.List_Journee;
+import model.Seance;
 import model.Utilisateur;
 
 /**
@@ -59,6 +63,40 @@ public class ServletConnexion extends HttpServlet {
 			
 		}
 
+		/*Test séance OK
+		Seance s= new Seance("Nouvelle seance");
+		//s.AjouterSeance(2);
+		Exercice ex= new Exercice();
+		Exercice ex1= new Exercice();
+		s.setId(6);
+		ex1.setId(1);
+		ex.setId(3);
+		s.AjouterExercice(ex1, 12);
+		s.AjouterExercice(ex, 3);*/
+		
+	
+		
+		/*Test journee*/
+		
+		List_Journee lj= new List_Journee();
+		lj.FindList_journee_user(2);
+		for(Journee j:lj.getList_journee()) {
+			System.out.println(j.getId());
+			for(Seance s:j.getListSeance()) {
+				System.out.print(s.getNom());
+				for(Exercice e:s.getList_exercice()) {
+					System.out.println(e.getNom());
+				}
+				
+			}
+			
+			for(Consommation c:j.getListConsom()) {
+				System.out.print(c.getAliment().getNom()+" "+c.getQuantite()+c.getAliment().getClass().getName());
+
+			}
+		}
+		
+		
 		
 		/* Récupération des champs du formulaire. */
         String email = request.getParameter( CHAMP_EMAIL );

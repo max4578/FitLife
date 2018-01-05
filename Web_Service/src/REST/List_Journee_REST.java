@@ -68,7 +68,6 @@ public class List_Journee_REST {
 		}
 		
 		for(Journee j:ljournee) {
-			System.out.println("test"+j.getId());
 			j.setListSeance(List_Seance_REST.getList(j.getId()));
 			j.setListConsom(List_Consommation_REST.getList(j.getId()));
 		}

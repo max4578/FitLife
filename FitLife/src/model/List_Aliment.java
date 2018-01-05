@@ -16,16 +16,31 @@ import webservice.Web_Service;
 @XmlRootElement(name="list_aliment")
 public class List_Aliment {
 
-	private LinkedList<Aliment> list_aliment= new LinkedList<Aliment>();;
+	private LinkedList<Aliment> list_aliment= new LinkedList<Aliment>();
+	private int nbrAlim_user;
 	
 	@XmlElement
 	public LinkedList<Aliment> getList_aliment() {
 		return list_aliment;
 	}
+	@XmlElement
+	public int getNbrAlim_user() {
+		return nbrAlim_user;
+	}
+	public void setNbrAlim_user(int nbrAlim_user) {
+		this.nbrAlim_user = nbrAlim_user;
+	}
+
 
 	
 	public List_Aliment() {
 		
+	}
+	
+
+	public List_Aliment(LinkedList<Aliment> lAlim,int nbr) {
+		list_aliment=lAlim;
+		nbrAlim_user=nbr;
 	}
 	
 	
@@ -40,6 +55,13 @@ public class List_Aliment {
 			   StringReader reader = new StringReader(reponse);
 			   List_Aliment le = (List_Aliment) unmarshaller.unmarshal(reader);
 			   list_aliment = le.getList_aliment();
+			   int cpt=0;
+			   for(Aliment a:list_aliment) {
+				   if(cpt<le.getNbrAlim_user())
+					   a=(Aliment_Utilisateur)a;
+				   else
+					   a=(Aliment_Admin)a;
+			   }
 		} catch (JAXBException e1) {
 			System.out.println("JB ex;"+e1.getMessage());
 		}	catch (NullPointerException e){

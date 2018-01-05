@@ -14,11 +14,13 @@ import model.Exercice;
 /**
  * Servlet implementation class ServletCreerSeance
  */
+
 @WebServlet("/ServletCreerSeance")
 public class ServletCreerSeance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/CreerSeance.jsp";
 	ArrayList <Exercice> listeExercice;
+	ArrayList <Exercice> listeExo;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -36,7 +38,10 @@ public class ServletCreerSeance extends HttpServlet {
 		listeExercice.add(new Exercice("Press","","Jambes",1,(double)1));
 		listeExercice.add(new Exercice("Tortank","","Dos",1,(double)1));
 		listeExercice.add(new Exercice("Barre inclinées","","Epaules",1,(double)1));
+		
+		listeExo = listeExercice;
 		request.setAttribute("liste", listeExercice);
+		request.setAttribute("listeExercicesSeance", listeExo);
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 	}
 
@@ -44,8 +49,10 @@ public class ServletCreerSeance extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		listeExo = listeExercice;
+		request.setAttribute("liste", listeExercice);
+		request.setAttribute("listeExercicesSeance", listeExo);
+		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 	}
 
 }

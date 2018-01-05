@@ -1,4 +1,4 @@
-package controller;
+package seance;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class C_Connexion
+ * Servlet implementation class ServletAjouterSeance
  */
-@WebServlet("/C_Connexion")
-public class C_Connexion extends HttpServlet {
+@WebServlet("/ServletAjouterSeance")
+public class ServletAjouterSeance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String VUE = "/AjouterSeance.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public C_Connexion() {
+    public ServletAjouterSeance() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +27,7 @@ public class C_Connexion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		this.getServletContext().getRequestDispatcher("/Connexion.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
 	/**

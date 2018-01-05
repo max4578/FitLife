@@ -61,6 +61,22 @@ public class List_Aliment_REST {
 	@Produces(MediaType.TEXT_XML)
 	public Response getXml(@QueryParam("idUser") int idUser) throws SQLException {		
 		LinkedList<Aliment> lalim= new LinkedList<Aliment>();
+	
+	
+		CallableStatement myStmt2 =con.prepareCall("BEGIN ?:= get_all_aliment_user(?); END;");
+		myStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+		myStmt2.setInt(2, idUser);
+		myStmt2.execute();
+		ResultSet rs2 = (ResultSet) myStmt2.getObject(1);
+		int cpt=0;
+		while (rs2.next()) {
+		    lalim.add(new Aliment_Utilisateur(rs2.getInt(1),rs2.getString(2),rs2.getDouble(3),rs2.getDouble(4),
+		    		rs2.getDouble(5),rs2.getDouble(6),rs2.getDouble(7),rs2.getDouble(8),rs2.getDouble(9)));
+		    cpt++;
+		}
+		
+		
+		
 		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_all_aliment; END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.execute();
@@ -69,19 +85,8 @@ public class List_Aliment_REST {
 		    lalim.add(new Aliment_Admin(rs.getInt(1),rs.getString(2),rs.getDouble(3),rs.getDouble(4),
 		    		rs.getDouble(5),rs.getDouble(6),rs.getDouble(7),rs.getDouble(8),rs.getDouble(9)));
 		}
-	
-		CallableStatement myStmt2 =con.prepareCall("BEGIN ?:= get_all_aliment_user(?); END;");
-		myStmt2.registerOutParameter(1, OracleTypes.CURSOR);
-		myStmt2.setInt(2, idUser);
-		myStmt2.execute();
-		ResultSet rs2 = (ResultSet) myStmt2.getObject(1);
-
-		while (rs2.next()) {
-		    lalim.add(new Aliment_Utilisateur(rs2.getInt(1),rs2.getString(2),rs2.getDouble(3),rs2.getDouble(4),
-		    		rs2.getDouble(5),rs2.getDouble(6),rs2.getDouble(7),rs2.getDouble(8),rs2.getDouble(9)));
-		}
 		
-		List_Aliment list= new List_Aliment(lalim);
+		List_Aliment list= new List_Aliment(lalim,cpt);
 		return Response.status(Status.OK).entity(list).build();
 	}
 	

@@ -33,7 +33,6 @@ public class List_Exercice {
 	
 	
 	
-	
 	public List<Exercice> getList() {
 		String reponse = Web_Service.getService()
 		   		.path("list_exercice")

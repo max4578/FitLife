@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -13,7 +14,7 @@ public class Seance {
 
 	/*Attributs*/
 	private int id;
-	private List<Exercice> list_exercice;
+	private List<Exercice> list_exercice=new LinkedList<Exercice>();;
 	private String nom;
 	private Date dateCreation;
 	
@@ -75,6 +76,12 @@ public class Seance {
 		this.list_exercice = list_exercice;
 		this.nom = nom;
 	}
+	
+	public Seance(String nom) {
+		super();
+		this.nom = nom;
+	}
+	
 	
 	public Seance() {
 	

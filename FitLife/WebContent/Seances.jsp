@@ -9,10 +9,10 @@
 <div class="container">
 	<!--  Liste des séances -->
 	<h1>Liste des séances</h1>
-	<c:forEach items="${liste}" var="item">
+	<c:forEach items="${liste}" var="item" varStatus="loop">
 		<div class="form-group">
-	    	<a href='/FitLife/Seance'><c:out value="${item.nom}" /></a>
-	    	<button class="btn btn-default" >Effacer la séance</button>
+	    	<a href='/FitLife/Seances/${ loop.index }'><c:out value="${item.nom}" /></a>
+	    	<button class="btn btn-default" onclick=window.location.href='/FitLife/Seances?liste=${loop.index}'>Effacer la séance</button>
     	</div>
 	</c:forEach>
 	<!--  Boutton de création d'une nouvelle séance -->

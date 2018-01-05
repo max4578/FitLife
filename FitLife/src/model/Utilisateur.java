@@ -224,6 +224,13 @@ public class Utilisateur extends Personne{
             return 0;
         }
     }
+
+
+  public void Besoin(Double metabolisme) {
+    	besoin_proteine = getPoids() * 2;
+    	besoin_lipide = getPoids();
+    	besoin_glucide = metabolisme - besoin_proteine - besoin_lipide;
+    }
     
     public Boolean connexion(String email , String pass) {
 		   String xmlAnswer = Web_Service.getService()

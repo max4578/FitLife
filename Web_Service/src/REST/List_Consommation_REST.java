@@ -50,6 +50,18 @@ public class List_Consommation_REST {
 
 		LinkedList<Consommation> lcons= new LinkedList<Consommation>();
 		
+		
+		CallableStatement myStmt2 =con.prepareCall("BEGIN ?:= get_all_alimentP_Journee(?); END;");
+		myStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+		myStmt2.setInt(2, id);
+		myStmt2.execute();
+		ResultSet rs2 = (ResultSet) myStmt2.getObject(1);
+		int cpt=0;
+		while (rs2.next()) {
+		    lcons.add(new Consommation(new Aliment(rs2.getInt(1),rs2.getString(2),rs2.getDouble(3),rs2.getDouble(4),
+		    		rs2.getDouble(5),rs2.getDouble(6),rs2.getDouble(7),rs2.getDouble(8),rs2.getDouble(9)),rs2.getDouble(11),rs2.getString(12)));
+		}
+		
 		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_all_alimentG_Journee(?); END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.setInt(2, id);
@@ -61,16 +73,7 @@ public class List_Consommation_REST {
 		    		rs.getDouble(5),rs.getDouble(6),rs.getDouble(7),rs.getDouble(8),rs.getDouble(9)),rs.getDouble(10),rs.getString(11)));
 		}
 		
-		CallableStatement myStmt2 =con.prepareCall("BEGIN ?:= get_all_alimentP_Journee(?); END;");
-		myStmt2.registerOutParameter(1, OracleTypes.CURSOR);
-		myStmt2.setInt(2, id);
-		myStmt2.execute();
-		ResultSet rs2 = (ResultSet) myStmt2.getObject(1);
-
-		while (rs2.next()) {
-		    lcons.add(new Consommation(new Aliment(rs2.getInt(1),rs2.getString(2),rs2.getDouble(3),rs2.getDouble(4),
-		    		rs2.getDouble(5),rs2.getDouble(6),rs2.getDouble(7),rs2.getDouble(8),rs2.getDouble(9)),rs2.getDouble(11),rs2.getString(12)));
-		}
+	
 		
 		
 		return lcons;

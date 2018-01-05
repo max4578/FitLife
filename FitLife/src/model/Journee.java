@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -15,8 +16,8 @@ public class Journee {
 	/*Attributs*/
 	private int id;
 	private Date date;
-	private List<Seance> listSeance;
-	private List<Consommation> listConsom;
+	private List<Seance> listSeance= new LinkedList<Seance>();
+	private List<Consommation> listConsom= new LinkedList<Consommation>();
 	private Double lipide_consom;
 	private Double acideG_consom;
 	private Double calorie_consom;
