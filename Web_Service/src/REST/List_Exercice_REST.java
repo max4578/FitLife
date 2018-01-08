@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -26,7 +27,7 @@ import oracle.jdbc.OracleTypes;
 public class List_Exercice_REST {
 	static Connection con = Connexion.getInstance();
 
-	@GET
+	@POST
 	@Produces(MediaType.TEXT_XML)
 	public Response getXml() throws SQLException {
 		

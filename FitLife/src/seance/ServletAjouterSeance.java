@@ -19,7 +19,7 @@ import model.Utilisateur;
 /**
  * Servlet implementation class ServletAjouterSeance
  */
-@WebServlet("/ServletAjouterSeance")
+
 public class ServletAjouterSeance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/AjouterSeance.jsp";

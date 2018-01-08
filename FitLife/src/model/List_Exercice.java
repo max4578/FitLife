@@ -43,6 +43,7 @@ public class List_Exercice {
 			   StringReader reader = new StringReader(reponse);
 			   List_Exercice le = (List_Exercice) unmarshaller.unmarshal(reader);
 			   list_exercice = le.getList_exercice();
+			 
 		} catch (JAXBException e1) {
 			return null;
 		}	catch (NullPointerException e){

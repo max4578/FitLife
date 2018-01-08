@@ -21,7 +21,7 @@ import model.Utilisateur;
  * Servlet implementation class ServletCreerSeance
  */
 
-@WebServlet("/ServletCreerSeance")
+
 public class ServletCreerSeance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/CreerSeance.jsp";
@@ -59,7 +59,7 @@ public class ServletCreerSeance extends HttpServlet {
 		seance = new Seance();
 		seance.setNom(request.getParameter("nom"));
 		seance.AjouterSeance(user.getId());
-		this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
+		this.getServletContext().getRequestDispatcher("/Seances").forward( request, response );
 	}
 
 }

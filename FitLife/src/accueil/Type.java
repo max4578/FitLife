@@ -1,4 +1,4 @@
 package accueil;
 public enum Type {
-	Bras,Epaules,Pectoraux,Dos,Jambes,Fessiers,Abdominaux,Cardio;
+	bras,epaules,pectoraux,dos,jambes,fessiers,abdominaux,cardio;
 }

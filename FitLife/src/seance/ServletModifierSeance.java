@@ -19,7 +19,7 @@ import model.Utilisateur;
 /**
  * Servlet implementation class ServletModifierSeance
  */
-@WebServlet("/ServletModifierSeance")
+
 public class ServletModifierSeance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/ModifierSeance.jsp";
@@ -56,6 +56,7 @@ public class ServletModifierSeance extends HttpServlet {
 		listeExercices = (List<Exercice>) liste.getList();
 		typeExo = (String) request.getParameter("liste");
 		listeAfficher = new LinkedList<>();
+
 		if(typeExo != null) {
 			for(Exercice e : listeExercices) {
 				if(e.getType().equals(typeExo)) {
