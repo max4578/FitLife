@@ -2,14 +2,20 @@ package seance;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Exercice;
+import model.List_Exercice;
+import model.Seance;
+import model.Utilisateur;
 
 /**
  * Servlet implementation class ServletCreerSeance
@@ -19,8 +25,12 @@ import model.Exercice;
 public class ServletCreerSeance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/CreerSeance.jsp";
-	ArrayList <Exercice> listeExercice;
-	ArrayList <Exercice> listeExo;
+	private static final String VUE2 = "/AjouterSeance";
+	Seance seance;
+	HttpSession session;
+	Utilisateur user;
+	
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,15 +43,12 @@ public class ServletCreerSeance extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		listeExercice = new ArrayList<Exercice>();
-		listeExercice.add(new Exercice("Curl Biceps","","Bras",1,(double)1));
-		listeExercice.add(new Exercice("Press","","Jambes",1,(double)1));
-		listeExercice.add(new Exercice("Tortank","","Dos",1,(double)1));
-		listeExercice.add(new Exercice("Barre inclinées","","Epaules",1,(double)1));
-		
-		listeExo = listeExercice;
-		request.setAttribute("liste", listeExercice);
-		request.setAttribute("listeExercicesSeance", listeExo);
+		session=request.getSession();
+		if(session.isNew()) {
+			session.invalidate();
+			session=request.getSession();
+		}
+		user = (Utilisateur) session.getAttribute("utilisateur");
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 	}
 
@@ -49,10 +56,10 @@ public class ServletCreerSeance extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		listeExo = listeExercice;
-		request.setAttribute("liste", listeExercice);
-		request.setAttribute("listeExercicesSeance", listeExo);
-		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+		seance = new Seance();
+		seance.setNom(request.getParameter("nom"));
+		seance.AjouterSeance(user.getId());
+		this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
 	}
 
 }

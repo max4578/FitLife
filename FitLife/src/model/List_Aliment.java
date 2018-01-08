@@ -44,6 +44,33 @@ public class List_Aliment {
 	}
 	
 	
+	
+	public void getList_Perso(int idUser) {
+		
+		LinkedList<Aliment> typed_list=new LinkedList<Aliment>();
+		String reponse = Web_Service.getService()
+		   		.path("list_aliment/alim_user")
+		   		.queryParam("idUser",idUser+"")
+		   		.post(String.class);
+		try {
+			   JAXBContext jaxbContext = JAXBContext.newInstance(List_Aliment.class);
+			   Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			   StringReader reader = new StringReader(reponse);
+			   List_Aliment le = (List_Aliment) unmarshaller.unmarshal(reader);
+			   list_aliment = le.getList_aliment();
+			   for(Aliment a:list_aliment) {
+				  typed_list.add(new Aliment_Utilisateur(a.getId(),a.getNom(),a.getCalorie(),a.getLipide(),
+						  a.getAcideG(),a.getGlucide(),a.getSucre(),a.getProteine(),a.getQuantiteType()));
+			   }
+			   list_aliment=typed_list;
+		} catch (JAXBException e1) {
+			System.out.println("JB ex;"+e1.getMessage());
+		}	catch (NullPointerException e){
+			System.out.println("NULL ex;"+e.getMessage());
+		}
+		
+	}
+	
 	public List<Aliment> getList(int idUser) {
 		String reponse = Web_Service.getService()
 		   		.path("list_aliment")

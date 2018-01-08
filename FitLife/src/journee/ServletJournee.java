@@ -31,11 +31,10 @@ public class ServletJournee extends HttpServlet {
 	private List<Seance> listSeance;
 	private List<Consommation> list_c;
 	ArrayList <Exercice> list_exercice;
-	private String msgListeSeanceVide = "Aucun séance n'a été créée !!!";
+	private String msgListeSeanceVide = "!!! Aucune séance n'a été effectuée aujourd'hui !!! ON SE MOTIVE";
 	private String msgListeConsommationVide = "Aucun aliment consommé aujourd'hui";
 	private double calorie;
 	private Journee journee;
-	private Aliment aliment;
 
 	HttpSession session;
 	Utilisateur user;
@@ -79,7 +78,6 @@ public class ServletJournee extends HttpServlet {
 		
 		listSeance = journee.getListSeance();
 		
-		
 		/* Récupération des besoin journalier de l'utilisateur */
 		user= (Utilisateur) session.getAttribute("utilisateur");
 		calorie = user.getMetabolisme();
@@ -105,7 +103,7 @@ public class ServletJournee extends HttpServlet {
 		
 		/* Liste aliment(s) consommé */
 		if(list_c.isEmpty()) {
-			request.setAttribute("ListeConsommation",msgListeConsommationVide);
+			request.setAttribute("ListeConsommationVide",msgListeConsommationVide);
 		}else {
 			request.setAttribute("ListeConsommation",list_c);
 		}
@@ -121,6 +119,7 @@ public class ServletJournee extends HttpServlet {
 		request.setAttribute("proteineConsommee", journee.getProteine_consom());
 		request.setAttribute("lipideConsomme", journee.getLipide_consom());
 		request.setAttribute("glucideConsomme", journee.getGlucide_consom());
+		
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 

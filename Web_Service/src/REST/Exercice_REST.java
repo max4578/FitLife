@@ -39,6 +39,7 @@ public class Exercice_REST {
 		ResultSet rs = (ResultSet) myStmt.getObject(1);
 		Exercice exercice=null;
 		while (rs.next()) {
+		
 		    exercice=new Exercice(rs.getInt(1),rs.getString(2),rs.getString(4),rs.getString(3),
 		    		rs.getInt(1));
 		}

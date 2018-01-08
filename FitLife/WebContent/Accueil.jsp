@@ -12,7 +12,7 @@
 	<p>Créez des séances personnalisées en choisisant les exercices que vous souhaitez</p>
 	<p>Gérez votre alimentation et connaissez vos besoins nutritionnels</p>
 	<p>Comparez vos journées et suivez votre évolution</p>
+	<%@ include file="Footer.jsp" %>
 </div>
-<%@ include file="Footer.jsp" %>
 </body>
 </html>

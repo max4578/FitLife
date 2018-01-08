@@ -91,6 +91,33 @@ public class List_Aliment_REST {
 	}
 	
 	
+	@POST
+	@Produces(MediaType.TEXT_XML)
+	@Path("alim_user")
+	public Response getAlimUser(@QueryParam("idUser") int idUser) throws SQLException {		
+		LinkedList<Aliment> lalim= new LinkedList<Aliment>();
+	
+	
+		CallableStatement myStmt2 =con.prepareCall("BEGIN ?:= get_all_aliment_user(?); END;");
+		myStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+		myStmt2.setInt(2, idUser);
+		myStmt2.execute();
+		ResultSet rs2 = (ResultSet) myStmt2.getObject(1);
+		int cpt=0;
+		while (rs2.next()) {
+		    lalim.add(new Aliment_Utilisateur(rs2.getInt(1),rs2.getString(2),rs2.getDouble(3),rs2.getDouble(4),
+		    		rs2.getDouble(5),rs2.getDouble(6),rs2.getDouble(7),rs2.getDouble(8),rs2.getDouble(9)));
+		    cpt++;
+		}
+		
+		
+	
+		List_Aliment list= new List_Aliment(lalim,cpt);
+		return Response.status(Status.OK).entity(list).build();
+	}
+	
+	
+	
 	
 	
 

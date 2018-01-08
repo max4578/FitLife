@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="exercice")
 public class Exercice {
 	
-	
 	/*Attributs*/
 	private int id;
 	private String nom;

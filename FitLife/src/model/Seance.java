@@ -14,7 +14,7 @@ public class Seance {
 
 	/*Attributs*/
 	private int id;
-	private List<Exercice> list_exercice=new LinkedList<Exercice>();;
+	private List<Exercice> list_exercice=new LinkedList<Exercice>();
 	private String nom;
 	private Date dateCreation;
 	

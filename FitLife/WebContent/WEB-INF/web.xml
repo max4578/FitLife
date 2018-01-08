@@ -9,6 +9,31 @@
     <welcome-file>Profil.jsp</welcome-file>
     <welcome-file>Compte.jsp</welcome-file>
   </welcome-file-list>
+  
+   <servlet>
+    <servlet-name>ServletSupprimerAliment</servlet-name>
+    <servlet-class>aliment.ServletSupprimerAliment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletSupprimerAliment</servlet-name>
+    <url-pattern>/SupprimerAliment</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletModifierAliment</servlet-name>
+    <servlet-class>aliment.ServletModifierAliment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletModifierAliment</servlet-name>
+    <url-pattern>/ModifierAliment</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletMesAliments</servlet-name>
+    <servlet-class>aliment.ServletMesAliments</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletMesAliments</servlet-name>
+    <url-pattern>/MesAliments</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>ServletAccueil</servlet-name>
     <servlet-class>accueil.ServletAccueil</servlet-class>
@@ -34,19 +59,19 @@
     <url-pattern>/AjoutAliment</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>C_MesJournees</servlet-name>
-    <servlet-class>controller.C_MesJournees</servlet-class>
+    <servlet-name>ServletMesJournees</servlet-name>
+    <servlet-class>journee.ServletMesJournees</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>C_MesJournees</servlet-name>
+    <servlet-name>ServletMesJournees</servlet-name>
     <url-pattern>/MesJournees</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>ServletSeance</servlet-name>
-    <servlet-class>seance.ServletSeance</servlet-class>
+    <servlet-name>ServletSeances</servlet-name>
+    <servlet-class>seance.ServletSeances</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ServletSeance</servlet-name>
+    <servlet-name>ServletSeances</servlet-name>
     <url-pattern>/Seances</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -65,6 +90,23 @@
     <servlet-name>ServletAjouterSeance</servlet-name>
     <url-pattern>/AjouterSeance</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletSeance</servlet-name>
+    <servlet-class>seance.ServletSeance</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletSeance</servlet-name>
+    <url-pattern>/Seance</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletModifierSeance</servlet-name>
+    <servlet-class>seance.ServletModifierSeance</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletModifierSeance</servlet-name>
+    <url-pattern>/ModifierSeance</url-pattern>
+  </servlet-mapping>
+ 
   <servlet>
     <servlet-name>ServletProfil</servlet-name>
     <servlet-class>utilisateur.ServletProfil</servlet-class>

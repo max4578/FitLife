@@ -29,7 +29,7 @@ public class Aliment {
 	public int getId() {
 		return id;
 	}
-	public void setID(int Id) {
+	public void setId(int Id) {
 		id = Id;
 	}
 	

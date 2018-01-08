@@ -204,10 +204,8 @@ public class Utilisateur extends Personne{
 		LocalDate date = dateNaissance.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		if(this.sexe.equals("F")) {
 			setMetabolisme((poids * 9.99) + (6.25 * taille) - (5 * (calculAge(date))) - 161);
-			System.out.println(calculAge(date));
 		}else {
 			setMetabolisme((poids * 9.99) + (6.25 * taille) - (5 * (calculAge(date))) + 5);
-			System.out.println(calculAge(date));
 		}
 	}
 	

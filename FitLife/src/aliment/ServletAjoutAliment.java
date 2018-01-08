@@ -71,7 +71,7 @@ public class ServletAjoutAliment extends HttpServlet {
 		Utilisateur u=(Utilisateur) session.getAttribute("utilisateur");
 		System.out.println(u.getId());
 		u.AppelAjoutAliment(aliment);
-		this.getServletContext().getRequestDispatcher(VUE2).forward(request, response);
+		this.getServletContext().getRequestDispatcher("/MesAliments").forward(request, response);
 	}
 
 }

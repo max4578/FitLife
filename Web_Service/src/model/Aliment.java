@@ -22,14 +22,14 @@ public class Aliment {
 	private double proteine;
 	private double quantiteType;
 	
-	/*Getters ete setters;*/
+	/*Getters et setters;*/
 	
 
 	@XmlAttribute
 	public int getId() {
 		return id;
 	}
-	public void setID(int Id) {
+	public void setId(int Id) {
 		id = Id;
 	}
 	

@@ -16,7 +16,7 @@ import webservice.Web_Service;
 @XmlRootElement(name="list_seance")
 public class List_Seance {
 
-	private List<Seance> list_seance= new LinkedList<Seance>();;
+	private List<Seance> list_seance= new LinkedList<Seance>();
 
 	@XmlElement
 	public List<Seance> getList_seance() {

@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="list_exercice")
 public class List_Exercice {
-	private List<Exercice> list_exercice= new LinkedList<Exercice>();;
+	private List<Exercice> list_exercice= new LinkedList<Exercice>();
 
 	@XmlElement
 	public List<Exercice> getList_exercice() {

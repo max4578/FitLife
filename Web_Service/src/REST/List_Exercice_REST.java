@@ -56,6 +56,7 @@ public class List_Exercice_REST {
 		ResultSet rs = (ResultSet) myStmt.getObject(1);
 
 		while (rs.next()) {
+			for(int i=0;i<rs.getInt(5);i++)
 		    lex.add(new Exercice(rs.getInt(1),rs.getString(2),rs.getString(4),rs.getString(3),
 		    		rs.getInt(1)));
 		}

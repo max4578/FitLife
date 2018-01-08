@@ -172,6 +172,10 @@ public class Journee {
 	
 	
 	public void calculConsommation() {
+		calorie_consom = 0;
+		proteine_consom = 0;
+		lipide_consom = 0;
+		glucide_consom = 0;
 		for(Consommation a : listConsom) {
 			calorie_consom += a.getAliment().getCalorie()*(a.getQuantite()/a.getAliment().getQuantiteType());
 			proteine_consom += a.getAliment().getProteine()*(a.getQuantite()/a.getAliment().getQuantiteType());

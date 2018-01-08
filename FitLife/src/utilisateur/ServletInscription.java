@@ -113,7 +113,7 @@ public class ServletInscription extends HttpServlet {
         if ( erreurs.isEmpty() ) {
             resultat = "Succès de l'inscription.";
             /* création de l'objet utilisateur et enregistrement de l'utilisateur dans la DB */
-            Utilisateur user = new Utilisateur(nom,prenom,email,motDePasse,sexe,dateAnniversaire,Double.parseDouble(taille),Double.parseDouble(poids));
+            Utilisateur user = new Utilisateur(nom,prenom,email,motDePasse,sexe,dateAnniversaire,Double.parseDouble(poids),Double.parseDouble(taille));
             try {
 				if(!user.inscription()) 
 					resultat="Erreur: Utilisateur déja présent";

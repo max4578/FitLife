@@ -1,7 +1,5 @@
 package model;
 
-import java.text.SimpleDateFormat;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 

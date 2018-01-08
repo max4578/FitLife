@@ -52,11 +52,28 @@ public class Aliment_Utilisateur extends Aliment {
 		
 	}
 	
-	public void ModifierAliment() {
+	public Boolean ModifierAliment() {
+		  String reponse = Web_Service.getService()
+			   		.path("aliment/modification")
+			   		.queryParam("nom", getNom())
+			   		.queryParam("calorie", getCalorie()+"")
+			   		.queryParam("lipide",getLipide()+"")
+			   		.queryParam("acideG", getAcideG()+"")
+			   		.queryParam("glucide", getGlucide()+"")
+			   		.queryParam("sucre", getSucre()+"")
+			   		.queryParam("proteine",getProteine()+"")
+			   		.queryParam("qtt",getQuantiteType()+"")
+			   		.queryParam("idAlim",getId()+"")
+					.post(String.class);
+	return reponse.equals("OK");			
 		
 	}
 	
-	public void SupprimerAliment() {
-		
+	public Boolean SupprimerAliment() {
+		 String reponse = Web_Service.getService()
+			   		.path("aliment/supprimer")
+			   		.queryParam("idAlim",getId()+"")
+					.post(String.class);
+	return reponse.equals("OK");	
 	}
 }

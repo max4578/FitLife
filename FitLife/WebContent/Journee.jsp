@@ -8,9 +8,9 @@
 <%@ include file="Menu.jsp" %>
 <div class="container">
 	<h1>Nous sommes le <c:out value="${ journee }"></c:out></h1>
-	<h2>Besoin de la journée</h2>
 	<div class="form-group">
 		<table class="table">
+			<caption>Besoin de la journée</caption>
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">Calorie</th>
@@ -20,16 +20,16 @@
 				</tr>	
 			</thead>
 			<tr>
-				<td><c:out value="${ calorie }"></c:out></td>
-				<td><c:out value="${ proteine }"></c:out></td>
-				<td><c:out value="${ lipide }"></c:out></td>
-				<td><c:out value="${ glucide }"></c:out></td>
+				<td><c:out value="${ calorie }"></c:out><span> Kcal</span></td>
+				<td><c:out value="${ proteine }"></c:out><span> gr</span></td>
+				<td><c:out value="${ lipide }"></c:out><span> gr</span></td>
+				<td><c:out value="${ glucide }"></c:out><span> gr</span></td>
 			</tr>
 		</table>
 	</div>
-	<h2>Valeur consommé aujourd'hui</h2>
-	<div class="form-group">
+	<div class="table-responsive">
 		<table class="table">
+			<caption>Valeur consommé aujourd'hui</caption>
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">Calorie</th>
@@ -39,43 +39,52 @@
 				</tr>	
 			</thead>
 			<tr>
-				<td><c:out value="${ calorieConsomme }"></c:out></td>
-				<td><c:out value="${ proteineConsommee }"></c:out></td>
-				<td><c:out value="${ lipideConsomme }"></c:out></td>
-				<td><c:out value="${ glucideConsomme }"></c:out></td>
+				<td><c:out value="${ calorieConsomme }"></c:out><span> Kcal</span></td>
+				<td><c:out value="${ proteineConsommee }"></c:out><span> gr</span></td>
+				<td><c:out value="${ lipideConsomme }"></c:out><span> gr</span></td>
+				<td><c:out value="${ glucideConsomme }"></c:out><span> gr</span></td>
 			</tr>
 		</table>
 	</div>
-	<div>
-		<table class="table">
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<caption>Séance sportive</caption>
+			<c:forEach items="${ ListeSeance }" var="seance" varStatus="loop">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col"> <h2>Séance sportive</h2> </th>
+					<th scope="col" class="table-primary"><c:out value="${ seance.nom }"></c:out></th>
 				</tr>
 			</thead>
-			<tr>
-				<c:forEach items="${ ListeSeance }" var="seance" varStatus="loop">
-				<td><c:out value="${ seance.nom }"></c:out></td>
-				</c:forEach>		
-			</tr>
+				<c:forEach items="${ seance.list_exercice }" var="exercice" varStatus="loop">
+					<tr>
+						<td><c:out value="${ exercice.nom }"></c:out></td>
+						<form method="post" action="Journee">
+							<td><button type="submit" name="numExercice" value="${ loop.index }" class="btn btn-success">Valider</button></td>
+						</form>
+					</tr>
+				</c:forEach>
+			</c:forEach>		
 		</table>
 		<p><c:out value="${ ListeSeanceVide }"></c:out></p>
 		<input type="button" onclick=window.location.href='/FitLife/AjouterSeance' value="Ajouter une séance" class="btn btn-default" >
 	</div>
-	<div>
-		<table class="table">
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<caption>Aliment(s) consommé(s) sur la journée</caption>
 			<thead class="thead-dark">
-				<tr>
-					<th scope="col"> <h2>Aliment(s) consommé(s) sur la journée</h2> </th>
+				<tr class="table-primary">
+					<th scope="col"> Nom de l'aliment </th>
+					<th scope="col"> Quantité </th>
 				</tr>
 			</thead>
-			<tr>
-				<c:forEach items="${ ListeSeance }" var="seance" varStatus="loop">
-				<td><c:out value="${ seance.nom }"></c:out></td>
-				</c:forEach>		
-			</tr>
+			<c:forEach items="${ ListeConsommation }" var="consommation" varStatus="loop">
+				<tr>
+					<td><c:out value="${ consommation.aliment.nom }"></c:out></td>
+					<td><c:out value="${ consommation.quantite }"></c:out><span> gr</span></td>
+				</tr>
+			</c:forEach>		
 		</table>
-		<p><c:out value="${ ListeConsommation }"></c:out></p>
+		<p><c:out value="${ ListeConsommationVide }"></c:out></p>
 		<input type="button" onclick=window.location.href='/FitLife/AjoutAliment' value="Ajouter une consommation" class="btn btn-default">
 	</div>
 </div>
