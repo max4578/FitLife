@@ -42,7 +42,7 @@ public class ServletProfil extends HttpServlet {
 		session=request.getSession();
 		user= (Utilisateur) session.getAttribute("utilisateur");
 		user.calculIMC();
-		user.setIMC(AfficherIMC(user.getIMC()));
+	
 		
 		/* Date de naissance  */
 		Date dateNaissance = user.getDateNaissance();
@@ -77,9 +77,5 @@ public class ServletProfil extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	public double AfficherIMC(double imc) {
-		double nbr;
-		return nbr = Math.round(imc*100)/100;
-	}
-
+	
 }

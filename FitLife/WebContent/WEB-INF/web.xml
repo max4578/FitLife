@@ -5,6 +5,14 @@
     <welcome-file>Accueil.jsp</welcome-file>
 
   </welcome-file-list>
+  <servlet>
+    <servlet-name>ServletDeconnexion</servlet-name>
+    <servlet-class>utilisateur.ServletDeconnexion</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletDeconnexion</servlet-name>
+    <url-pattern>/Deconnexion</url-pattern>
+  </servlet-mapping>
   
    <servlet>
     <servlet-name>ServletSupprimerAliment</servlet-name>

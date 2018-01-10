@@ -181,8 +181,9 @@ public class Utilisateur extends Personne{
 	 * Calcul de l'IMC de l'utilisateur
 	 */
 	public void calculIMC() {
-		IMC = poids / (taille*taille);
-	}
+        double tailleEnM= taille/100;
+        IMC = poids / (tailleEnM*tailleEnM);
+    }
 	
 	/***
 	 * Calcul le métabolisme de la personne
@@ -241,7 +242,7 @@ public class Utilisateur extends Personne{
 				 poids=o.getDouble("poids");
 				 taille=o.getDouble("taille");
 				 calculIMC();
-				 //calculerMetabolisme();
+				 calculerMetabolisme();
 		/*	} catch (JAXBException e1) {
 				return false;*/
 			}	catch (NullPointerException e){
