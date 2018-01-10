@@ -22,15 +22,14 @@ public class Consommation_REST {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("ajout")
 	public Response CreateConsommation(@QueryParam("aliment") int aliment,@QueryParam("journee") int journee,@QueryParam("qtt") Double qtt,
-			@QueryParam("periode") String periode,@QueryParam("type") String typeAlim) throws SQLException, ParseException {	
+			@QueryParam("periode") String periode) throws SQLException, ParseException {	
 
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN create_Consommation(?,?,?,?,?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN create_Consommation(?,?,?,?); END;");
 		myStmt.setInt(1,aliment);
 		myStmt.setInt(2,journee);
 		myStmt.setDouble(3,qtt);	
 		myStmt.setString(4,periode);
-		myStmt.setString(5,typeAlim);	
 		myStmt.execute();
 		myStmt.close();
 		return Response.status(Status.OK).build();			
@@ -42,15 +41,14 @@ public class Consommation_REST {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("modifier")
 	public Response UpdateConsommation(@QueryParam("aliment") int aliment,@QueryParam("journee") int journee,@QueryParam("qtt") Double qtt,
-			@QueryParam("periode") String periode,@QueryParam("type") String typeAlim) throws SQLException, ParseException {	
+			@QueryParam("periode") String periode) throws SQLException, ParseException {	
 
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN update_Consommation(?,?,?,?,?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN update_Consommation(?,?,?,?); END;");
 		myStmt.setInt(1,aliment);
 		myStmt.setInt(2,journee);
 		myStmt.setDouble(3,qtt);	
 		myStmt.setString(4,periode);
-		myStmt.setString(5,typeAlim);	
 		myStmt.execute();
 		myStmt.close();
 		return Response.status(Status.OK).build();			
@@ -62,11 +60,10 @@ public class Consommation_REST {
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("supprimer")
-	public Response DeleteConsommation(@QueryParam("aliment") int aliment,@QueryParam("journee") int journee,@QueryParam("type") String typeAlim) throws SQLException, ParseException {	
-		CallableStatement myStmt =con.prepareCall("BEGIN delete_Consommation(?,?,?); END;");
+	public Response DeleteConsommation(@QueryParam("aliment") int aliment,@QueryParam("journee") int journee) throws SQLException, ParseException {	
+		CallableStatement myStmt =con.prepareCall("BEGIN delete_Consommation(?,?); END;");
 		myStmt.setInt(1,aliment);
 		myStmt.setInt(2,journee);
-		myStmt.setString(3,typeAlim);	
 		myStmt.execute();
 		myStmt.close();
 		return Response.status(Status.OK).build();			

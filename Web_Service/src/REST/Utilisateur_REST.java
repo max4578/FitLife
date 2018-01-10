@@ -27,6 +27,7 @@ import oracle.jdbc.OracleTypes;
 @Path("utilisateur")
 public class Utilisateur_REST {
 	Connection con = Connexion.getInstance();
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("ajout")
@@ -34,19 +35,9 @@ public class Utilisateur_REST {
 			@QueryParam("password") String password,@QueryParam("sexe") String sexe,
 			@QueryParam("dateN") String dateN,@QueryParam("poids") String poids,
 			@QueryParam("taille") String taille) throws SQLException, ParseException {	
-		/*CallableStatement myStmtBefore =con.prepareCall("BEGIN ?:=  gest_utilisateur.get_VerifUser(?); END;");
-		myStmtBefore.registerOutParameter(1, OracleTypes.CURSOR);
-		myStmtBefore.setString(2, email);
-		myStmtBefore.execute();
-		ResultSet rs = (ResultSet) myStmtBefore.getObject(1);
-		int cpt=0;
-		while (rs.next()) 
-		    cpt++;
-		myStmtBefore.close();*/
-		
-		
-			CallableStatement myStmt =con.prepareCall("BEGIN  ?:=gest_utilisateur.create_utilisateur(?,?,?,?,?,TO_DATE(?, 'yyyy/mm/dd'),?,?); END;");
-			myStmt.registerOutParameter(1, OracleTypes.BOOLEAN);
+
+			CallableStatement myStmt =con.prepareCall("BEGIN  ?:=gestion_utilisateur.create_utilisateur(?,?,?,?,?,TO_DATE(?, 'yyyy/mm/dd'),?,?); END;");
+			myStmt.registerOutParameter(1, java.sql.Types.INTEGER);
 			myStmt.setString(2,nom);
 			myStmt.setString(3,prenom);
 			myStmt.setString(4,email);
@@ -54,20 +45,13 @@ public class Utilisateur_REST {
 			myStmt.setString(6,sexe);
 			myStmt.setString(7,dateN);
 			myStmt.setDouble(8,Double.parseDouble(poids));
-			myStmt.setDouble(9,Double.parseDouble(taille));		
+			myStmt.setDouble(9,Double.parseDouble(taille));	
 			myStmt.execute();
-			ResultSet rs = (ResultSet) myStmt.getObject(1);
-			if(rs.next()) {
-				if(rs.getBoolean(1))
-					return Response.status(Status.OK).entity("OK").build();
-				else
-					return Response.status(Status.OK).entity("FOUND").build();
-			}
-			return Response.status(Status.OK).entity("FOUND").build();
+			if(myStmt.getInt(1)==1)
+				return Response.status(Status.OK).entity("OK").build();
+			else
+				return Response.status(Status.OK).entity("FOUND").build();
 		}			
-	
-	
-	
 	
 	
 	@POST
@@ -77,7 +61,7 @@ public class Utilisateur_REST {
 			@QueryParam("password") String password,@QueryParam("sexe") String sexe,
 			@QueryParam("dateN") String dateN,@QueryParam("poids") String poids,
 			@QueryParam("taille") String taille) throws SQLException, ParseException {
-		CallableStatement myStmt =con.prepareCall("BEGIN  gest_utilisateur.update_utilisateur(?,?,?,?,?,TO_DATE(?, 'yyyy/mm/dd'),?,?); END;");	
+		CallableStatement myStmt =con.prepareCall("BEGIN  gestion_utilisateur.update_utilisateur(?,?,?,?,?,TO_DATE(?, 'yyyy/mm/dd'),?,?); END;");	
 		myStmt.setString(1,nom);
 		myStmt.setString(2,prenom);
 		myStmt.setString(3,email);
@@ -97,7 +81,7 @@ public class Utilisateur_REST {
 	@Path("get_user")
 	public Response getXml(@QueryParam("login") String email, @QueryParam("pass") String pass) throws Exception {	
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gest_utilisateur.get_utilisateur(?,?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_utilisateur.get_utilisateur(?,?); END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.setString(2, email);
 		myStmt.setString(3, pass);

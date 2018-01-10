@@ -30,7 +30,7 @@ public class Seance_REST {
 	@Path("{id}")
 	public Response getXml(@PathParam("id") int id) throws SQLException {	
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_seance(?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_seance.get_seance(?); END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.setInt(2, id);
 		myStmt.execute();
@@ -51,7 +51,7 @@ public class Seance_REST {
 	public Response CreateSeance(@QueryParam("idUser") int idUser,@QueryParam("nom") String nom) throws SQLException, ParseException {	
 
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN create_Seance(?,?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN gestion_seance.create_Seance(?,?); END;");
 		myStmt.setInt(1,idUser);
 		myStmt.setString(2,nom);
 		myStmt.execute();
@@ -65,7 +65,7 @@ public class Seance_REST {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("ajouter_exercice")
 	public Response AddExercice_seance(@QueryParam("idExercice") int idE,@QueryParam("idSeance") int idS,@QueryParam("repetition") int repet) throws SQLException, ParseException {	
-		CallableStatement myStmt =con.prepareCall("BEGIN add_exercice_Seance(?,?,?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN gestion_seance.add_exercice_Seance(?,?,?); END;");
 		myStmt.setInt(1,idE);
 		myStmt.setInt(2,idS);
 		myStmt.setInt(3,repet);
@@ -83,7 +83,7 @@ public class Seance_REST {
 	public Response UpdateSeance(@QueryParam("idSeance") int idSeance,@QueryParam("nom") String nom) throws SQLException, ParseException {	
 
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN update_Seance(?,?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN gestion_seance.update_Seance(?,?); END;");
 		myStmt.setInt(1,idSeance);
 		myStmt.setString(2,nom);
 		myStmt.execute();
@@ -100,7 +100,7 @@ public class Seance_REST {
 	public Response DeleteSeance(@QueryParam("idSeance") int idSeance) throws SQLException, ParseException {	
 
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN delete_Seance(?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN gestion_seance.delete_Seance(?); END;");
 		myStmt.setInt(1,idSeance);		
 		myStmt.execute();
 		myStmt.close();

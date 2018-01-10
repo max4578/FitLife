@@ -29,7 +29,7 @@ public class List_Aliment_REST {
 		LinkedList<Aliment> lalim= new LinkedList<Aliment>();
 	
 	
-		CallableStatement myStmt2 =con.prepareCall("BEGIN ?:= get_all_aliment_user(?); END;");
+		CallableStatement myStmt2 =con.prepareCall("BEGIN ?:= gestion_aliment.get_all_aliment_user(?); END;");
 		myStmt2.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt2.setInt(2, idUser);
 		myStmt2.execute();

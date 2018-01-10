@@ -30,7 +30,7 @@ public class List_Seance_REST {
 		
 		LinkedList<Seance> lseance= new LinkedList<Seance>();
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_all_seance; END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_seance.get_all_seance; END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.execute();
 		ResultSet rs = (ResultSet) myStmt.getObject(1);
@@ -57,7 +57,7 @@ public class List_Seance_REST {
 		
 		LinkedList<Seance> lseance= new LinkedList<Seance>();
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_seance_user(?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_seance.get_seance_user(?); END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.setInt(2, id);
 		myStmt.execute();
@@ -81,7 +81,7 @@ public class List_Seance_REST {
 		
 		LinkedList<Seance> lseance= new LinkedList<Seance>();
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_all_seance_journee(?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_seance.get_all_seance_journee(?); END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.setInt(2,id);
 		myStmt.execute();

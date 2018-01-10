@@ -29,7 +29,7 @@ public class Aliment_REST {
 	@Path("{id}")
 	public Response getXml(@PathParam("id") int id) throws SQLException {	
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_aliment(?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_aliment.get_aliment(?); END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.setInt(2, id);
 		myStmt.execute();
@@ -53,7 +53,7 @@ public class Aliment_REST {
 			@QueryParam("qtt") Double qtt,@QueryParam("idUser") int id) throws SQLException, ParseException {	
 
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN create_Aliment_User(?,?,?,?,?,?,?,?,?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN gestion_aliment.create_Aliment_User(?,?,?,?,?,?,?,?,?); END;");
 		myStmt.setString(1,nom);
 		myStmt.setDouble(2,calorie);
 		myStmt.setDouble(3,lipide);
@@ -78,7 +78,7 @@ public class Aliment_REST {
 			@QueryParam("qtt") Double qtt,@QueryParam("idAlim") int id) throws SQLException, ParseException {	
 
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN update_Aliment_User(?,?,?,?,?,?,?,?,?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN gestion_aliment.update_Aliment_User(?,?,?,?,?,?,?,?,?); END;");
 		myStmt.setString(1,nom);
 		myStmt.setDouble(2,calorie);
 		myStmt.setDouble(3,lipide);
@@ -98,7 +98,7 @@ public class Aliment_REST {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("supprimer")
 	public Response DeleteAliment(@QueryParam("idAlim") int id) throws SQLException, ParseException {		
-		CallableStatement myStmt =con.prepareCall("BEGIN delete_Aliment_User(?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN gestion_aliment.delete_Aliment_User(?); END;");
 		myStmt.setInt(1,id);	
 		myStmt.execute();
 		myStmt.close();
