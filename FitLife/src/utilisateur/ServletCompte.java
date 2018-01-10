@@ -1,6 +1,7 @@
 package utilisateur;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ import model.Utilisateur;
 public class ServletCompte extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/Compte.jsp";
+	private String sexe;  
 	HttpSession session;
 	Utilisateur user;
     /**
@@ -36,12 +38,23 @@ public class ServletCompte extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		session=request.getSession();
-		if(session.isNew()) {
-			session.invalidate();
-			session=request.getSession();
-		}
 		user= (Utilisateur) session.getAttribute("utilisateur");
+		
+		//////	Affichage de date de naissance	/////
+		Date dateNaissance = user.getDateNaissance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		
+		/////	Affichage du sex	/////
+		if(user.getSexe().equals("F")) {
+			sexe = "Féminin";
+		}else {
+			sexe = "Masculin";
+		}
+		
+		///// retour des paramètre à la vue	/////
 		request.setAttribute("user", user);
+		request.setAttribute("dateNaissance", dateFormat.format(dateNaissance));
+		request.setAttribute("sexe", sexe);
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 	}
 

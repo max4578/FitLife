@@ -23,6 +23,7 @@ import model.Utilisateur;
 public class ServletModifierProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/ModifierProfil.jsp";
+	private static final String VUE2 = "/Profil";
 	public static final String CHAMP_POIDS = "poids";
 	Utilisateur user;
 	HttpSession session;
@@ -39,12 +40,8 @@ public class ServletModifierProfil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		/////	Récupération de la session	/////
 		session=request.getSession();
-		if(session.isNew()) {
-			session.invalidate();
-			session=request.getSession();
-		}
 		user= (Utilisateur) session.getAttribute("utilisateur");
 		request.setAttribute("user", user);
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
@@ -54,28 +51,22 @@ public class ServletModifierProfil extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String resultat;
-	    Map<String, String> erreurs = new HashMap<String, String>();
-		/* Récupération des champs du formulaire. */
-
+		//////	Récupération des champs du formulaire	/////
         String poids = request.getParameter(CHAMP_POIDS);
           
-        /* Gestion de la date */
-        user= (Utilisateur) session.getAttribute("utilisateur");
+        //////	Gestion de la date	/////
+        user = (Utilisateur) session.getAttribute("utilisateur");
+        
+        /////	Modification du poids de l'utilisateur	/////
         user.setPoids(Double.parseDouble(poids));
 		try {
 			user.ModifierInfoCompte();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    request.setAttribute("user", user);	         
+		/////	mise à jour de l'utilisateur dans la session	/////
 	    session.setAttribute("utilisateur", user);
-
-	    /* Transmission de la paire d'objets request/response à notre JSP */
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
-       
+	    response.sendRedirect( "/FitLife" + VUE2 );
 	}
 
 }

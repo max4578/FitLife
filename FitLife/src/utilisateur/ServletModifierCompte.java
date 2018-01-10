@@ -23,7 +23,7 @@ import model.Utilisateur;
 public class ServletModifierCompte extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/ModifierCompte.jsp";
-	private static final String VUE2 = "/Compte.jsp";
+	private static final String VUE2 = "/Compte";
 	public static final String CHAMP_EMAIL = "email";
     public static final String CHAMP_PASS = "motdepasse";
     public static final String CHAMP_NOM = "nom";
@@ -50,10 +50,6 @@ public class ServletModifierCompte extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		session=request.getSession();
-		if(session.isNew()) {
-			session.invalidate();
-			session=request.getSession();
-		}
 		user= (Utilisateur) session.getAttribute("utilisateur");
 		request.setAttribute("user", user);
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
@@ -73,37 +69,32 @@ public class ServletModifierCompte extends HttpServlet {
         String sexe = request.getParameter(CHAMP_SEXE);
         String anniversaire = request.getParameter(CHAMP_ANNIVERSAIRE);
         String taille = request.getParameter(CHAMP_TAILLE);
-        String poids = request.getParameter(CHAMP_POIDS);
-        
         
         Date dateAnniversaire=null;
         
-       
-        
-        /* Gestion de la date */
+        /////	Gestion de la date	/////
         try {
-        	
         	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         	dateAnniversaire= sdf.parse(anniversaire);
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
 
-        /* Validation du champ email. */
+        /////	Validation du champ email	/////
         try {
             validationEmail( email );
         } catch ( Exception e ) {
             erreurs.put( CHAMP_EMAIL, e.getMessage() );
         }
 
-        /* Validation du champ nom. */
+        /////	Validation du champ nom	/////
         try {
             validationNom( nom );
         } catch ( Exception e ) {
             erreurs.put( CHAMP_NOM, e.getMessage() );
         }
         
-        /* Validation du champ prenom. */
+        /////	Validation du champ prenom	/////
         try {
         	validationPrenom( prenom );
         } catch ( Exception e ) {
