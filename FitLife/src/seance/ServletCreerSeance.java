@@ -25,29 +25,17 @@ import model.Utilisateur;
 public class ServletCreerSeance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/CreerSeance.jsp";
-	private static final String VUE2 = "/AjouterSeance";
+	private static final String VUE2 = "/Seances";
 	Seance seance;
 	HttpSession session;
 	Utilisateur user;
 	
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletCreerSeance() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		session=request.getSession();
-		if(session.isNew()) {
-			session.invalidate();
-			session=request.getSession();
-		}
 		user = (Utilisateur) session.getAttribute("utilisateur");
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 	}
@@ -59,7 +47,7 @@ public class ServletCreerSeance extends HttpServlet {
 		seance = new Seance();
 		seance.setNom(request.getParameter("nom"));
 		seance.AjouterSeance(user.getId());
-		this.getServletContext().getRequestDispatcher("/Seances").forward( request, response );
+		this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
 	}
 
 }

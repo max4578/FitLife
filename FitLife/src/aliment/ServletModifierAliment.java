@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Aliment;
-import model.Aliment_Utilisateur;
 import model.Utilisateur;
 
 
@@ -74,7 +73,7 @@ public class ServletModifierAliment extends HttpServlet {
 		String proteine = request.getParameter(CHAMP_PROTEINE);
 		String quantite = request.getParameter(CHAMP_QUANTITE);
 		
-		Aliment_Utilisateur aliment = new Aliment_Utilisateur(Integer.parseInt(id),nomAliment,Double.parseDouble(calorie), Double.parseDouble(lipide), Double.parseDouble(acideG), Double.parseDouble(glucide), Double.parseDouble(sucre), Double.parseDouble(proteine), Double.parseDouble(quantite));
+		Aliment aliment = new Aliment(Integer.parseInt(id),nomAliment,Double.parseDouble(calorie), Double.parseDouble(lipide), Double.parseDouble(acideG), Double.parseDouble(glucide), Double.parseDouble(sucre), Double.parseDouble(proteine), Double.parseDouble(quantite));
 		aliment.ModifierAliment();
 		this.getServletContext().getRequestDispatcher( "/MesAliments" ).forward( request, response );
 	}

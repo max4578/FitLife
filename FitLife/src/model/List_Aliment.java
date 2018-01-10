@@ -17,19 +17,13 @@ import webservice.Web_Service;
 public class List_Aliment {
 
 	private LinkedList<Aliment> list_aliment= new LinkedList<Aliment>();
-	private int nbrAlim_user;
-	
+
 	@XmlElement
 	public LinkedList<Aliment> getList_aliment() {
 		return list_aliment;
 	}
-	@XmlElement
-	public int getNbrAlim_user() {
-		return nbrAlim_user;
-	}
-	public void setNbrAlim_user(int nbrAlim_user) {
-		this.nbrAlim_user = nbrAlim_user;
-	}
+
+
 
 
 	
@@ -38,13 +32,13 @@ public class List_Aliment {
 	}
 	
 
-	public List_Aliment(LinkedList<Aliment> lAlim,int nbr) {
+	public List_Aliment(LinkedList<Aliment> lAlim) {
 		list_aliment=lAlim;
-		nbrAlim_user=nbr;
+		
 	}
 	
 	
-	
+/*	
 	public void getList_Perso(int idUser) {
 		
 		LinkedList<Aliment> typed_list=new LinkedList<Aliment>();
@@ -59,7 +53,7 @@ public class List_Aliment {
 			   List_Aliment le = (List_Aliment) unmarshaller.unmarshal(reader);
 			   list_aliment = le.getList_aliment();
 			   for(Aliment a:list_aliment) {
-				  typed_list.add(new Aliment_Utilisateur(a.getId(),a.getNom(),a.getCalorie(),a.getLipide(),
+				  typed_list.add(new Aliment(a.getId(),a.getNom(),a.getCalorie(),a.getLipide(),
 						  a.getAcideG(),a.getGlucide(),a.getSucre(),a.getProteine(),a.getQuantiteType()));
 			   }
 			   list_aliment=typed_list;
@@ -69,7 +63,7 @@ public class List_Aliment {
 			System.out.println("NULL ex;"+e.getMessage());
 		}
 		
-	}
+	}*/
 	
 	public List<Aliment> getList(int idUser) {
 		String reponse = Web_Service.getService()
@@ -82,17 +76,11 @@ public class List_Aliment {
 			   StringReader reader = new StringReader(reponse);
 			   List_Aliment le = (List_Aliment) unmarshaller.unmarshal(reader);
 			   list_aliment = le.getList_aliment();
-			   int cpt=0;
-			   for(Aliment a:list_aliment) {
-				   if(cpt<le.getNbrAlim_user())
-					   a=(Aliment_Utilisateur)a;
-				   else
-					   a=(Aliment_Admin)a;
-			   }
+			
 		} catch (JAXBException e1) {
-			System.out.println("JB ex;"+e1.getMessage());
+			System.out.println("JB ex:"+e1.getMessage());
 		}	catch (NullPointerException e){
-			System.out.println("NULL ex;"+e.getMessage());
+			System.out.println("NULL ex:"+e.getMessage());
 		}
 		return list_aliment;
 	}

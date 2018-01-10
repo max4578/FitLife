@@ -39,7 +39,8 @@ public class Aliment_REST {
 		    alim=new Aliment(rs.getInt(1),rs.getString(2),rs.getDouble(3),rs.getDouble(4),
 		    		rs.getDouble(5),rs.getDouble(6),rs.getDouble(7),rs.getDouble(8),rs.getDouble(9));
 		}
-		
+		myStmt.close();
+		rs.close();
 		return Response.status(Status.OK).entity(alim).build();
 	}
 	
@@ -63,6 +64,7 @@ public class Aliment_REST {
 		myStmt.setDouble(8,qtt);	
 		myStmt.setInt(9,id);	
 		myStmt.execute();
+		myStmt.close();
 		return Response.status(Status.OK).build();			
 	}
 	
@@ -87,6 +89,7 @@ public class Aliment_REST {
 		myStmt.setDouble(8,qtt);	
 		myStmt.setInt(9,id);	
 		myStmt.execute();
+		myStmt.close();
 		return Response.status(Status.OK).build();			
 	}
 	
@@ -98,6 +101,7 @@ public class Aliment_REST {
 		CallableStatement myStmt =con.prepareCall("BEGIN delete_Aliment_User(?); END;");
 		myStmt.setInt(1,id);	
 		myStmt.execute();
+		myStmt.close();
 		return Response.status(Status.OK).build();			
 	}
 }

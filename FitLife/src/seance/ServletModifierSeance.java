@@ -23,40 +23,28 @@ import model.Utilisateur;
 public class ServletModifierSeance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/ModifierSeance.jsp";
-	private Seance maSeance = new Seance();
+	private static final String VUE2 = "/Seances";
+	private Seance maSeance;
 	private List_Exercice liste;
-	private int nbrRep;
-	List <Exercice> listeExercices  = new LinkedList<>();
+	private String nbrRep;
+	private String typeExo;
+	private List <Exercice> listeExercices  = new LinkedList<>();
 	private List<Exercice> listeAfficher;
 	private Exercice exo = new Exercice();
 	HttpSession session;
-	Utilisateur user;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletModifierSeance() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/////	Récupération de la session en cours	/////
 		session=request.getSession();
-		if(session.isNew()) {
-			session.invalidate();
-			session=request.getSession();
-		}
-		user = (Utilisateur) session.getAttribute("utilisateur");
 		maSeance = (Seance) session.getAttribute("seance");
-		String typeExo;
+		
+		/////	Création de la liste des éxercices selon le type choisi	/////
 		liste = new List_Exercice();
 		listeExercices = (List<Exercice>) liste.getList();
-		typeExo = (String) request.getParameter("liste");
+		
+		/////	Création de la liste des éxercices selon le type choisi	/////
 		listeAfficher = new LinkedList<>();
-
+		typeExo = (String) request.getParameter("liste");
 		if(typeExo != null) {
 			for(Exercice e : listeExercices) {
 				if(e.getType().equals(typeExo)) {
@@ -64,19 +52,22 @@ public class ServletModifierSeance extends HttpServlet {
 				}
 			}
 		}
+
+		/////	Envoie des paramètres vers la vue	/////
 		request.setAttribute("listeExo", maSeance.getList_exercice());
 		request.setAttribute("listeExercices", listeAfficher);
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		nbrRep = Integer.parseInt(request.getParameter("nbrRep"));
+		/////	Récupération des paramètres de la vue	/////
+		nbrRep = request.getParameter("nbrRep");
 		exo = listeAfficher.get(Integer.parseInt(request.getParameter("exercice")));
-		System.out.println(exo.getNom());
-		maSeance.AjouterExercice(exo, nbrRep);
+		
+		/////	Ajout de l'exercice à la liste des exercices de la séance	/////
+		maSeance.AjouterExercice(exo, Integer.parseInt(nbrRep));
+		/////	Mettre à jours la séance dans la session	/////
+		session.setAttribute("seance", maSeance);
 		doGet(request, response);
 	}
 

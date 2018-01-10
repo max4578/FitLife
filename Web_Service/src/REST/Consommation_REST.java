@@ -2,24 +2,16 @@ package REST;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
 import Singleton.Connexion;
-import model.Exercice;
-import oracle.jdbc.OracleTypes;
 
 @Path("consommation")
 public class Consommation_REST {
@@ -40,6 +32,7 @@ public class Consommation_REST {
 		myStmt.setString(4,periode);
 		myStmt.setString(5,typeAlim);	
 		myStmt.execute();
+		myStmt.close();
 		return Response.status(Status.OK).build();			
 
 	}
@@ -59,6 +52,7 @@ public class Consommation_REST {
 		myStmt.setString(4,periode);
 		myStmt.setString(5,typeAlim);	
 		myStmt.execute();
+		myStmt.close();
 		return Response.status(Status.OK).build();			
 
 	}
@@ -69,13 +63,12 @@ public class Consommation_REST {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("supprimer")
 	public Response DeleteConsommation(@QueryParam("aliment") int aliment,@QueryParam("journee") int journee,@QueryParam("type") String typeAlim) throws SQLException, ParseException {	
-
-		
 		CallableStatement myStmt =con.prepareCall("BEGIN delete_Consommation(?,?,?); END;");
 		myStmt.setInt(1,aliment);
 		myStmt.setInt(2,journee);
 		myStmt.setString(3,typeAlim);	
 		myStmt.execute();
+		myStmt.close();
 		return Response.status(Status.OK).build();			
 
 	}

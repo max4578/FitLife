@@ -35,6 +35,7 @@ public class ServletJournee extends HttpServlet {
 	private String msgListeConsommationVide = "Aucun aliment consommé aujourd'hui";
 	private double calorie;
 	private Journee journee;
+	private String numSeance;
 
 	HttpSession session;
 	Utilisateur user;
@@ -127,7 +128,19 @@ public class ServletJournee extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		numSeance = request.getParameter("numSeance");
+		System.out.println(numSeance);
+		
+		if(numSeance != null) {
+			// Retirer la séance de la liste
+			listSeance.remove(Integer.parseInt(numSeance));
+			//	Retirer la séance de la journée //
+			//journee.AppelRetirerSeance();
+		}
+		
+
+		
 		doGet(request, response);
 	}
 

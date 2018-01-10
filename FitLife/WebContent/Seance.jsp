@@ -23,7 +23,9 @@
 		</table>
     </div>
 	<div class="form-group">
-		<button type="submit" class="btn btn-default" onclick=window.location.href="/FitLife/ModifierSeance?idSeance=${ seance.id }">Modifier</button>
+		<form method="get" action="ModifierSeance">
+			<button type="submit" class="btn btn-default" name="idSeance" value="${ seance.id }">Modifier</button>
+		</form>
 		<input type=button onclick="history.go(-1)" value="Retour" class="btn btn-default"/>
 	</div>
 </div>

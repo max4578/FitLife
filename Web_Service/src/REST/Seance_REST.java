@@ -2,13 +2,10 @@ package REST;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.LinkedList;
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.GET;
@@ -19,7 +16,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
 import Singleton.Connexion;
 import model.Exercice;
 import model.Seance;
@@ -43,7 +39,8 @@ public class Seance_REST {
 		while (rs.next()) {
 		    seance=new Seance(rs.getInt(1),new LinkedList<Exercice>(),rs.getString(2),rs.getDate(3));
 		}
-		
+		myStmt.close();
+		rs.close();
 		return Response.status(Status.OK).entity(seance).build();
 	}
 	
@@ -58,6 +55,7 @@ public class Seance_REST {
 		myStmt.setInt(1,idUser);
 		myStmt.setString(2,nom);
 		myStmt.execute();
+		myStmt.close();
 		return Response.status(Status.OK).build();			
 
 	}
@@ -72,6 +70,7 @@ public class Seance_REST {
 		myStmt.setInt(2,idS);
 		myStmt.setInt(3,repet);
 		myStmt.execute();
+		myStmt.close();
 		return Response.status(Status.OK).build();			
 
 	}
@@ -87,8 +86,8 @@ public class Seance_REST {
 		CallableStatement myStmt =con.prepareCall("BEGIN update_Seance(?,?); END;");
 		myStmt.setInt(1,idSeance);
 		myStmt.setString(2,nom);
-		
 		myStmt.execute();
+		myStmt.close();
 		return Response.status(Status.OK).build();			
 
 	}
@@ -104,6 +103,7 @@ public class Seance_REST {
 		CallableStatement myStmt =con.prepareCall("BEGIN delete_Seance(?); END;");
 		myStmt.setInt(1,idSeance);		
 		myStmt.execute();
+		myStmt.close();
 		return Response.status(Status.OK).build();			
 
 	}

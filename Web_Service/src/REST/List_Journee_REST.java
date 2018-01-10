@@ -45,6 +45,8 @@ public class List_Journee_REST {
 			j.setListSeance(List_Seance_REST.getList(j.getId()));
 			j.setListConsom(List_Consommation_REST.getList(j.getId()));
 		}
+		myStmt.close();
+		rs.close();
 		List_Journee list= new List_Journee(ljournee);
 		return Response.status(Status.OK).entity(list).build();
 	}
@@ -71,6 +73,8 @@ public class List_Journee_REST {
 			j.setListSeance(List_Seance_REST.getList(j.getId()));
 			j.setListConsom(List_Consommation_REST.getList(j.getId()));
 		}
+		myStmt.close();
+		rs.close();
 		List_Journee list= new List_Journee(ljournee);
 		return Response.status(Status.OK).entity(list).build();
 	}

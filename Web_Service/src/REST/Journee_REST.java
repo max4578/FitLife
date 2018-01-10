@@ -2,13 +2,10 @@ package REST;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.LinkedList;
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,12 +16,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
 import Singleton.Connexion;
 import model.Consommation;
-import model.Exercice;
 import model.Journee;
-import model.List_Consommation;
 import model.Seance;
 import oracle.jdbc.OracleTypes;
 
@@ -47,7 +41,8 @@ public class Journee_REST {
 			java.util.Date newDate = rs.getTimestamp(2);
 		    journee=new Journee(rs.getInt(1),newDate,new LinkedList<Seance>(),new LinkedList<Consommation>());
 		}
-		
+		myStmt.close();
+		rs.close();
 		return Response.status(Status.OK).entity(journee).build();
 	}
 	
@@ -71,7 +66,8 @@ public class Journee_REST {
 	
 		journee.setListSeance(List_Seance_REST.getList(journee.getId()));
 		journee.setListConsom(List_Consommation_REST.getList(journee.getId()));
-	
+		myStmt.close();
+		rs.close();
 		return Response.status(Status.OK).entity(journee).build();		
 				
 
@@ -97,10 +93,14 @@ public class Journee_REST {
 			CallableStatement myStmt2 =con.prepareCall("BEGIN create_journee(?); END;");
 			myStmt2.setInt(1,idU);
 			myStmt2.execute();
+			myStmt.close();
+			rs.close();
+			myStmt2.close();
 			return Response.status(Status.OK).build();
 		}else
 			return Response.status(Status.OK).build();			
 
+		
 	}
 	
 	@POST

@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+
 
 
 
@@ -26,9 +24,8 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 import Singleton.Connexion;
-import model.Aliment;
-import model.Aliment_Admin;
-import model.Aliment_Utilisateur;
+
+
 
 
 

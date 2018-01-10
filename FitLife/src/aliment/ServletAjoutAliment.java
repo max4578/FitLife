@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Aliment_Utilisateur;
+import model.Aliment;
 import model.Utilisateur;
 
 /**
@@ -67,9 +67,8 @@ public class ServletAjoutAliment extends HttpServlet {
 		String proteine = request.getParameter(CHAMP_PROTEINE);
 		String quantite = request.getParameter(CHAMP_QUANTITE);
 		
-		Aliment_Utilisateur aliment = new Aliment_Utilisateur(nomAliment,Double.parseDouble(calorie), Double.parseDouble(lipide), Double.parseDouble(acideG), Double.parseDouble(glucide), Double.parseDouble(sucre), Double.parseDouble(proteine), Double.parseDouble(quantite));
+		Aliment aliment = new Aliment(nomAliment,Double.parseDouble(calorie), Double.parseDouble(lipide), Double.parseDouble(acideG), Double.parseDouble(glucide), Double.parseDouble(sucre), Double.parseDouble(proteine), Double.parseDouble(quantite));
 		Utilisateur u=(Utilisateur) session.getAttribute("utilisateur");
-		System.out.println(u.getId());
 		u.AppelAjoutAliment(aliment);
 		this.getServletContext().getRequestDispatcher("/MesAliments").forward(request, response);
 	}

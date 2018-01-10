@@ -9,7 +9,7 @@
 <div class="container">
 	<div class="table-responsive">
 		<!--  Liste des séances du joueur identifié -->
-		<form method="get" action="Seance">
+		<form method="post" action="Seances">
 			<table class="table table-bordered">
 				<caption>Liste des séances</caption>
 				<thead class="thead-dark">
@@ -21,8 +21,8 @@
 				</thead>
 				<c:forEach items="${listeSeance}" var="item" varStatus="loop">
 					<tr>
-						<td><c:out value="${item.nom}" /></td>
-						<td><button class="btn btn-default" onclick=window.location.href="/FitLife/SupprimerSeance?seance=${loop.index}">Supprimer</button></td>
+						<td><c:out value="${ item.nom }" /></td>
+						<td><button type="submit" class="btn btn-default" name="idSeance" value="${ item.id }">Supprimer</button></td>
 						<td><button type="submit" class="btn btn-default" name="seance" value="${loop.index}">Voir</button></td>
 					</tr>
 				</c:forEach>
@@ -31,7 +31,6 @@
 	</div>
 	<div class="form-group">
 		<input type="button" onclick=window.location.href='/FitLife/CreerSeance' value="Créer une nouvelle séance" class="btn btn-default" >
-		<input type=button onclick="history.go(-1)" value="Annuler" class="btn btn-default"/>
 	</div>
 </div>
 <%@ include file="Footer.jsp" %>

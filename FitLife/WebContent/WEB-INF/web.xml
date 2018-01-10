@@ -3,11 +3,7 @@
   <display-name>FitLife</display-name>
   <welcome-file-list>
     <welcome-file>Accueil.jsp</welcome-file>
-    <welcome-file>Journee.jsp</welcome-file>
-    <welcome-file>MesJournee.jsp</welcome-file>
-    <welcome-file>Seances.jsp</welcome-file>
-    <welcome-file>Profil.jsp</welcome-file>
-    <welcome-file>Compte.jsp</welcome-file>
+
   </welcome-file-list>
   
    <servlet>

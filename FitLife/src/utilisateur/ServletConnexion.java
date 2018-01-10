@@ -1,26 +1,18 @@
 package utilisateur;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import model.Aliment;
-import model.Aliment_Admin;
-import model.Aliment_Utilisateur;
 import model.Consommation;
-import model.Exercice;
 import model.Journee;
-import model.List_Aliment;
 import model.List_Journee;
-import model.Seance;
 import model.Utilisateur;
 
 /**
@@ -91,17 +83,22 @@ public class ServletConnexion extends HttpServlet {
         if(erreurs.isEmpty()) {
         	/* créer la session */
         	Utilisateur u =  new Utilisateur();
-        	if(u.connexion(email, motDePasse)) {
-        		List_Journee j= new List_Journee();
-        		j.FindList_journee_user(u.getId());
-        		session.setAttribute("journee_user", j.getList_journee());
-        		session.setAttribute("utilisateur", u);
-        		this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
-        	}
-        	else 
-        	{
-        		erreurs.put("login", "Combinaison login/password incorrect");
-        	}
+        	try {
+				if(u.connexion(email, motDePasse)) {
+					List_Journee j= new List_Journee();
+					j.FindList_journee_user(u.getId());
+					session.setAttribute("journee_user", j.getList_journee());
+					session.setAttribute("utilisateur", u);
+					this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
+				}
+				else 
+				{
+					erreurs.put("login", "Combinaison login/password incorrect");
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	
 
         }else {

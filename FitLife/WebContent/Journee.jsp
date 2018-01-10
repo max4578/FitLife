@@ -47,24 +47,28 @@
 		</table>
 	</div>
 	<div class="table-responsive">
+	<form method="post" action="Journee">
 		<table class="table table-bordered">
 			<caption>Séance sportive</caption>
 			<c:forEach items="${ ListeSeance }" var="seance" varStatus="loop">
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col" class="table-primary"><c:out value="${ seance.nom }"></c:out></th>
+					
+					<th scope="col" class="table-primary">
+						<button type="submit" name="numSeance" value="${ loop.index }" class="btn btn-danger" >Supprimer la séance</button>
+					</th>
+					
 				</tr>
 			</thead>
 				<c:forEach items="${ seance.list_exercice }" var="exercice" varStatus="loop">
 					<tr>
 						<td><c:out value="${ exercice.nom }"></c:out></td>
-						<form method="post" action="Journee">
-							<td><button type="submit" name="numExercice" value="${ loop.index }" class="btn btn-success">Valider</button></td>
-						</form>
 					</tr>
 				</c:forEach>
 			</c:forEach>		
 		</table>
+	</form>
 		<p><c:out value="${ ListeSeanceVide }"></c:out></p>
 		<input type="button" onclick=window.location.href='/FitLife/AjouterSeance' value="Ajouter une séance" class="btn btn-default" >
 	</div>
@@ -85,7 +89,7 @@
 			</c:forEach>		
 		</table>
 		<p><c:out value="${ ListeConsommationVide }"></c:out></p>
-		<input type="button" onclick=window.location.href='/FitLife/AjoutAliment' value="Ajouter une consommation" class="btn btn-default">
+		<input type="button" onclick=window.location.href='/FitLife/MesAliments' value="Ajouter une consommation" class="btn btn-default">
 	</div>
 </div>
 <%@ include file="Footer.jsp" %>

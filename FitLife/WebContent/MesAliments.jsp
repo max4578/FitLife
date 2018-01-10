@@ -42,14 +42,19 @@
 						<button class="btn btn-default" name="id" value="${item.id}">Modifier</button>
 						</form>
 						</td>
-						<td><form method="get" action="SupprimerAliment">
+						<td>
+						<form method="get" action="SupprimerAliment">
 						<input type="hidden" value="${item.id}" name="id">
 						<button class="btn btn-default" name="id" value="${item.id}">Suppression</button>
 						</form>
 						</td>
-					
+						<td>
+						<form method="get" action="Consommation">
+						<input type="hidden" value="${item.id}" name="id">
+						<button class="btn btn-default" name="id" value="${item.id}">Ajouter à la journée</button>
+						</form>
+						</td>
 						
-						<!-- <td><button type="submit" class="btn btn-default" name="seance" value="${loop.index}">Voir</button></td>  -->
 					</tr>
 				</c:forEach>
 			
@@ -59,7 +64,7 @@
 	</div>
 	<div class="form-group">
 		<input type="button" onclick=window.location.href='/FitLife/AjoutAliment' value="Ajouter un nouvel aliment" class="btn btn-default" >
-		<input type=button onclick="history.go(-1)" value="Annuler" class="btn btn-default"/>
+		<input type=button onclick=window.location.href='/FitLife/Journee' value="Annuler" class="btn btn-default"/>
 	</div>
 </div>
 <%@ include file="Footer.jsp" %>

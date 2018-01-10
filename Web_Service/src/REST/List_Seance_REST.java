@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,10 +14,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
 import Singleton.Connexion;
 import model.Exercice;
-import model.List_Exercice;
 import model.List_Seance;
 import model.Seance;
 import oracle.jdbc.OracleTypes;
@@ -45,7 +42,8 @@ public class List_Seance_REST {
 		for(Seance s:lseance) {
 			s.setList_exercice(List_Exercice_REST.getList_seance(s.getId()));
 		}
-		
+		myStmt.close();
+		rs.close();
 		List_Seance list= new List_Seance(lseance);
 		return Response.status(Status.OK).entity(list).build();
 	}
@@ -72,7 +70,8 @@ public class List_Seance_REST {
 		for(Seance s:lseance) {
 			s.setList_exercice(List_Exercice_REST.getList_seance(s.getId()));
 		}
-		
+		myStmt.close();
+		rs.close();
 		List_Seance list= new List_Seance(lseance);
 		return Response.status(Status.OK).entity(list).build();
 	}
@@ -94,7 +93,8 @@ public class List_Seance_REST {
 		for(Seance s:lseance) {
 			s.setList_exercice(List_Exercice_REST.getList_seance(s.getId()));
 		}
-		
+		myStmt.close();
+		rs.close();
 		return lseance;
 	}
 }

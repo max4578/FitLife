@@ -45,7 +45,7 @@ public class ServletMesAliments extends HttpServlet {
 		}
 		user = (Utilisateur) session.getAttribute("utilisateur");
 		listeAlim= new List_Aliment();
-		listeAlim.getList_Perso(user.getId());
+		listeAlim.getList(user.getId());
 		liste=listeAlim.getList_aliment();
 		for(Aliment a: liste)
 			System.out.println(a.getId());

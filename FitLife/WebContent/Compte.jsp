@@ -17,13 +17,13 @@
 	<label>Prenom : </label> <c:out value="${ user.prenom }"></c:out>
 	</div>
 	<div class="form-group">
-	<label>sexe : </label> <c:out value="${ user.sexe }"></c:out>
+	<label>sexe : </label> <c:out value="${ sexe }"></c:out>
 	</div>
 	<div class="form-group">
-	<label>Date de naissance : </label> <c:out value="${ user.dateNaissance }"></c:out>
+	<label>Date de naissance : </label> <c:out value="${ dateNaissance }"></c:out>
 	</div>
 	<div class="form-group">
-	<label>Taille : </label> <c:out value="${ user.taille }"></c:out>
+	<label>Taille : </label> <c:out value="${ user.taille/100 }"></c:out><span> m</span>
 	</div>
      <input type=button onclick=window.location.href='/FitLife/ModifierCompte' value="Modifier le compte" class="btn btn-default"/>
 </div>

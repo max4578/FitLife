@@ -22,44 +22,22 @@ import model.Utilisateur;
 public class ServletSeance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/Seance.jsp";
-	private List_Seance listeSeances;
-	private List <Seance> mesSeances  = new LinkedList<>();
 	private Seance maSeance = new Seance();
-	private int numeroSeance;
 	private HttpSession session;
-	private Utilisateur user;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletSeance() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/////	Récupération de la session en cours pour récupérer la séance	/////
 		session=request.getSession();
-		if(session.isNew()) {
-			session.invalidate();
-			session=request.getSession();
-		}
-		user = (Utilisateur) session.getAttribute("utilisateur");
-		numeroSeance = Integer.parseInt(request.getParameter("seance"));
-		listeSeances = new List_Seance();
-		mesSeances = listeSeances.getSeance(user.getId());
-		maSeance =(Seance) mesSeances.get(numeroSeance);
-		session.setAttribute("seance",maSeance);
+		maSeance = (Seance) session.getAttribute("seance");
+		
+		/////	Envoie l'objet séance vers la vue	///// 
 		request.setAttribute("seance", maSeance );
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
-
 }

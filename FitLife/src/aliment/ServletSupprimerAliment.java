@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Aliment;
-import model.Aliment_Utilisateur;
+
 
 /**
  * Servlet implementation class SupprimerAliment
@@ -44,11 +44,11 @@ public class ServletSupprimerAliment extends HttpServlet {
 			session.invalidate();
 			session=request.getSession();
 		}
-		LinkedList<Aliment_Utilisateur> liste_alim= new LinkedList<Aliment_Utilisateur>();
-		liste_alim=(LinkedList<Aliment_Utilisateur>) session.getAttribute("listeAlim");
+		LinkedList<Aliment> liste_alim= new LinkedList<Aliment>();
+		liste_alim=(LinkedList<Aliment>) session.getAttribute("listeAlim");
 		int id= Integer.parseInt(request.getParameter("id"));
-		Aliment_Utilisateur alim=null;
-		for(Aliment_Utilisateur a : liste_alim)
+		Aliment alim=null;
+		for(Aliment a : liste_alim)
 			if(a.getId()==id)
 				alim=a;
 		alim.SupprimerAliment();

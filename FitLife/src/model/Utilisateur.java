@@ -3,28 +3,15 @@ package model;
 import java.util.Date;
 
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.core.Response.Status;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-
+import org.json.JSONObject;
 import webservice.Web_Service;
-
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.StringReader;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -230,31 +217,33 @@ public class Utilisateur extends Personne{
     	besoin_glucide = metabolisme - besoin_proteine - besoin_lipide;
     }
     
-    public Boolean connexion(String email , String pass) {
-		   String xmlAnswer = Web_Service.getService()
-				   		.path("utilisateur/"+email+"/"+pass)
-						.accept(MediaType.TEXT_XML)
-						.get(String.class);
+    public Boolean connexion(String email , String pass) throws ParseException {
+		   String JSONAnswer = Web_Service.getService()
+				   		.path("utilisateur/get_user")
+				   		.queryParam("login",email)
+				   		.queryParam("pass",pass)
+						.accept(MediaType.APPLICATION_JSON)
+						.post(String.class);
 
 		   /*Conversiondu XML en classe mappée*/
 			try {
-				   JAXBContext jaxbContext = JAXBContext.newInstance(Utilisateur.class);
-				   Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-				   StringReader reader = new StringReader(xmlAnswer);
-				   Utilisateur u = (Utilisateur) unmarshaller.unmarshal(reader);
-				   setId(u.getId());
-				   setNom(u.getNom());
-				   setPrenom(u.getPrenom());
-				   setEmail(u.getEmail());
-				   setPassword(u.getPassword());
-				   sexe=u.getSexe();
-				   dateNaissance=u.getDateNaissance();
-				   poids=u.getPoids();
-				   taille=u.getTaille();
-				   calculIMC();
-				   calculerMetabolisme();
-			} catch (JAXBException e1) {
-				return false;
+				 JSONObject o= new JSONObject(JSONAnswer);
+				 setId(o.getInt("idutilisateur"));
+				 setNom(o.getString("nom"));
+				 setPrenom(o.getString("prenom"));
+				 setEmail(o.getString("email"));
+				 setPassword(o.getString("mdp"));
+				 sexe=o.getString("sexe");
+				 String s = o.getString("datenaissance");
+				 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S");
+				 Date d = sdf.parse(s);
+				 dateNaissance=d;
+				 poids=o.getDouble("poids");
+				 taille=o.getDouble("taille");
+				 calculIMC();
+				 //calculerMetabolisme();
+		/*	} catch (JAXBException e1) {
+				return false;*/
 			}	catch (NullPointerException e){
 				return false;
 			}
@@ -262,7 +251,7 @@ public class Utilisateur extends Personne{
     }
     
     
-    public Boolean AppelAjoutAliment(Aliment_Utilisateur alim) throws IOException {
+    public Boolean AppelAjoutAliment(Aliment alim) throws IOException {
     	System.out.println(getId());
     	return alim.AjouterAliment(getId());
     }

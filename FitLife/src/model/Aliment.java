@@ -1,9 +1,13 @@
 package model;
 
 
+import java.io.IOException;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import webservice.Web_Service;
 
 
 
@@ -135,9 +139,48 @@ public class Aliment {
 	}
 	
 	
-	
-	public Boolean ajoutAliment() {
-		return true;
+
+	public Boolean AjouterAliment(int idUser) throws IOException {
+		
+		   String reponse = Web_Service.getService()
+			   		.path("aliment/ajout")
+			   		.queryParam("nom", getNom())
+			   		.queryParam("calorie", getCalorie()+"")
+			   		.queryParam("lipide",getLipide()+"")
+			   		.queryParam("acideG", getAcideG()+"")
+			   		.queryParam("glucide", getGlucide()+"")
+			   		.queryParam("sucre", getSucre()+"")
+			   		.queryParam("proteine",getProteine()+"")
+			   		.queryParam("qtt",getQuantiteType()+"")
+			   		.queryParam("idUser",idUser+"")
+					.post(String.class);
+	return reponse.equals("OK");			
+		
 	}
+	
+	public Boolean ModifierAliment() {
+		  String reponse = Web_Service.getService()
+			   		.path("aliment/modification")
+			   		.queryParam("nom", getNom())
+			   		.queryParam("calorie", getCalorie()+"")
+			   		.queryParam("lipide",getLipide()+"")
+			   		.queryParam("acideG", getAcideG()+"")
+			   		.queryParam("glucide", getGlucide()+"")
+			   		.queryParam("sucre", getSucre()+"")
+			   		.queryParam("proteine",getProteine()+"")
+			   		.queryParam("qtt",getQuantiteType()+"")
+			   		.queryParam("idAlim",getId()+"")
+					.post(String.class);
+	return reponse.equals("OK");			
+		
+	}
+	
+	public Boolean SupprimerAliment() {
+		 String reponse = Web_Service.getService()
+			   		.path("aliment/supprimer")
+			   		.queryParam("idAlim",getId()+"")
+					.post(String.class);
+	return reponse.equals("OK");	
+}
 	
 }
