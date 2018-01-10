@@ -45,20 +45,17 @@ public class ServletSeances extends HttpServlet {
 		/////	Récupération des paramètres de la vue	/////
 		idSeance = request.getParameter("idSeance");
 		numSeance = request.getParameter("seance");
-		System.out.println("ID de la seance a supprimer" + idSeance);
-		System.out.println("le numero de la seance a visionner " + numSeance);
 
 		if(idSeance != null) {
 		/////	Je retire la séance	/////
 			seance = new Seance();
 			seance.setId(Integer.parseInt(idSeance));
-			seance.RetirerSeance();
+			seance.SupprimerSeance();
 			doGet(request, response);
 		}else if(numSeance != null){
 		/////	Je vais voir la seance	/////
 			seance = new Seance();
 			seance = listeSeances.getSeance(user.getId()).get(Integer.parseInt(numSeance));
-			System.out.println(seance.getNom());
 			session.setAttribute("seance", seance);
 			response.sendRedirect( "/FitLife" + VUE2 );
 		}else {

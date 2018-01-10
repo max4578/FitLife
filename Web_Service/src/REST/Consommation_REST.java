@@ -25,7 +25,7 @@ public class Consommation_REST {
 			@QueryParam("periode") String periode) throws SQLException, ParseException {	
 
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN create_Consommation(?,?,?,?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN gestion_aliment.create_Consommation(?,?,?,?); END;");
 		myStmt.setInt(1,aliment);
 		myStmt.setInt(2,journee);
 		myStmt.setDouble(3,qtt);	
@@ -44,7 +44,7 @@ public class Consommation_REST {
 			@QueryParam("periode") String periode) throws SQLException, ParseException {	
 
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN update_Consommation(?,?,?,?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN gestion_aliment.update_Consommation(?,?,?,?); END;");
 		myStmt.setInt(1,aliment);
 		myStmt.setInt(2,journee);
 		myStmt.setDouble(3,qtt);	
@@ -61,7 +61,7 @@ public class Consommation_REST {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("supprimer")
 	public Response DeleteConsommation(@QueryParam("aliment") int aliment,@QueryParam("journee") int journee) throws SQLException, ParseException {	
-		CallableStatement myStmt =con.prepareCall("BEGIN delete_Consommation(?,?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN gestion_aliment.delete_Consommation(?,?); END;");
 		myStmt.setInt(1,aliment);
 		myStmt.setInt(2,journee);
 		myStmt.execute();

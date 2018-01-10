@@ -93,6 +93,22 @@ public class Seance_REST {
 	}
 	
 	
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Path("retirer")
+	public Response RetirerSeance_journee(@QueryParam("idSeance") int idSeance,@QueryParam("idJournee") int idJ) throws SQLException, ParseException {	
+
+		
+		CallableStatement myStmt =con.prepareCall("BEGIN gestion_seance.retirer_Seance(?,?); END;");
+		myStmt.setInt(1,idSeance);		
+		myStmt.setInt(2,idJ);
+		myStmt.execute();
+		myStmt.close();
+		return Response.status(Status.OK).build();			
+
+	}
+
+	
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)

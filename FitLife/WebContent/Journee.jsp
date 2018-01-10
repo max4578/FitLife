@@ -79,12 +79,14 @@
 				<tr class="table-primary">
 					<th scope="col"> Nom de l'aliment </th>
 					<th scope="col"> Quantité </th>
+					<th scope="col"> Période de la journée </th>
 				</tr>
 			</thead>
 			<c:forEach items="${ ListeConsommation }" var="consommation" varStatus="loop">
 				<tr>
 					<td><c:out value="${ consommation.aliment.nom }"></c:out></td>
 					<td><c:out value="${ consommation.quantite }"></c:out><span> gr</span></td>
+					<td><c:out value="${ consommation.periode }"></c:out></td>
 				</tr>
 			</c:forEach>		
 		</table>

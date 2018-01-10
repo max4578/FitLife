@@ -28,7 +28,7 @@ public class List_Exercice_REST {
 		
 		LinkedList<Exercice> lex= new LinkedList<Exercice>();
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_all_exercice; END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_exercice.get_all_exercice; END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.execute();
 		ResultSet rs = (ResultSet) myStmt.getObject(1);
@@ -46,7 +46,7 @@ public class List_Exercice_REST {
 	public static List<Exercice> getList_seance(int id) throws SQLException {
 		LinkedList<Exercice> lex= new LinkedList<Exercice>();
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_all_exercice_seance(?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_exercice.get_all_exercice_seance(?); END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.setInt(2, id);
 		myStmt.execute();

@@ -9,7 +9,7 @@
 	<div class="container">
 		<div class="table-responsive">
 		<!--  Aliment à ajouter -->
-	
+		<form method="post" action="Consommation">
 			<table class="table table-bordered">
 				<caption>Aliment</caption>
 				<thead class="thead-dark">
@@ -20,22 +20,24 @@
 					</tr>
 				</thead>
 				<tr>
+					<td><c:out value="${ consommation.aliment.nom }" ></c:out></td>
+					<td><input type="number" min="0" name="quantite"><span> grammes</span></td>
 					<td>
-					<form method="post" action="Consommation">
-					<c:out value="${ consommation.aliment.nom }" ></c:out>
-					<input type="number" min="0" name="quantite">
-					<select id="periode">
+					<select id="periode" name="periode">
 					  <option value="Matin" selected>Matin</option> 
 					  <option value="Midi">Midi</option>
 					  <option value="Soir">Soir</option>
 					</select>
-					<input type="submit" class="btn btn-success" value="Valider">
-					</form>
+					</td>
+					<td>
+						<div class="form-group">
+							<input type="submit" class="btn btn-success" value="Valider">
+							<button onclick=window.location.href='/FitLife/AjoutAliment' class="btn btn-danger">Annuler</button>
+						</div>	
 					</td>
 				</tr>
 			</table>
-			<button onclick=window.location.href='/FitLife/AjoutAliment' class="btn btn-danger">Annuler</button>
-		
+		</form>
 	</div>
 	
 	</div>

@@ -31,7 +31,7 @@ public class Journee_REST {
 	@Path("{id}")
 	public Response getXml(@PathParam("id") int id) throws SQLException {	
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_journee(?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_journee.get_journee(?); END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.setInt(2, id);
 		myStmt.execute();
@@ -52,7 +52,7 @@ public class Journee_REST {
 	@Path("get_journee")
 	public Response Find_Journee(@QueryParam("idUser") int idU) throws SQLException, ParseException {	
 
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:=v_journee(?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_journee.get_journee(?); END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.setInt(2,idU);
 		myStmt.execute();
@@ -77,28 +77,12 @@ public class Journee_REST {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("ajout")
 	public Response Create_Journee(@QueryParam("idUser") int idU) throws SQLException, ParseException {	
-
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:=v_journee(?); END;");
-		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
-		myStmt.setInt(2,idU);
-		myStmt.execute();
-		ResultSet rs = (ResultSet) myStmt.getObject(1);
-		Journee journee=null;
-		while (rs.next()) {
-			java.util.Date newDate = rs.getTimestamp(2);
-			journee=new Journee(rs.getInt(1),newDate,new LinkedList<Seance>(),new LinkedList<Consommation>());
-		}
-		
-		if(journee==null) {
-			CallableStatement myStmt2 =con.prepareCall("BEGIN create_journee(?); END;");
-			myStmt2.setInt(1,idU);
-			myStmt2.execute();
-			myStmt.close();
-			rs.close();
-			myStmt2.close();
-			return Response.status(Status.OK).build();
-		}else
-			return Response.status(Status.OK).build();			
+	
+		CallableStatement myStmt2 =con.prepareCall("BEGIN gestion_journee.create_journee(?); END;");
+		myStmt2.setInt(1,idU);
+		myStmt2.execute();
+		myStmt2.close();
+		return Response.status(Status.OK).build();		
 
 		
 	}
@@ -109,7 +93,7 @@ public class Journee_REST {
 	public Response AddSeance(@QueryParam("idJournee") int idJ,@QueryParam("idSeance") int idS,@QueryParam("periode") String periode) throws SQLException, ParseException {	
 
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN add_Seance_journee(?,?,?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN gestion_journee.add_Seance_journee(?,?,?); END;");
 		myStmt.setInt(1,idJ);
 		myStmt.setInt(2,idS);
 		myStmt.setString(3, periode);

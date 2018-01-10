@@ -67,7 +67,6 @@ public class ServletAjouterSeance extends HttpServlet {
 		System.out.println(seance.getNom());
 		journee.AjouterSeance(seance, "matin");
 		session.setAttribute("journee", journee);
-		System.out.println(journee.getListSeance().size());
 		this.getServletContext().getRequestDispatcher(VUE2).forward(request, response);
 	}
 

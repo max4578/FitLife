@@ -100,7 +100,7 @@ public class Seance {
 		return reponse.equals("OK");	
 	}
 	
-	public boolean RetirerSeance() {
+	public boolean SupprimerSeance() {
 
 		   String reponse = Web_Service.getService()
 				   		.path("seance/supprimer")		
@@ -109,6 +109,16 @@ public class Seance {
 		return reponse.equals("OK");	
 	}
 
+	public boolean RetraitSeance(int idJ) {
+		
+		 String reponse = Web_Service.getService()
+			   		.path("seance/retirer")		
+			   		.queryParam("idSeance", id+"")
+			   		.queryParam("idJournee", idJ+"")
+					.post(String.class);
+	return reponse.equals("OK");	
+		
+	}
 	public boolean ModifierSeance() {
 
 		   String reponse = Web_Service.getService()

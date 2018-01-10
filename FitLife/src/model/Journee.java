@@ -187,10 +187,6 @@ public class Journee {
 
 
 	
-	public void AppelRetirerAliment() {
-		
-	}
-	
 	public boolean AjouterSeance(Seance s,String periode) {
 		listSeance.add(s);
 		String reponse = Web_Service.getService()
@@ -202,10 +198,17 @@ public class Journee {
 		return reponse.equals("OK");	
 	}
 	
+	
 	public String AfficherDateJour() {
 		String dateJour;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		dateJour = dateFormat.format(date);
 		return dateJour;
 	}
+	
+	
+	
+	public void AjoutConsommation(Consommation conso) {
+        listConsom.add(conso);
+    }
 }

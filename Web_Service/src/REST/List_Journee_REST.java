@@ -31,7 +31,7 @@ public class List_Journee_REST {
 		
 		LinkedList<Journee> ljournee= new LinkedList<Journee>();
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_all_journee; END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_journee.get_all_journee; END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.execute();
 		ResultSet rs = (ResultSet) myStmt.getObject(1);
@@ -58,7 +58,7 @@ public class List_Journee_REST {
 	public Response getJourneeUser(@QueryParam("idUser") int id) throws SQLException {
 		
 		LinkedList<Journee> ljournee= new LinkedList<Journee>();
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_journee_user(?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_journee.get_journee_user(?); END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.setInt(2,id);
 		myStmt.execute();

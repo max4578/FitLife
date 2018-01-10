@@ -25,7 +25,7 @@ public class Exercice_REST {
 	@Path("{id}")
 	public Response getXml(@PathParam("id") int id) throws SQLException {	
 		
-		CallableStatement myStmt =con.prepareCall("BEGIN ?:= get_exercice(?); END;");
+		CallableStatement myStmt =con.prepareCall("BEGIN ?:= gestion_exercice.get_exercice(?); END;");
 		myStmt.registerOutParameter(1, OracleTypes.CURSOR);
 		myStmt.setInt(2, id);
 		myStmt.execute();
