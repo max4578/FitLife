@@ -64,7 +64,6 @@ public class Consommation {
 				   		.queryParam("aliment", aliment.getId()+"")
 				   		.queryParam("journee",idJ+"").queryParam("qtt",quantite+"")
 				   		.queryParam("periode", periode)
-				   		.queryParam("type", aliment.getClass().getName())
 						.post(String.class);
 		return reponse.equals("OK");	
 	}

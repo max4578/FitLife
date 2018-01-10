@@ -38,19 +38,16 @@
 					
 						<td>
 						<form method="get" action="ModifierAliment">
-						<input type="hidden" value="${item.id}" name="id">
 						<button class="btn btn-default" name="id" value="${item.id}">Modifier</button>
 						</form>
 						</td>
 						<td>
 						<form method="get" action="SupprimerAliment">
-						<input type="hidden" value="${item.id}" name="id">
 						<button class="btn btn-default" name="id" value="${item.id}">Suppression</button>
 						</form>
 						</td>
 						<td>
 						<form method="get" action="Consommation">
-						<input type="hidden" value="${item.id}" name="id">
 						<button class="btn btn-default" name="id" value="${item.id}">Ajouter à la journée</button>
 						</form>
 						</td>

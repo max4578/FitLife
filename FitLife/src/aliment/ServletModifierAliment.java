@@ -17,6 +17,7 @@ import model.Utilisateur;
 public class ServletModifierAliment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	HttpSession session;
+	public static final String VUE = "/MesAliments";
 	public static final String CHAMP_NOM = "nomAliment";
 	public static final String CHAMP_CALORIE = "calorie";
 	public static final String CHAMP_LIPIDE = "lipide";
@@ -75,7 +76,7 @@ public class ServletModifierAliment extends HttpServlet {
 		
 		Aliment aliment = new Aliment(Integer.parseInt(id),nomAliment,Double.parseDouble(calorie), Double.parseDouble(lipide), Double.parseDouble(acideG), Double.parseDouble(glucide), Double.parseDouble(sucre), Double.parseDouble(proteine), Double.parseDouble(quantite));
 		aliment.ModifierAliment();
-		this.getServletContext().getRequestDispatcher( "/MesAliments" ).forward( request, response );
+		response.sendRedirect( "/FitLife" + VUE );
 	}
 
 }

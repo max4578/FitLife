@@ -70,7 +70,7 @@ public class ServletAjoutAliment extends HttpServlet {
 		Aliment aliment = new Aliment(nomAliment,Double.parseDouble(calorie), Double.parseDouble(lipide), Double.parseDouble(acideG), Double.parseDouble(glucide), Double.parseDouble(sucre), Double.parseDouble(proteine), Double.parseDouble(quantite));
 		Utilisateur u=(Utilisateur) session.getAttribute("utilisateur");
 		u.AppelAjoutAliment(aliment);
-		this.getServletContext().getRequestDispatcher("/MesAliments").forward(request, response);
+		response.sendRedirect( "/FitLife/MesAliments" );
 	}
 
 }

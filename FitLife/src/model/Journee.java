@@ -1,6 +1,7 @@
 package model;
 
 import java.io.StringReader;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -199,5 +200,12 @@ public class Journee {
 				   		.queryParam("periode",periode)
 						.post(String.class);
 		return reponse.equals("OK");	
+	}
+	
+	public String AfficherDateJour() {
+		String dateJour;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		dateJour = dateFormat.format(date);
+		return dateJour;
 	}
 }

@@ -52,7 +52,7 @@ public class ServletSupprimerAliment extends HttpServlet {
 			if(a.getId()==id)
 				alim=a;
 		alim.SupprimerAliment();
-		this.getServletContext().getRequestDispatcher( "/MesAliments" ).forward( request, response );
+		response.sendRedirect( "/FitLife/MesAliments" );
 		
 	}
 

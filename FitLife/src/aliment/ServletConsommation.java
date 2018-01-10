@@ -69,7 +69,7 @@ public class ServletConsommation extends HttpServlet {
 		quantite = Double.parseDouble(request.getParameter("quantite"));
 		periode = request.getParameter("periode");
 		
-		System.out.println(periode);
+		System.out.println("idj"+journee.getId());
 		
 		consommation.setPeriode(periode);
 		consommation.setQuantite(quantite);

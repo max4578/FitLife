@@ -1,6 +1,7 @@
 package journee;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -81,6 +82,7 @@ public class ServletJournee extends HttpServlet {
 		
 		/* Récupération des besoin journalier de l'utilisateur */
 		user= (Utilisateur) session.getAttribute("utilisateur");
+		user.calculerMetabolisme();
 		calorie = user.getMetabolisme();
 		if(listSeance.size() == 0) {
 			user.Besoin(calorie);
@@ -110,16 +112,16 @@ public class ServletJournee extends HttpServlet {
 		}
 		
 		/////////////////// Vers la vue ///////////////////////
-		//Besoin de l'utilisateur
-		request.setAttribute("calorie", calorie);
-		request.setAttribute("proteine", user.getBesoin_proteine());
-		request.setAttribute("lipide", user.getBesoin_lipide());
-		request.setAttribute("glucide", user.getBesoin_glucide());
-		//Consommation de la journée
-		request.setAttribute("calorieConsomme", journee.getCalorie_consom());
-		request.setAttribute("proteineConsommee", journee.getProteine_consom());
-		request.setAttribute("lipideConsomme", journee.getLipide_consom());
-		request.setAttribute("glucideConsomme", journee.getGlucide_consom());
+		   //Besoin de l'utilisateur
+        request.setAttribute("calorie", AffichageNombre(calorie));
+        request.setAttribute("proteine", AffichageNombre(user.getBesoin_proteine()));
+        request.setAttribute("lipide", AffichageNombre(user.getBesoin_lipide()));
+        request.setAttribute("glucide", AffichageNombre(user.getBesoin_glucide()));
+        //Consommation de la journée
+        request.setAttribute("calorieConsomme", AffichageNombre(journee.getCalorie_consom()));
+        request.setAttribute("proteineConsommee", AffichageNombre(journee.getProteine_consom()));
+        request.setAttribute("lipideConsomme", AffichageNombre(journee.getLipide_consom()));
+        request.setAttribute("glucideConsomme", AffichageNombre(journee.getGlucide_consom()));
 		
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
@@ -138,10 +140,15 @@ public class ServletJournee extends HttpServlet {
 			//	Retirer la séance de la journée //
 			//journee.AppelRetirerSeance();
 		}
-		
 
-		
 		doGet(request, response);
 	}
+	
+	public String AffichageNombre(double nbr) {
+        String nombre;
+        DecimalFormat format = new DecimalFormat("#######0.00");
+        format.setMaximumFractionDigits(2);
+        return nombre = format.format(nbr);
+    }
 
 }
