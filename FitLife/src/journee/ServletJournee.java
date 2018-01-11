@@ -34,8 +34,9 @@ public class ServletJournee extends HttpServlet {
 	private double calorie;
 	private Journee journee;
 	private String numSeance;
-
+	private String numAliment;
 	private Seance seance = new Seance();
+	private Consommation consommation= new Consommation();
 	HttpSession session;
 	Utilisateur user;
        
@@ -126,21 +127,26 @@ public class ServletJournee extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		numSeance = request.getParameter("numSeance");
-		System.out.println(numSeance);
-		
-		if(numSeance != null) {
-			seance = listSeance.get(Integer.parseInt(numSeance));
-			// Retirer la séance de la liste
-			listSeance.remove(Integer.parseInt(numSeance));
-			//	Retirer la séance de la journée //
-			System.out.println(seance.getNom());
-			seance.RetraitSeance(journee.getId());
-		}
+		numAliment = request.getParameter("numAliment");
+        numSeance = request.getParameter("numSeance");
 
-		doGet(request, response);
-	}
+        if(numSeance != null) {
+            seance = listSeance.get(Integer.parseInt(numSeance));
+            // Retirer la séance de la liste
+            listSeance.remove(Integer.parseInt(numSeance));
+            //    Retirer la séance de la journée //
+
+            seance.RetraitSeance(journee.getId());
+        }
+        if(numAliment != null) {
+            consommation = list_c.get(Integer.parseInt(numAliment));
+            consommation.RetirerConsom(journee.getId());
+        }
+
+        doGet(request, response);
+    }
+
+
 	
 	public String AffichageNombre(double nbr) { 
         DecimalFormat format = new DecimalFormat("#######0.00");

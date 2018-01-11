@@ -29,6 +29,7 @@ public class Web_Service {
 	
 	
 	  private static URI getBaseURI() {
+		 //si localhost est 8080 changer uri http://localhost:8080/Web_Service/rest/
 		  return UriBuilder.fromUri("http://localhost:9090/Web_Service/rest/").build();
 	}
 	

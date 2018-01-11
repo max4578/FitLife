@@ -73,7 +73,7 @@ public class Consommation {
 		   String reponse = Web_Service.getService()
 				   		.path("consommation/supprimer")
 				   		.queryParam("aliment", aliment.getId()+"")
-				   		.queryParam("journee",idJ+"").queryParam("type", aliment.getClass().getName())
+				   		.queryParam("journee",idJ+"")
 						.post(String.class);
 		return reponse.equals("OK");	
 	}

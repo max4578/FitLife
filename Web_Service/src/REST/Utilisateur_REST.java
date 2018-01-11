@@ -104,7 +104,7 @@ public class Utilisateur_REST {
 				res += ": \"" + resultSet.getObject(i + 1) + "\",\n";
 			}
 		} else
-			throw new Exception("Empty resultSet");
+			return null;
 
 		res = res.substring(0, res.length() - 2) + "\n}";
 

@@ -209,6 +209,8 @@ public class Utilisateur extends Personne{
 				   		.queryParam("pass",pass)
 						.accept(MediaType.APPLICATION_JSON)
 						.post(String.class);
+		   if(JSONAnswer==null || JSONAnswer.equals(""))
+			   return false;
 
 		   /*Conversiondu XML en classe mappée*/
 			try {
@@ -227,8 +229,6 @@ public class Utilisateur extends Personne{
 				 taille=o.getDouble("taille");
 				 calculIMC();
 				 calculerMetabolisme();
-		/*	} catch (JAXBException e1) {
-				return false;*/
 			}	catch (NullPointerException e){
 				return false;
 			}

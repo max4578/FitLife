@@ -26,6 +26,8 @@
          <br />
      </fieldset>
 </form>
+	<br>
+  <p><c:out value="${ error }"></c:out></p>
 </div>
 <%@ include file="Footer.jsp" %>
 </body>

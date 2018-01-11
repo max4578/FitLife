@@ -86,7 +86,8 @@ public class ServletConnexion extends HttpServlet {
 				else 
 				{
 					session.setAttribute("utilisateur", null);
-					erreurs.put("login", "Combinaison login/password incorrect");
+					request.setAttribute("error", "Combinaison login/password incorrect");
+					this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 				}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block

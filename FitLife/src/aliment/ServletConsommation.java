@@ -48,7 +48,6 @@ public class ServletConsommation extends HttpServlet {
 		
 		/////	Création de la liste d'aliment de l'utilisateur	/////
 		idAliment = request.getParameter("id");
-		System.out.println("id de l aliment a ajouter a la journee" + idAliment);
 		listeAliment = list_aliment.getList(user.getId());
 		/////	Récupération de l'aliment gràce à l'id	/////
 		for(Aliment a : listeAliment){
