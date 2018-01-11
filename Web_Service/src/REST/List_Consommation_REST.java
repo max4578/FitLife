@@ -21,6 +21,7 @@ import oracle.jdbc.OracleTypes;
 public class List_Consommation_REST {
 	static Connection con = Connexion.getInstance();
 	
+	/*Retourne la liste de consommation de la journée*/
 	@GET
 	@Produces(MediaType.TEXT_XML)
 	@Path("list_consommation")
@@ -44,6 +45,8 @@ public class List_Consommation_REST {
 		return Response.status(Status.OK).entity(list).build();
 	}
 
+	
+	/*Recupère une liste de consomamtion pour la journée*/
 	public static LinkedList<Consommation> getList(int id) throws SQLException {
 
 		LinkedList<Consommation> lcons= new LinkedList<Consommation>();

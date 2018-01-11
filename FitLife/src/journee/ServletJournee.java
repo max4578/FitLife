@@ -6,15 +6,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import model.Aliment;
 import model.Consommation;
 import model.Exercice;
 import model.Journee;
@@ -38,6 +35,7 @@ public class ServletJournee extends HttpServlet {
 	private Journee journee;
 	private String numSeance;
 
+	private Seance seance = new Seance();
 	HttpSession session;
 	Utilisateur user;
        
@@ -61,17 +59,15 @@ public class ServletJournee extends HttpServlet {
 		}
 		
 		user = (Utilisateur)session.getAttribute("utilisateur");
-		/* Création et ajout de la journée si elle n'est pas dans la session */
-		if(session.getAttribute("journee") == null) {
-			journee = new Journee();
-			journee.NouvelleJournee(user.getId());
-			session.setAttribute("journee", journee);
-		}
-		
+		/* Création et ajout de la journée */
+		journee = new Journee();
+		journee.NouvelleJournee(user.getId());
+		session.setAttribute("journee", journee);
+
 		/* Date du jour  */
 		LocalDate date = LocalDate.now();
-	    DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
-	    String jour = date.format(formatters);
+	    	DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
+	   	 String jour = date.format(formatters);
 		request.setAttribute(JOURNEE, jour);
 		
 		/* Récupérer la liste des séances */
@@ -135,20 +131,21 @@ public class ServletJournee extends HttpServlet {
 		System.out.println(numSeance);
 		
 		if(numSeance != null) {
+			seance = listSeance.get(Integer.parseInt(numSeance));
 			// Retirer la séance de la liste
 			listSeance.remove(Integer.parseInt(numSeance));
 			//	Retirer la séance de la journée //
-			//journee.AppelRetirerSeance();
+			System.out.println(seance.getNom());
+			seance.RetraitSeance(journee.getId());
 		}
 
 		doGet(request, response);
 	}
 	
-	public String AffichageNombre(double nbr) {
-        String nombre;
+	public String AffichageNombre(double nbr) { 
         DecimalFormat format = new DecimalFormat("#######0.00");
         format.setMaximumFractionDigits(2);
-        return nombre = format.format(nbr);
+        return format.format(nbr);
     }
 
 }

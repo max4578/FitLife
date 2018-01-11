@@ -27,6 +27,7 @@ public class ServletAccueil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		this.getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request, response);
 	}
 

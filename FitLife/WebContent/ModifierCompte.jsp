@@ -10,11 +10,9 @@
 	<form method="POST" action="ModifierCompte">
 	<fieldset>
          <legend>Compte</legend>
-         <p>Vous pouvez modifier votre compte via ce formulaire.</p>
-		 <div class="form-group">
-	         <label for="email">Adresse email</label>
-	         <input type="text" id="email" name="email" value="${user.email}" size="80" maxlength="50" placeholder="votre email / your email" />
-	         <span class="erreur">${erreurs['email']}</span>
+         
+         	 <div class="form-group">
+	         <input type="hidden" id="email" name="email" value="${user.email}" size="80" maxlength="50" placeholder="votre email / your email" />
          </div>
 		 <div class="form-group">
 	         <label for="motdepasse">Mot de passe</label>

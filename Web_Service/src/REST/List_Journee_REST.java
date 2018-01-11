@@ -25,6 +25,7 @@ import oracle.jdbc.OracleTypes;
 public class List_Journee_REST {
 	Connection con = Connexion.getInstance();
 
+	/*Récupère la liste des journées*/
 	@GET
 	@Produces(MediaType.TEXT_XML)
 	public Response getXml() throws SQLException {
@@ -52,6 +53,7 @@ public class List_Journee_REST {
 	}
 	
 	
+	/*Récupère la liste de journées de l' utilisateur*/
 	@POST
 	@Produces(MediaType.TEXT_XML)
 	@Path("journees_utilisateur")

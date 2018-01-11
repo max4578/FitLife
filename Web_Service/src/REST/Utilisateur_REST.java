@@ -3,24 +3,18 @@ package REST;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Date;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import Singleton.Connexion;
-import model.Utilisateur;
 import oracle.jdbc.OracleTypes;
 
 
@@ -28,6 +22,7 @@ import oracle.jdbc.OracleTypes;
 public class Utilisateur_REST {
 	Connection con = Connexion.getInstance();
 	
+	/*Création de l' utilisateur*/
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("ajout")
@@ -53,6 +48,7 @@ public class Utilisateur_REST {
 				return Response.status(Status.OK).entity("FOUND").build();
 		}			
 	
+	/*Modification de l' utilisateur*/
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -75,7 +71,7 @@ public class Utilisateur_REST {
 		return Response.status(Status.OK).build();
 	}
 	
-	
+	/*Retourne l' utilisateur en JSON*/
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("get_user")
@@ -87,8 +83,7 @@ public class Utilisateur_REST {
 		myStmt.setString(3, pass);
 		myStmt.execute();
 		ResultSet rs = (ResultSet) myStmt.getObject(1);
-		
-		Utilisateur user=null;
+
 		String JsonReturn=null;
 		JsonReturn= convertToJSON(rs);
 		myStmt.close();
@@ -96,7 +91,7 @@ public class Utilisateur_REST {
 		return Response.status(Status.OK).entity(JsonReturn).build();
 	}
 	
-	
+	/*Methode qui permet de generer un script JSON*/
 	public static String convertToJSON(ResultSet resultSet) throws Exception {
 
 		String res = "{\n";

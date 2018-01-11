@@ -20,6 +20,7 @@ public class Exercice_REST {
 
 	Connection con = Connexion.getInstance();
 
+	/*Récupère un exercice avec son ID passé dans l' URL*/
 	@GET
 	@Produces(MediaType.TEXT_XML)
 	@Path("{id}")

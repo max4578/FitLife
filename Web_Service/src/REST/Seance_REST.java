@@ -25,6 +25,7 @@ import oracle.jdbc.OracleTypes;
 public class Seance_REST {
 	Connection con = Connexion.getInstance();
 
+	/*Récupère la séance en fonction de son ID*/
 	@GET
 	@Produces(MediaType.TEXT_XML)
 	@Path("{id}")
@@ -45,6 +46,8 @@ public class Seance_REST {
 	}
 	
 	
+	/*Crée une seance pour un Utilisateur*/
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("ajout")
@@ -60,7 +63,7 @@ public class Seance_REST {
 
 	}
 	
-	
+	/*Ajoute un exercice a la séance*/
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("ajouter_exercice")
@@ -76,7 +79,7 @@ public class Seance_REST {
 	}
 	
 	
-	
+	/*Modifie la séance en fonction de son ID*/
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("modification")
@@ -92,7 +95,7 @@ public class Seance_REST {
 
 	}
 	
-	
+	/*Retire la séance d'une journée*/
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("retirer")
@@ -109,7 +112,7 @@ public class Seance_REST {
 	}
 
 	
-	
+	/*Supprime la séance*/
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("supprimer")

@@ -33,11 +33,13 @@ public class ServletConsommation extends HttpServlet {
 	private Utilisateur user;
 	private Journee journee;
 	private String idAliment;
+	String error="";
        
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("erreurConsom", request.getParameter("errorConsom"));
 		aliment = null;
 		/////	Récupération de la session	/////
 		session=request.getSession();
@@ -71,11 +73,18 @@ public class ServletConsommation extends HttpServlet {
 	
 		consommation.setPeriode(periode);
 		consommation.setQuantite(quantite);
-		consommation.AjouterConsom(journee.getId());
-		journee.AjoutConsommation(consommation);
-        session.setAttribute("journee", journee);
-
-		this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
+		if(consommation.AjouterConsom(journee.getId())){
+			journee.AjoutConsommation(consommation);
+	        session.setAttribute("journee", journee);
+	       
+			this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
+			
+		}else {
+			error="Erreur: Aliment deja present dans la journee a la meme periode";
+			request.setAttribute("errorConsom", error);
+			response.sendRedirect( "/FitLife/Consommation?id="+consommation.getAliment().getId()+"&errorConsom="+ error );
+	
+		}
 	}
 
 }

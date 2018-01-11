@@ -1,6 +1,7 @@
-package model;
+﻿package model;
 
 import java.io.StringReader;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -188,27 +189,41 @@ public class Journee {
 
 	
 	public boolean AjouterSeance(Seance s,String periode) {
-		listSeance.add(s);
 		String reponse = Web_Service.getService()
 				   		.path("journee/ajouter_seance")
 				   		.queryParam("idJournee",id+"")
 				   		.queryParam("idSeance", s.getId()+"")
 				   		.queryParam("periode",periode)
 						.post(String.class);
-		return reponse.equals("OK");	
+				if(reponse.equals("OK")) {
+					listSeance.add(s);
+					return 	true;
+				}else 
+					return false;
+
+				
 	}
 	
 	
-	public String AfficherDateJour() {
+	public String afficherDateJour() {
 		String dateJour;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		dateJour = dateFormat.format(date);
 		return dateJour;
 	}
 	
+
 	
 	
 	public void AjoutConsommation(Consommation conso) {
         listConsom.add(conso);
+
+
+    }
+
+	public String affichageConso(double nbr) {
+        DecimalFormat format = new DecimalFormat("#######0.00");
+        format.setMaximumFractionDigits(2);
+        return format.format(nbr);
     }
 }

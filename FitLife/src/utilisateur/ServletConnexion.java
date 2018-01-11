@@ -3,7 +3,6 @@ package utilisateur;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,14 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import model.Aliment;
-import model.Consommation;
-import model.Exercice;
-import model.Journee;
-import model.List_Aliment;
 import model.List_Journee;
-import model.Seance;
 import model.Utilisateur;
 
 /**
@@ -61,11 +53,6 @@ public class ServletConnexion extends HttpServlet {
 			session=request.getSession();
 		}
 
-		Journee jo= new Journee();
-		jo.NouvelleJournee(2);
-		for(Consommation c : jo.getListConsom())
-			System.out.println(c.getAliment().getNom());
-		
 		/* Récupération des champs du formulaire. */
         String email = request.getParameter( CHAMP_EMAIL );
         String motDePasse = request.getParameter( CHAMP_PASS );

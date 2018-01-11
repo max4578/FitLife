@@ -22,8 +22,11 @@ import oracle.jdbc.OracleTypes;
 
 @Path("aliment")
 public class Aliment_REST {
+	/*Creation de la connexion DB*/
 	Connection con = Connexion.getInstance();
 
+	
+	/*Récupère un aliment par son ID passé dans l' URL*/
 	@GET
 	@Produces(MediaType.TEXT_XML)
 	@Path("{id}")
@@ -41,9 +44,12 @@ public class Aliment_REST {
 		}
 		myStmt.close();
 		rs.close();
+		con.close();
 		return Response.status(Status.OK).entity(alim).build();
 	}
 	
+	
+	/*Ajoute un aliment avec ses informations passé dans la requète*/
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("ajout")
@@ -65,10 +71,11 @@ public class Aliment_REST {
 		myStmt.setInt(9,id);	
 		myStmt.execute();
 		myStmt.close();
+		con.close();
 		return Response.status(Status.OK).build();			
 	}
 	
-	
+	/*Modifie un aliment avec ses informations passé dans la requète*/
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("modification")
@@ -90,10 +97,11 @@ public class Aliment_REST {
 		myStmt.setInt(9,id);	
 		myStmt.execute();
 		myStmt.close();
+		con.close();
 		return Response.status(Status.OK).build();			
 	}
 	
-	
+	/*Supprime un aliment avec son ID passé dans la requète*/
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("supprimer")
@@ -102,6 +110,7 @@ public class Aliment_REST {
 		myStmt.setInt(1,id);	
 		myStmt.execute();
 		myStmt.close();
+		con.close();
 		return Response.status(Status.OK).build();			
 	}
 }

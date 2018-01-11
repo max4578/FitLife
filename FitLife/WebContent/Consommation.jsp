@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
 <%@ include file="Head.jsp" %>
@@ -32,15 +33,15 @@
 					<td>
 						<div class="form-group">
 							<input type="submit" class="btn btn-success" value="Valider">
-							<button onclick=window.location.href='/FitLife/AjoutAliment' class="btn btn-danger">Annuler</button>
 						</div>	
 					</td>
 				</tr>
 			</table>
 		</form>
-	</div>
-	
-	</div>
+		<p><c:out value="${ erreurConsom }" ></c:out></p>
+
+		<button onclick=window.location.href='/FitLife/MesAliments' class="btn btn-danger">Annuler</button>
+
 <%@ include file="Footer.jsp" %>
 </body>
 </html>

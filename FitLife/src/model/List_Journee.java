@@ -46,7 +46,6 @@ public class List_Journee {
 			   JAXBContext jaxbContext = JAXBContext.newInstance(List_Journee.class);
 			   Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			   StringReader reader = new StringReader(xmlAnswer);
-			   
 			   List_Journee lj = (List_Journee) unmarshaller.unmarshal(reader);
 			   list_journee=lj.getList_journee();
 			

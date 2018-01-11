@@ -3,15 +3,11 @@ package model;
 import java.util.Date;
 
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.json.JSONObject;
 import webservice.Web_Service;
 import java.io.IOException;
-import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -32,7 +28,7 @@ public class Utilisateur extends Personne{
 	private double besoin_proteine;
 	private double besoin_glucide;
 	private double metabolisme;
-	private String status;
+
 	
 	
 	
@@ -116,14 +112,6 @@ public class Utilisateur extends Personne{
 		this.metabolisme = metabolisme;
 	}
 	
-	@XmlElement
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
 	
 	/*Constructeur(s)*/
 	public Utilisateur() {
@@ -148,16 +136,15 @@ public class Utilisateur extends Personne{
 	
 
 	/* Définition des méthode */
-	public Boolean ModifierInfoCompte() throws IOException, ParseException {
+	public void ModifierInfoCompte() throws IOException, ParseException {
 
-		   String reponse = Web_Service.getService()
+		  Web_Service.getService()
 				   		.path("utilisateur/modifier").queryParam("nom", getNom())
 				   		.queryParam("prenom", getPrenom()).queryParam("email",getEmail())
 				   		.queryParam("password", getPassword()).queryParam("sexe", getSexe())
 				   		.queryParam("dateN", new SimpleDateFormat("yyyy/MM/dd").format(getDateNaissance()))
 				   		.queryParam("poids", poids+"").queryParam("taille",taille+"")
-						.post(String.class);
-		return true;			
+						.post(String.class);			
 	}
     
 	
@@ -173,9 +160,6 @@ public class Utilisateur extends Personne{
 		return reponse.equals("OK");			
 	}
 	
-	public Boolean modifierInfoPhysique() throws IOException {
-		return true;	
-	}
 	
 	/***
 	 * Calcul de l'IMC de l'utilisateur

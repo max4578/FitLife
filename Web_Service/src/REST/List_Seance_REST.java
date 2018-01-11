@@ -24,6 +24,7 @@ import oracle.jdbc.OracleTypes;
 public class List_Seance_REST {
 	static Connection con = Connexion.getInstance();
 
+	/*Récupère la liste des séances*/
 	@GET
 	@Produces(MediaType.TEXT_XML)
 	public Response getXml() throws SQLException {
@@ -49,7 +50,7 @@ public class List_Seance_REST {
 	}
 	
 	
-	
+	/*Récupère la liste des séances de l' utilisateur*/
 	@POST
 	@Produces(MediaType.TEXT_XML)
 	@Path("seance_user")
@@ -77,6 +78,7 @@ public class List_Seance_REST {
 	}
 	
 	
+	/*Récupère la liste des séances de la journée*/
 	public static List<Seance> getList(int id) throws SQLException {
 		
 		LinkedList<Seance> lseance= new LinkedList<Seance>();

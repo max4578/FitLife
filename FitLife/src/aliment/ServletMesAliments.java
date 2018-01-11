@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import model.Aliment;
 import model.List_Aliment;
-import model.List_Seance;
 import model.Utilisateur;
 
 /**

@@ -3,14 +3,11 @@ package seance;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import model.Journee;
 import model.List_Seance;
 import model.Seance;
@@ -29,6 +26,7 @@ public class ServletAjouterSeance extends HttpServlet {
 	private Seance seance = new Seance();
 	private Journee journee = new Journee();
 	private int indexSeance;
+	private String periode;
 	HttpSession session;
 	Utilisateur user;
        
@@ -62,12 +60,16 @@ public class ServletAjouterSeance extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/////	Récupération de l'index de la séance de la liste utilisateur	/////
 		indexSeance = Integer.parseInt(request.getParameter("numSeance"));
-		System.out.println(indexSeance);
+		periode = request.getParameter("periode");
 		seance = listeDesSeances.get(indexSeance);
-		System.out.println(seance.getNom());
-		journee.AjouterSeance(seance, "matin");
-		session.setAttribute("journee", journee);
-		this.getServletContext().getRequestDispatcher(VUE2).forward(request, response);
+		if(journee.AjouterSeance(seance, periode)) {
+			session.setAttribute("journee", journee);
+			response.sendRedirect("/FitLife"+VUE2);
+		}else
+		{
+			response.sendRedirect("/FitLife"+VUE2);
+		}
+		
 	}
 
 }

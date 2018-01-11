@@ -3,18 +3,14 @@ package seance;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import model.Exercice;
 import model.List_Exercice;
 import model.Seance;
-import model.Utilisateur;
 
 /**
  * Servlet implementation class ServletModifierSeance
@@ -23,7 +19,6 @@ import model.Utilisateur;
 public class ServletModifierSeance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/ModifierSeance.jsp";
-	private static final String VUE2 = "/Seances";
 	private Seance maSeance;
 	private List_Exercice liste;
 	private String nbrRep;

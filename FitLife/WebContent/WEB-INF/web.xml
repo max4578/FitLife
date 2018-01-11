@@ -193,4 +193,8 @@
     <servlet-name>ServletConnDB</servlet-name>
     <url-pattern>/Index</url-pattern>
   </servlet-mapping>
+  
+    <session-config>
+    <session-timeout>25</session-timeout> <!-- in minutes -->
+  </session-config>
 </web-app>

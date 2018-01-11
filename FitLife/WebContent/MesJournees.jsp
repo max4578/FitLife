@@ -22,11 +22,11 @@
 			<tr>
 				<c:forEach items="${ listeJournee }" var="journee" varStatus="loop">
 				<tr>
-					<td><c:out value="${ journee.date }"></c:out></td>
-					<td><c:out value="${ journee.calorie_consom }"></c:out></td>
-					<td><c:out value="${ journee.proteine_consom }"></c:out></td>
-					<td><c:out value="${ journee.lipide_consom }"></c:out></td>
-					<td><c:out value="${ journee.glucide_consom }"></c:out></td>
+					<td><c:out value="${ journee.afficherDateJour() }"></c:out></td>
+					<td><c:out value="${ journee.affichageConso(journee.calorie_consom) }"></c:out><span> kcal</span></td>
+					<td><c:out value="${ journee.affichageConso(journee.proteine_consom) }"></c:out><span> gr</span></td>
+					<td><c:out value="${ journee.affichageConso(journee.lipide_consom) }"></c:out><span> gr</span></td>
+					<td><c:out value="${ journee.affichageConso(journee.glucide_consom) }"></c:out><span> gr</span></td>
 				</tr>
 				</c:forEach>
 			</tr>

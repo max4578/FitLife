@@ -54,7 +54,6 @@
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col" class="table-primary"><c:out value="${ seance.nom }"></c:out></th>
-					
 					<th scope="col" class="table-primary">
 						<button type="submit" name="numSeance" value="${ loop.index }" class="btn btn-danger" >Supprimer la séance</button>
 					</th>
