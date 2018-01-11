@@ -90,7 +90,7 @@ public class List_Seance_REST {
 		ResultSet rs = (ResultSet) myStmt.getObject(1);
 
 		while (rs.next()) {
-		    lseance.add(new Seance(rs.getInt(1),new LinkedList<Exercice>(),rs.getString(2),rs.getDate(3)));
+		    lseance.add(new Seance(rs.getInt(1),new LinkedList<Exercice>(),rs.getString(2),rs.getDate(3),rs.getString(5)));
 		}
 		for(Seance s:lseance) {
 			s.setList_exercice(List_Exercice_REST.getList_seance(s.getId()));

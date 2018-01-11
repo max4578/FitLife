@@ -41,7 +41,11 @@
             </div>
         </form>
     </div>
+    <br>
+    <p><c:out value="${ erreurAjout }" ></c:out></p>
 </div>
+
+	
 <%@ include file="Footer.jsp" %>
 </body>
 </html>

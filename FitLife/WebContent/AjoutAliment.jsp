@@ -46,6 +46,7 @@
 				<input type=button onclick=window.location.href='/FitLife/Journee' value="Annuler" class="btn btn-default"/>
 		</fieldset>
 	</form>
+	
 </div>
 <%@ include file="Footer.jsp" %>
 </body>

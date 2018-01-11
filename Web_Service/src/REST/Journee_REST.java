@@ -63,9 +63,7 @@ public class Journee_REST {
 		while (rs.next()) {
 			java.util.Date newDate = rs.getTimestamp(2);
 			journee=new Journee(rs.getInt(1),newDate,new LinkedList<Seance>(),new LinkedList<Consommation>());
-			System.out.println(rs.getInt(1));
 		}
-		System.out.println(journee.getId());
 		/*Récupère les listes de séances et d' exercices de la journée*/
 		journee.setListSeance(List_Seance_REST.getList(journee.getId()));
 		journee.setListConsom(List_Consommation_REST.getList(journee.getId()));

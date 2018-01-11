@@ -42,6 +42,9 @@ public class ServletAjouterSeance extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println(request.getParameter("errorAjout"));
+		request.setAttribute("erreurAjout", request.getParameter("errorAjout"));
 		/////	Récupération de la session	/////
 		session=request.getSession();
 		user = (Utilisateur) session.getAttribute("utilisateur");
@@ -67,7 +70,7 @@ public class ServletAjouterSeance extends HttpServlet {
 			response.sendRedirect("/FitLife"+VUE2);
 		}else
 		{
-			response.sendRedirect("/FitLife"+VUE2);
+			response.sendRedirect("/FitLife/AjouterSeance?errorAjout=Erreur: la seance est deja presente a la meme periode");
 		}
 		
 	}

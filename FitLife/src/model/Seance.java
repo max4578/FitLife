@@ -16,6 +16,7 @@ public class Seance {
 	private int id;
 	private List<Exercice> list_exercice=new LinkedList<Exercice>();
 	private String nom;
+	private String periode;
 	private Date dateCreation;
 	
 	/*Getter et setter*/
@@ -49,6 +50,13 @@ public class Seance {
 	}
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
+	}
+	@XmlElement
+	public String getPeriode() {
+		return periode;
+	}
+	public void setPeriode(String periode) {
+		this.periode = periode;
 	}
 	
 	
@@ -115,6 +123,7 @@ public class Seance {
 			   		.path("seance/retirer")		
 			   		.queryParam("idSeance", id+"")
 			   		.queryParam("idJournee", idJ+"")
+			   		.queryParam("periode", periode+"")
 					.post(String.class);
 	return reponse.equals("OK");	
 		
@@ -143,7 +152,7 @@ public class Seance {
 						.post(String.class);
 		return reponse.equals("OK");	
 	}
-	
+
 	
 	
 	

@@ -14,6 +14,7 @@ public class Seance {
 	private int id;
 	private List<Exercice> list_exercice;
 	private String nom;
+	private String periode;
 	private Date dateCreation;
 	
 	/*Getter et setter*/
@@ -48,6 +49,14 @@ public class Seance {
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
+	@XmlElement
+	public String getPeriode() {
+		return periode;
+	}
+	public void setPeriode(String periode) {
+		this.periode = periode;
+	}
+	
 	
 	
 	
@@ -73,6 +82,15 @@ public class Seance {
 		super();
 		this.list_exercice = list_exercice;
 		this.nom = nom;
+	}
+	
+	public Seance(int id,List<Exercice> list_exercice, String nom, Date dateCreation,String periode) {
+		super();
+		this.id=id;
+		this.list_exercice = list_exercice;
+		this.nom = nom;
+		this.dateCreation = dateCreation;
+		this.periode=periode;
 	}
 	
 	public Seance() {

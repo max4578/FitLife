@@ -27,11 +27,8 @@
 	</div>
 	<div class="form-group">
 	<label>IMC : </label> <c:out value="${ imc }"></c:out>
-	<p>Une corpulence normal se situe entre 18.5 et 25</p>
 	</div>
-</div>
-<div class="container">
-	<!-- afficher évolution du poids bouton qui permet par mois , 3 mois , 6 mois -->
+	<p style="color : ${ couleurMessage }"><c:out value="${ messageIMC }"></c:out></p>
 	<input type=button onclick=window.location.href='/FitLife/ModifierProfil' value="Enregistrez une nouvelle pesée" class="btn btn-default" />	
 </div>
 <%@ include file="Footer.jsp" %>
